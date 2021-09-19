@@ -1,0 +1,15 @@
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\bin\Debug\2DFightingGame.exe.config
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\bin\Debug\2DFightingGame.exe
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\bin\Debug\2DFightingGame.pdb
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\2DFightingGame.csproj.AssemblyReference.cache
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\MainWindow.g.cs
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\App.g.cs
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\2DFightingGame_MarkupCompile.cache
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\2DFightingGame_MarkupCompile.lref
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\MainWindow.baml
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\2DFightingGame.g.resources
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\_2DFightingGame.Properties.Resources.resources
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\2DFightingGame.csproj.GenerateResource.cache
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\2DFightingGame.csproj.CoreCompileInputs.cache
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\2DFightingGame.exe
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\2DFightingGame.pdb

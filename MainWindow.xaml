@@ -1,0 +1,14 @@
+﻿<Window x:Class="_2DFightingGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_2DFightingGame"
+        mc:Ignorable="d"
+        Title="2D Fighting Game" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp">
+    <Grid x:Name="Plocha" x:FieldModifier="public">
+        <Image Source="/imgs/maps/map1/background.png"></Image>
+
+        <Image x:Name="postava1" Source="/imgs/chars/char1/right/1.png" Width="210" Height="373" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
+    </Grid>
+</Window>
