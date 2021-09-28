@@ -19,22 +19,17 @@ namespace _2DFightingGame
 {
     public partial class MainWindow : Window
     {
-        List<Updatable> aktivni_projektily = new List<Updatable>();
-
-        bool vlevo = false;
-        bool vpravo = false;
-        bool smer = true;
-        bool skokTrigger = false;
-        bool veVzduchu = false;
-        bool skok = false;
-        bool utok1 = false;
-        bool utok2 = false;
-        DateTime cooldown = DateTime.Now;
-
-        int pohybX = 0;
+        Postava pos1;
+        Postava pos2;
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Plocha_Loaded(object sender, RoutedEventArgs e)
+        {
+            pos1 = new Postava_1(Plocha, postava1, false);
+            pos2 = new Postava_1(Plocha, postava2, false);
 
             DispatcherTimer gameTick = new DispatcherTimer();
             gameTick.Interval = TimeSpan.FromMilliseconds(1000 / 60);
@@ -44,117 +39,47 @@ namespace _2DFightingGame
 
         private void GameTick_Tick(object sender, EventArgs e)
         {
-            Thickness pozice1 = postava1.Margin;
-
-            //Aktualizace aktivních projektilů ve hře
-            foreach (Updatable i in aktivni_projektily)
-            {
-                if (i.getAktivni()) i.Tick();
-                else Plocha.Children.Remove(i.ReturnImage());
-            }
-
-            //Útok 1 - hráč 1
-            if (utok1)
-            {
-                if (DateTime.Now > cooldown)
-                {
-                    Fireball fireball = new Fireball(postava1, smer);
-                    Plocha.Children.Add(fireball.ReturnImage());
-                    aktivni_projektily.Add(fireball);
-                    cooldown = DateTime.Now.AddMilliseconds(fireball.cooldown);
-                }
-
-            }
-
-            //Útok 2 - hráč 1
-            if (utok2)
-            {
-                if (DateTime.Now > cooldown)
-                {
-                    TNT sw = new TNT(postava1);
-                    Plocha.Children.Add(sw.ReturnImage());
-                    aktivni_projektily.Add(sw);
-                    cooldown = DateTime.Now.AddMilliseconds(sw.cooldown);
-                }
-            }
-            //Pohyb - hráč 1
-            if (vpravo)
-            {
-                if (pohybX < 30) pohybX += 3;
-                postava1.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/1.png"));
-                smer = true;
-            }
-            else if (vlevo)
-            {
-                if (pohybX > -30) pohybX -= 3;
-                postava1.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/1.png"));
-                smer = false;
-            }
-            else
-            {
-                if (pohybX > 0) pohybX -= 3;
-                if (pohybX < 0) pohybX += 3;
-            }
-
-            if (pohybX > 0)
-            {
-                if (pozice1.Left + pohybX < 1800) pozice1.Left += pohybX;
-            }
-            else
-            {
-                if (pozice1.Left + pohybX > -70) pozice1.Left += pohybX;
-            }
-
-            //Skok - hráč 1
-            if (skokTrigger)
-            {
-                if (!veVzduchu)
-                {
-                    veVzduchu = true;
-                    skok = true;
-                }
-            }
-            if (skok)
-            {
-                pozice1.Bottom += 20;
-                if (pozice1.Bottom >= 500) skok = false;
-            }
-
-            //Gravitace - hráč 1
-            if (veVzduchu)
-            {
-                if (!skok)
-                {
-                    pozice1.Bottom -= 25;
-                    if (pozice1.Bottom < 211)
-                    {
-                        pozice1.Bottom = 211;
-                        veVzduchu = false;
-                    }
-                }
-            }
-
-            postava1.Margin = pozice1;
+            pos1.Tick();
+            pos2.Tick();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
+                //Hráč 1
                 case Key.Left:
-                    vlevo = true;
+                    pos1.setVlevo(true);
                     break;
                 case Key.Right:
-                    vpravo = true;
+                    pos1.setVpravo(true);
                     break;
                 case Key.Up:
-                    skokTrigger = true;
+                    pos1.setSkokTrigger(true);
                     break;
-                case Key.NumPad1:
-                    utok1 = true;
+                case Key.M:
+                    pos1.setUtok1(true);
                     break;
-                case Key.NumPad2:
-                    utok2 = true;
+                case Key.N:
+                    pos1.setUtok2(true);
+                    break;
+
+
+                //Hráč 2
+                case Key.A:
+                    pos2.setVlevo(true);
+                    break;
+                case Key.D:
+                    pos2.setVpravo(true);
+                    break;
+                case Key.W:
+                    pos2.setSkokTrigger(true);
+                    break;
+                case Key.Q:
+                    pos2.setUtok1(true);
+                    break;
+                case Key.E:
+                    pos2.setUtok2(true);
                     break;
             }
         }
@@ -163,20 +88,38 @@ namespace _2DFightingGame
         {
             switch (e.Key)
             {
+                //Hráč 1
                 case Key.Left:
-                    vlevo = false;
+                    pos1.setVlevo(false);
                     break;
                 case Key.Right:
-                    vpravo = false;
+                    pos1.setVpravo(false);
                     break;
                 case Key.Up:
-                    skokTrigger = false;
+                    pos1.setSkokTrigger(false);
                     break;
-                case Key.NumPad1:
-                    utok1 = false;
+                case Key.M:
+                    pos1.setUtok1(false);
                     break;
-                case Key.NumPad2:
-                    utok2 = false;
+                case Key.N:
+                    pos1.setUtok2(false);
+                    break;
+
+                //Hráč 2
+                case Key.A:
+                    pos2.setVlevo(false);
+                    break;
+                case Key.D:
+                    pos2.setVpravo(false);
+                    break;
+                case Key.W:
+                    pos2.setSkokTrigger(false);
+                    break;
+                case Key.Q:
+                    pos2.setUtok1(false);
+                    break;
+                case Key.E:
+                    pos2.setUtok2(false);
                     break;
             }
         }
