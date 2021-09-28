@@ -1,0 +1,15 @@
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\bin\Release\2DFightingGame.exe.config
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\bin\Release\2DFightingGame.exe
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\bin\Release\2DFightingGame.pdb
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.csproj.AssemblyReference.cache
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\MainWindow.g.cs
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\App.g.cs
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame_MarkupCompile.cache
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame_MarkupCompile.lref
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\MainWindow.baml
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.g.resources
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\_2DFightingGame.Properties.Resources.resources
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.csproj.GenerateResource.cache
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.csproj.CoreCompileInputs.cache
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.exe
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.pdb

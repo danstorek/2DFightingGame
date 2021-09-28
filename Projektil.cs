@@ -32,7 +32,7 @@ namespace _2DFightingGame
         Image img = new Image();
         Image postava;
 
-        public readonly int cooldown = 100;
+        public readonly int cooldown = 200;
 
         public Fireball(Image postava, bool smer)
         {
@@ -57,8 +57,8 @@ namespace _2DFightingGame
             img.HorizontalAlignment = HorizontalAlignment.Left;
             img.Margin = pozice;
 
-            if (smer) rychlost = 40;
-            else rychlost = -40;
+            if (smer) rychlost = 60;
+            else rychlost = -60;
         }
 
         public override void Tick()
