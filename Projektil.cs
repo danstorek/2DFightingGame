@@ -31,12 +31,24 @@ namespace _2DFightingGame
         int rychlost;
         Image img = new Image();
         Image postava;
+        Postava souper;
+        Image souperImg;
 
-        public readonly int cooldown = 200;
+        public readonly int cooldown = 400;
 
         public Fireball(Image postava, bool smer)
         {
             this.postava = postava;
+            if (postava == Hitboxy.hrac1.getImg())
+            {
+                souperImg = Hitboxy.hrac2.getImg();
+                souper = Hitboxy.hrac2;
+            }
+            else
+            {
+                souperImg = Hitboxy.hrac1.getImg();
+                souper = Hitboxy.hrac1;
+            }
 
             Thickness pozice = postava.Margin;
             if (smer)
@@ -67,9 +79,16 @@ namespace _2DFightingGame
             pozice.Left += rychlost;
             img.Margin = pozice;
 
-
             //Označení výstřelu mimo obraz jako neaktivní
             if (pozice.Left < -100 || pozice.Left > 2100) Neaktivni();
+
+            //Kolize se soupeřem
+            Thickness poziceSouper = souperImg.Margin;
+            if (pozice.Left > poziceSouper.Left - 120 && pozice.Left < poziceSouper.Left + 120 && pozice.Bottom > poziceSouper.Bottom && pozice.Bottom < poziceSouper.Bottom + souperImg.Height-20)
+            {
+                souper.Poskozeni(10);
+                Neaktivni();
+            }
         }
 
         public override Image ReturnImage()
@@ -80,6 +99,8 @@ namespace _2DFightingGame
 
     class TNT : Updatable
     {
+        Thickness pozice;
+
         public readonly int cooldown = 1200;
 
         Image img = new Image();
@@ -88,8 +109,7 @@ namespace _2DFightingGame
 
         public TNT(Image postava)
         {
-            Thickness pozice = postava.Margin;
-
+            pozice = postava.Margin;
             img.Height = 371;
             img.Width = 398;
             img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/1.png"));
@@ -106,6 +126,8 @@ namespace _2DFightingGame
 
         public override void Tick()
         {
+            Thickness postava1Pozice = Hitboxy.hrac1.getImg().Margin;
+            Thickness postava2Pozice = Hitboxy.hrac2.getImg().Margin;
             if (getAktivni())
             {
                 switch (cisloFrame)
@@ -114,7 +136,16 @@ namespace _2DFightingGame
                     case 15: img.Source = animace[1]; break;
                     case 30: img.Source = animace[2]; break;
                     case 45: img.Source = animace[3]; break;
-                    case 60: img.Source = animace[4]; break;
+                    case 60: img.Source = animace[4];
+                        if (pozice.Left > postava1Pozice.Left - 350 && pozice.Left < postava1Pozice.Left + 350)
+                        {
+                            Hitboxy.hrac1.Poskozeni(20);
+                        }
+                        if (pozice.Left > postava2Pozice.Left - 350 && pozice.Left < postava2Pozice.Left + 350)
+                        {
+                            Hitboxy.hrac2.Poskozeni(20);
+                        }
+                        break;
                 }
 
                 if (cisloFrame > 120)

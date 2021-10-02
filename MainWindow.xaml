@@ -11,5 +11,18 @@
 
         <Image x:Name="postava1" Width="210" Height="373" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
         <Image x:Name="postava2" Width="210" Height="373" Margin="1700,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="0,980,0,0" Stroke="Black" VerticalAlignment="Top" Width="604"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="1316,980,0,0" Stroke="Black" VerticalAlignment="Top" Width="604"/>
+        <ProgressBar x:Name="health1" Value="100" HorizontalAlignment="Left" Height="38" Margin="1,1042,0,0" VerticalAlignment="Top" Width="602"/>
+        <ProgressBar x:Name="health2" Value="100" HorizontalAlignment="Left" Height="38" Margin="1317,1042,0,0" VerticalAlignment="Top" Width="602"/>
+        <Label Content="Hráč 1" FontSize="40" HorizontalAlignment="Left" Margin="1,980,0,0" VerticalAlignment="Top" Height="62" Width="209"/>
+        <Label Content="Hráč 2" FontSize="40" HorizontalAlignment="Left" Margin="1317,980,0,0" VerticalAlignment="Top" Height="62" Width="209"/>
+        <Label x:Name="hrac1Details" Content="" FontSize="30" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="215,980,0,0" VerticalAlignment="Top" Height="62" Width="389"/>
+        <Label x:Name="hrac2Details" Content="" FontSize="30" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="1530,980,0,0" VerticalAlignment="Top" Height="62" Width="389"/>
+        <Label x:Name="hrac1Ukazatel" Content="Hráč 1" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="144,491,0,0" VerticalAlignment="Bottom" Height="110" Width="236"/>
+        <Label x:Name="hrac2Ukazatel" Content="Hráč 2" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="144,491,0,0" VerticalAlignment="Bottom" Height="110" Width="236"/>
+        <Label x:Name="hrac1Ukazatel1" FontWeight="Bold" Content="⛛" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="144,491,0,0" VerticalAlignment="Bottom" Height="110" Width="236"/>
+        <Label x:Name="hrac2Ukazatel1" FontWeight="Bold" Content="⛛" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="144,491,0,0" VerticalAlignment="Bottom" Height="110" Width="236"/>
+
     </Grid>
 </Window>
