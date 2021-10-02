@@ -13,11 +13,13 @@ namespace _2DFightingGame
     {
         protected List<Updatable> aktivni_projektily = new List<Updatable>();
 
-
+        protected Label detaily;
         protected Image imgPostava;
         protected Grid gridPlocha;
+        protected int hp = 100;
         protected bool vlevo = false;
         protected bool vpravo = false;
+        protected bool skrceni = false;
         protected bool smer = true;
         protected bool skokTrigger = false;
         protected bool veVzduchu = false;
@@ -28,6 +30,15 @@ namespace _2DFightingGame
 
         protected int pohybX = 0;
         public abstract void Tick();
+        public abstract void setSkrceni(bool hodnota);
+        public Image getImg()
+        {
+            return imgPostava;
+        }
+        public int getHP()
+        {
+            return hp;
+        }
         public void setVlevo(bool hodnota)
         {
             vlevo = hodnota;
@@ -48,6 +59,12 @@ namespace _2DFightingGame
         {
             utok2 = hodnota;
         }
+
+        //Poškození protivníkem
+        public void Poskozeni(int rozdil)
+        {
+            hp = hp-rozdil;
+        }
         //Aktualizace aktivních projektilů ve hře
         public void aktualizujProjektily()
         {
@@ -62,24 +79,56 @@ namespace _2DFightingGame
 
     class Postava_1 : Postava
     {
-        public Postava_1(Grid plocha, Image postava, bool strana)
+        int naboje = 7;
+        DateTime cooldownPrebiti = DateTime.Now;
+        public Postava_1(Grid plocha, Image postava, bool strana, Label detaily)
         {
             imgPostava = postava;
             gridPlocha = plocha;
+            this.detaily = detaily;
+            this.detaily.Content = "Počet nábojů: " + naboje;
 
+            if (strana) imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/1.png"));
+            else imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/1.png"));
+        }
+        public override void setSkrceni(bool hodnota)
+        {
+            skrceni = hodnota;
+            if (!hodnota)
+            {
+                if (!smer) imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/1.png"));
+                else imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/1.png"));
+            }
         }
         public override void Tick()
         {
+            //Přebíjení
+            if (naboje == 0 && DateTime.Now > cooldownPrebiti)
+            {
+                naboje = 7;
+                this.detaily.Content = "Počet nábojů: " + naboje;
+            }
+
             Thickness pozice = imgPostava.Margin;
             //Útok 1 - hráč 1
             if (utok1)
             {
-                if (DateTime.Now > cooldown)
+                if (DateTime.Now > cooldown && naboje > 0)
                 {
+                    naboje--;
                     Fireball fireball = new Fireball(imgPostava, smer);
                     gridPlocha.Children.Add(fireball.ReturnImage());
                     aktivni_projektily.Add(fireball);
                     cooldown = DateTime.Now.AddMilliseconds(fireball.cooldown);
+                    if(naboje == 0)
+                    {
+                        detaily.Content = "Přebíjení...";
+                        cooldownPrebiti = DateTime.Now + TimeSpan.FromMilliseconds(1500);
+                    }
+                    else
+                    {
+                        this.detaily.Content = "Počet nábojů: " + naboje;
+                    }
                 }
 
             }
@@ -96,15 +145,15 @@ namespace _2DFightingGame
                 }
             }
             //Pohyb - hráč 1
-            if (vpravo)
+            if (vpravo && !skrceni)
             {
-                if (pohybX < 30) pohybX += 3;
+                if (pohybX < 30 && !skrceni) pohybX += 3;
                 imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/1.png"));
                 smer = true;
             }
-            else if (vlevo)
+            else if (vlevo && !skrceni)
             {
-                if (pohybX > -30) pohybX -= 3;
+                if (pohybX > -30 && !skrceni) pohybX -= 3;
                 imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/1.png"));
                 smer = false;
             }
@@ -113,6 +162,7 @@ namespace _2DFightingGame
                 if (pohybX > 0) pohybX -= 3;
                 if (pohybX < 0) pohybX += 3;
             }
+
 
             if (pohybX > 0)
             {
@@ -123,8 +173,24 @@ namespace _2DFightingGame
                 if (pozice.Left + pohybX > -70) pozice.Left += pohybX;
             }
 
+            //Skrčení
+            if (!veVzduchu)
+            {
+                if (skrceni)
+                {
+                    pozice.Bottom = 45;
+                    if (smer) imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/crouch.png"));
+                    else imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/crouch.png"));
+                }
+                else
+                {
+                    pozice.Bottom = 211;
+                }
+            }
+
+
             //Skok - hráč 1
-            if (skokTrigger)
+            if (skokTrigger && !skrceni)
             {
                 if (!veVzduchu)
                 {

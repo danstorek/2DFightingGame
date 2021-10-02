@@ -63,6 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Hitboxy.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -117,6 +118,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imgs\attacks\fireballleft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char1\left\crouch.png" />
+    <Resource Include="imgs\chars\char1\right\crouch.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
