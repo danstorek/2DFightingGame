@@ -20,6 +20,7 @@ namespace _2DFightingGame
     public partial class MainWindow : Window
     {
         bool aktivni = true;
+        bool napoveda = true;
         public MainWindow()
         {
             InitializeComponent();
@@ -90,6 +91,12 @@ namespace _2DFightingGame
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            if (napoveda)
+            {
+                napoveda = false;
+                Plocha.Children.Remove(napoveda1);
+                Plocha.Children.Remove(napoveda2);
+            }
             switch (e.Key)
             {
                 //Hráč 1

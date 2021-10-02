@@ -24,5 +24,33 @@
         <Label x:Name="hrac1Ukazatel1" FontWeight="Bold" Content="⛛" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="144,491,0,0" VerticalAlignment="Bottom" Height="110" Width="236"/>
         <Label x:Name="hrac2Ukazatel1" FontWeight="Bold" Content="⛛" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="144,491,0,0" VerticalAlignment="Bottom" Height="110" Width="236"/>
 
+        <Border Name="napoveda1" Width="600" Height="700" HorizontalAlignment="Left" Margin="200,0,0,0" CornerRadius="20" BorderThickness="2" BorderBrush="Black" Background="White" Opacity="0.7">
+            <Grid>
+                <Label Content="Hráč 1 - Ovládání" FontSize="40" FontWeight="Bold" Margin="0,18,0,594" HorizontalContentAlignment="Center"></Label>
+                <Rectangle Fill="Black" Height="4" VerticalAlignment="Top" Margin="0,80,0,0"></Rectangle>
+                <Label Content="↑" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="0,132,0,0"/>
+                <Label Content="↓" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="0,220,0,0"/>
+                <Label Content="←" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="-180,220,0,0"/>
+                <Label Content="→" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="180,220,0,0"/>
+                <Label Content="N" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="168,460,348,0"/>
+                <Label Content="M" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="348,460,168,0"/>
+                <Label Content="Pohyb" FontSize="40" FontWeight="Bold" Margin="0,302,0,310" HorizontalContentAlignment="Center"/>
+                <Label Content="Útoky" FontSize="40" FontWeight="Bold" Margin="0,542,0,70" HorizontalContentAlignment="Center"/>
+            </Grid>
+        </Border>
+        <Border Name="napoveda2" Width="600" Height="700" HorizontalAlignment="Right" Margin="0,0,200,0" CornerRadius="20" BorderThickness="2" BorderBrush="Black" Background="White" Opacity="0.7">
+            <Grid>
+                <Label Content="Hráč 2 - Ovládání" FontSize="40" FontWeight="Bold" Margin="0,18,0,594" HorizontalContentAlignment="Center"></Label>
+                <Rectangle Fill="Black" Height="4" VerticalAlignment="Top" Margin="0,80,0,0"></Rectangle>
+                <Label Content="W" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="0,132,0,0"/>
+                <Label Content="S" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="0,220,0,0"/>
+                <Label Content="A" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="-180,220,0,0"/>
+                <Label Content="W" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="180,220,0,0"/>
+                <Label Content="Q" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="168,460,348,0"/>
+                <Label Content="E" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="348,460,168,0"/>
+                <Label Content="Pohyb" FontSize="40" FontWeight="Bold" Margin="0,302,0,310" HorizontalContentAlignment="Center"/>
+                <Label Content="Útoky" FontSize="40" FontWeight="Bold" Margin="0,542,0,70" HorizontalContentAlignment="Center"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>
