@@ -15,6 +15,7 @@ namespace _2DFightingGame
 
         protected Label detaily;
         protected Image imgPostava;
+        protected Image imgDamage = new Image();
         protected Grid gridPlocha;
         protected int hp = 100;
         protected bool vlevo = false;
@@ -27,6 +28,7 @@ namespace _2DFightingGame
         protected bool utok1 = false;
         protected bool utok2 = false;
         protected DateTime cooldown = DateTime.Now;
+        protected int poskozeniTimer = 0;
 
         protected int pohybX = 0;
         public abstract void Tick();
@@ -64,6 +66,7 @@ namespace _2DFightingGame
         public void Poskozeni(int rozdil)
         {
             hp = hp-rozdil;
+            poskozeniTimer = 10;
         }
         //Aktualizace aktivních projektilů ve hře
         public void aktualizujProjektily()
@@ -79,6 +82,10 @@ namespace _2DFightingGame
 
     class Postava_1 : Postava
     {
+        List<BitmapImage> animace_left = new List<BitmapImage>();
+        List<BitmapImage> animace_right = new List<BitmapImage>();
+        int animace_index = 0;
+        int tick_animace = 0;
         int naboje = 7;
         DateTime cooldownPrebiti = DateTime.Now;
         public Postava_1(Grid plocha, Image postava, bool strana, Label detaily)
@@ -86,22 +93,53 @@ namespace _2DFightingGame
             imgPostava = postava;
             gridPlocha = plocha;
             this.detaily = detaily;
+
+            imgDamage.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/damage.png"));
+            imgDamage.Opacity = 0;
+            imgDamage.Width = 240;
+            imgDamage.Height = 373;
+            imgDamage.HorizontalAlignment = HorizontalAlignment.Left;
+            imgDamage.VerticalAlignment = VerticalAlignment.Bottom;
+            gridPlocha.Children.Add(imgDamage);
+
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/0.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/1.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/2.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/3.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/4.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/crouch.png")));
+
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/0.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/1.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/2.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/3.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/4.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/crouch.png")));
+
             this.detaily.Content = "Počet nábojů: " + naboje;
 
-            if (strana) imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/1.png"));
-            else imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/1.png"));
+            if (strana) imgPostava.Source = animace_left[animace_index];
+            else imgPostava.Source = animace_right[animace_index];
         }
         public override void setSkrceni(bool hodnota)
         {
             skrceni = hodnota;
             if (!hodnota)
             {
-                if (!smer) imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/1.png"));
-                else imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/1.png"));
+                animace_index = 0;
+                if (!smer) imgPostava.Source = animace_left[animace_index];
+                else imgPostava.Source = animace_right[animace_index];
             }
         }
         public override void Tick()
         {
+            imgDamage.Margin = imgPostava.Margin;
+            if (poskozeniTimer > 0 && imgDamage.Opacity < 1)
+            {
+                imgDamage.Opacity += 0.1;
+                poskozeniTimer--;
+            }
+            else if(imgDamage.Opacity > 0) imgDamage.Opacity -= 0.1;
             //Přebíjení
             if (naboje == 0 && DateTime.Now > cooldownPrebiti)
             {
@@ -148,13 +186,13 @@ namespace _2DFightingGame
             if (vpravo && !skrceni)
             {
                 if (pohybX < 30 && !skrceni) pohybX += 3;
-                imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/1.png"));
+                imgPostava.Source = animace_right[animace_index];
                 smer = true;
             }
             else if (vlevo && !skrceni)
             {
                 if (pohybX > -30 && !skrceni) pohybX -= 3;
-                imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/1.png"));
+                imgPostava.Source = animace_left[animace_index];
                 smer = false;
             }
             else
@@ -163,6 +201,18 @@ namespace _2DFightingGame
                 if (pohybX < 0) pohybX += 3;
             }
 
+            if (pohybX != 0)
+            {
+                tick_animace++;
+                if (tick_animace > 30) tick_animace = 0;
+                animace_index = tick_animace / 6;
+            }
+            else
+            {
+                animace_index = 0;
+                if(!smer) imgPostava.Source = animace_left[animace_index];
+                else imgPostava.Source = animace_right[animace_index];
+            }
 
             if (pohybX > 0)
             {
@@ -179,8 +229,8 @@ namespace _2DFightingGame
                 if (skrceni)
                 {
                     pozice.Bottom = 45;
-                    if (smer) imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/crouch.png"));
-                    else imgPostava.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/crouch.png"));
+                    if (smer) imgPostava.Source = animace_right[animace_right.Count-1];
+                    else imgPostava.Source = animace_left[animace_right.Count-1];
                 }
                 else
                 {

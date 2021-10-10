@@ -9,8 +9,10 @@
     <Grid x:Name="Plocha" Loaded="Plocha_Loaded">
         <Image Source="/imgs/maps/map1/background.png"></Image>
 
-        <Image x:Name="postava1" Width="210" Height="373" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
-        <Image x:Name="postava2" Width="210" Height="373" Margin="1700,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
+        <Image x:Name="postava1" Width="240" Height="373" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
+        <Image x:Name="postava2" Width="240" Height="373" Margin="1700,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
+        <Image x:Name="damage1" Opacity="0" Source="imgs/chars/damage.png" Width="240" Height="373" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
+        <Image x:Name="damage2" Opacity="0" Source="imgs/chars/damage.png" Width="240" Height="373" Margin="1700,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="0,980,0,0" Stroke="Black" VerticalAlignment="Top" Width="604"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="1316,980,0,0" Stroke="Black" VerticalAlignment="Top" Width="604"/>
         <ProgressBar x:Name="health1" Value="100" HorizontalAlignment="Left" Height="38" Margin="1,1042,0,0" VerticalAlignment="Top" Width="602"/>
