@@ -140,5 +140,9 @@
     <Resource Include="imgs\attacks\muzzle_left.png" />
     <Resource Include="imgs\attacks\muzzle_right.png" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="audio\strela.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
