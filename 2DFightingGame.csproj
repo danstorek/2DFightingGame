@@ -136,5 +136,9 @@
   <ItemGroup>
     <Resource Include="imgs\chars\damage.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\attacks\muzzle_left.png" />
+    <Resource Include="imgs\attacks\muzzle_right.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
