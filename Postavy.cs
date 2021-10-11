@@ -82,17 +82,26 @@ namespace _2DFightingGame
 
     class Postava_1 : Postava
     {
+        Image muzzleflash = new Image();
+
         List<BitmapImage> animace_left = new List<BitmapImage>();
         List<BitmapImage> animace_right = new List<BitmapImage>();
         int animace_index = 0;
         int tick_animace = 0;
         int naboje = 7;
         DateTime cooldownPrebiti = DateTime.Now;
+        DateTime muzzleTimer = DateTime.Now;
         public Postava_1(Grid plocha, Image postava, bool strana, Label detaily)
         {
             imgPostava = postava;
             gridPlocha = plocha;
             this.detaily = detaily;
+
+            muzzleflash.Width = 100;
+            muzzleflash.HorizontalAlignment = HorizontalAlignment.Left;
+            muzzleflash.VerticalAlignment = VerticalAlignment.Bottom;
+            //muzzleflash.Opacity = 0;
+            gridPlocha.Children.Add(muzzleflash);
 
             imgDamage.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/damage.png"));
             imgDamage.Opacity = 0;
@@ -132,7 +141,7 @@ namespace _2DFightingGame
             }
         }
         public override void Tick()
-        {
+        {       
             imgDamage.Margin = imgPostava.Margin;
             if (poskozeniTimer > 0 && imgDamage.Opacity < 1)
             {
@@ -154,6 +163,7 @@ namespace _2DFightingGame
                 if (DateTime.Now > cooldown && naboje > 0)
                 {
                     naboje--;
+                    muzzleTimer = DateTime.Now + TimeSpan.FromMilliseconds(150);
                     Fireball fireball = new Fireball(imgPostava, smer);
                     gridPlocha.Children.Add(fireball.ReturnImage());
                     aktivni_projektily.Add(fireball);
@@ -205,7 +215,7 @@ namespace _2DFightingGame
             {
                 tick_animace++;
                 if (tick_animace > 30) tick_animace = 0;
-                animace_index = tick_animace / 6;
+                animace_index = tick_animace / 7;
             }
             else
             {
@@ -267,8 +277,25 @@ namespace _2DFightingGame
                     }
                 }
             }
-
             imgPostava.Margin = pozice;
+
+            //Výstřel zbraně
+            if (!smer) muzzleflash.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/muzzle_left.png"));
+            else muzzleflash.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/muzzle_right.png"));
+
+            if (muzzleTimer > DateTime.Now && muzzleflash.Opacity <= 1)
+            {
+                muzzleflash.Opacity += 0.2;
+            }
+            else if (muzzleTimer < DateTime.Now && muzzleflash.Opacity >= 0)
+            {
+                muzzleflash.Opacity -= 0.2;
+            }
+            pozice.Bottom += 235;
+            if (smer) pozice.Left += 240;
+            else pozice.Left -= 100;
+            muzzleflash.Margin = pozice;
+            
             aktualizujProjektily();
         }
     }
