@@ -84,9 +84,17 @@ namespace _2DFightingGame
 
             //Kolize se soupeřem
             Thickness poziceSouper = souperImg.Margin;
-            if (pozice.Left > poziceSouper.Left - 120 && pozice.Left < poziceSouper.Left + 120 && pozice.Bottom > poziceSouper.Bottom && pozice.Bottom < poziceSouper.Bottom + souperImg.Height-20)
+            if (pozice.Left+(img.Width/2) > poziceSouper.Left + (souperImg.Width/2-40) && pozice.Left+ (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom > poziceSouper.Bottom && pozice.Bottom < poziceSouper.Bottom + souperImg.Height-20)
             {
                 souper.Poskozeni(10);
+                if(rychlost > 0)
+                {
+                    souper.Odrazeni(20);
+                }
+                else
+                {
+                    souper.Odrazeni(-20);
+                }
                 Neaktivni();
             }
         }
@@ -140,10 +148,14 @@ namespace _2DFightingGame
                         if (pozice.Left > postava1Pozice.Left - 350 && pozice.Left < postava1Pozice.Left + 350)
                         {
                             Hitboxy.hrac1.Poskozeni(20);
+                            if (pozice.Left + 200 > postava1Pozice.Left + 120) Hitboxy.hrac1.Odrazeni(-45);
+                            else Hitboxy.hrac1.Odrazeni(45);
                         }
                         if (pozice.Left > postava2Pozice.Left - 350 && pozice.Left < postava2Pozice.Left + 350)
                         {
                             Hitboxy.hrac2.Poskozeni(20);
+                            if (pozice.Left + 200 > postava2Pozice.Left + 120) Hitboxy.hrac2.Odrazeni(-45);
+                            else Hitboxy.hrac2.Odrazeni(45);
                         }
                         break;
                 }
