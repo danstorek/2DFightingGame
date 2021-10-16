@@ -30,6 +30,7 @@ namespace _2DFightingGame
         protected bool skok = false;
         protected bool utok1 = false;
         protected bool utok2 = false;
+        protected int maxRychlost = 30;
         protected DateTime cooldown = DateTime.Now;
         protected int poskozeniTimer = 0;
 
@@ -64,11 +65,16 @@ namespace _2DFightingGame
         {
             utok2 = hodnota;
         }
+        //Odražení protivníkem
+        public void Odrazeni(int sila)
+        {
+            pohybX += sila;
+        }
 
         //Poškození protivníkem
         public void Poskozeni(int rozdil)
         {
-            hp = hp-rozdil;
+            hp -= rozdil;
             poskozeniTimer = 10;
         }
         //Aktualizace aktivních projektilů ve hře
@@ -80,7 +86,27 @@ namespace _2DFightingGame
                 else gridPlocha.Children.Remove(i.ReturnImage());
             }
         }
-
+        protected void VytvorDmgIndikator()
+        {
+            imgDamage.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/damage.png"));
+            imgDamage.Opacity = 0;
+            imgDamage.Width = 240;
+            imgDamage.Height = 373;
+            imgDamage.HorizontalAlignment = HorizontalAlignment.Left;
+            imgDamage.VerticalAlignment = VerticalAlignment.Bottom;
+            Panel.SetZIndex(imgDamage, 2);
+            gridPlocha.Children.Add(imgDamage);
+        }
+        protected void AktualizujDmgIndikator()
+        {
+            imgDamage.Margin = imgPostava.Margin;
+            if (poskozeniTimer > 0 && imgDamage.Opacity < 1)
+            {
+                imgDamage.Opacity += 0.1;
+                poskozeniTimer--;
+            }
+            else if (imgDamage.Opacity > 0) imgDamage.Opacity -= 0.1;
+        }
     }
 
     class Postava_1 : Postava
@@ -106,13 +132,7 @@ namespace _2DFightingGame
             //muzzleflash.Opacity = 0;
             gridPlocha.Children.Add(muzzleflash);
 
-            imgDamage.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/damage.png"));
-            imgDamage.Opacity = 0;
-            imgDamage.Width = 240;
-            imgDamage.Height = 373;
-            imgDamage.HorizontalAlignment = HorizontalAlignment.Left;
-            imgDamage.VerticalAlignment = VerticalAlignment.Bottom;
-            gridPlocha.Children.Add(imgDamage);
+            VytvorDmgIndikator();
 
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/0.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/1.png")));
@@ -144,21 +164,14 @@ namespace _2DFightingGame
             }
         }
         public override void Tick()
-        {       
-            imgDamage.Margin = imgPostava.Margin;
-            if (poskozeniTimer > 0 && imgDamage.Opacity < 1)
-            {
-                imgDamage.Opacity += 0.1;
-                poskozeniTimer--;
-            }
-            else if(imgDamage.Opacity > 0) imgDamage.Opacity -= 0.1;
+        {
+            AktualizujDmgIndikator();
             //Přebíjení
             if (naboje == 0 && DateTime.Now > cooldownPrebiti)
             {
                 naboje = 7;
                 this.detaily.Content = "Počet nábojů: " + naboje;
             }
-
             Thickness pozice = imgPostava.Margin;
             //Útok 1 - hráč 1
             if (utok1)
@@ -198,18 +211,19 @@ namespace _2DFightingGame
             //Pohyb - hráč 1
             if (vpravo && !skrceni)
             {
-                if (pohybX < 30 && !skrceni) pohybX += 3;
+                if (pohybX < maxRychlost && !skrceni) pohybX += maxRychlost / 10;
                 imgPostava.Source = animace_right[animace_index];
                 smer = true;
             }
             else if (vlevo && !skrceni)
             {
-                if (pohybX > -30 && !skrceni) pohybX -= 3;
+                if (pohybX > (0-maxRychlost) && !skrceni) pohybX -= maxRychlost / 10;
                 imgPostava.Source = animace_left[animace_index];
                 smer = false;
             }
             else
             {
+                if (pohybX < 3 && pohybX > -3) pohybX = 0;
                 if (pohybX > 0) pohybX -= 3;
                 if (pohybX < 0) pohybX += 3;
             }
@@ -300,6 +314,176 @@ namespace _2DFightingGame
             muzzleflash.Margin = pozice;
             
             aktualizujProjektily();
+        }
+    }
+    class Postava_2 : Postava
+    {
+        int animace_index = 0;
+        int tick_animace = 0;
+        List<BitmapImage> animace_left = new List<BitmapImage>();
+        List<BitmapImage> animace_right = new List<BitmapImage>();
+
+        //Příprava pro animace katany
+        Image imgKatana = new Image();
+        int katana_tick_animace = 0;
+        List<BitmapImage> katana_animace_left = new List<BitmapImage>();
+        List<BitmapImage> katana_animace_right = new List<BitmapImage>();
+        public Postava_2(Grid plocha, Image postava, bool strana, Label detaily)
+        {
+            this.maxRychlost = 40;
+
+            imgPostava = postava;
+            gridPlocha = plocha;
+            this.detaily = detaily;
+
+            VytvorDmgIndikator();
+
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/0.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/1.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/2.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/3.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/4.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/crouch.png")));
+
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/0.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/1.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/2.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/3.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/4.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/crouch.png")));
+
+            katana_animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/katana_left/idle.png")));
+
+            katana_animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/katana_right/idle.png")));
+
+            if (smer) imgKatana.Source = katana_animace_left[0];
+            else imgKatana.Source = katana_animace_right[0];
+            imgKatana.Width = 640;
+            imgKatana.Height = 880;
+            gridPlocha.Children.Add(imgKatana);
+        }
+
+        public override void setSkrceni(bool hodnota)
+        {
+            skrceni = hodnota;
+            if (!hodnota)
+            {
+                animace_index = 0;
+                if (!smer) imgPostava.Source = animace_left[animace_index];
+                else imgPostava.Source = animace_right[animace_index];
+            }
+        }
+
+        public override void Tick()
+        {
+            AktualizujDmgIndikator();
+            Thickness pozice = imgPostava.Margin;
+
+            //Pohyb - hráč 1
+            if (vpravo && !skrceni)
+            {
+                if (pohybX < maxRychlost && !skrceni) pohybX += maxRychlost / 10;
+                imgPostava.Source = animace_right[animace_index];
+                smer = true;
+            }
+            else if (vlevo && !skrceni)
+            {
+                if (pohybX > (0 - maxRychlost) && !skrceni) pohybX -= maxRychlost / 10;
+                imgPostava.Source = animace_left[animace_index];
+                smer = false;
+            }
+            else
+            {
+                if (pohybX < 3 && pohybX > -3) pohybX = 0;
+                if (pohybX > 0) pohybX -= 3;
+                if (pohybX < 0) pohybX += 3;
+            }
+
+            if (pohybX != 0)
+            {
+                tick_animace++;
+                if (tick_animace > 30) tick_animace = 0;
+                animace_index = tick_animace / 7;
+            }
+            else
+            {
+                animace_index = 0;
+                if (!smer) imgPostava.Source = animace_left[animace_index];
+                else imgPostava.Source = animace_right[animace_index];
+            }
+
+            if (pohybX > 0)
+            {
+                if (pozice.Left + pohybX < 1800) pozice.Left += pohybX;
+            }
+            else
+            {
+                if (pozice.Left + pohybX > -70) pozice.Left += pohybX;
+            }
+
+            //Skrčení
+            if (!veVzduchu)
+            {
+                if (skrceni)
+                {
+                    pozice.Bottom = 45;
+                    if (smer) imgPostava.Source = animace_right[animace_right.Count - 1];
+                    else imgPostava.Source = animace_left[animace_right.Count - 1];
+                }
+                else
+                {
+                    pozice.Bottom = 211;
+                }
+            }
+
+
+            //Skok - hráč 1
+            if (skokTrigger && !skrceni)
+            {
+                if (!veVzduchu)
+                {
+                    veVzduchu = true;
+                    skok = true;
+                }
+            }
+            if (skok)
+            {
+                pozice.Bottom += 20;
+                if (pozice.Bottom >= 500) skok = false;
+            }
+
+            //Gravitace - hráč 1
+            if (veVzduchu)
+            {
+                if (!skok)
+                {
+                    pozice.Bottom -= 25;
+                    if (pozice.Bottom < 211)
+                    {
+                        pozice.Bottom = 211;
+                        veVzduchu = false;
+                    }
+                }
+            }
+            imgPostava.Margin = pozice;
+
+            //Pohyb katany s tělem
+            pozice.Bottom -= 225;
+            imgKatana.HorizontalAlignment = HorizontalAlignment.Left;
+            imgKatana.VerticalAlignment = VerticalAlignment.Bottom;
+            if (!smer)
+            {
+                imgKatana.Source = katana_animace_left[katana_tick_animace];
+                Panel.SetZIndex(imgKatana, -1);
+                pozice.Left -= 300;
+            }
+            else 
+            {
+                imgKatana.Source = katana_animace_right[katana_tick_animace];
+                Panel.SetZIndex(imgKatana, 1);
+                pozice.Left -= 100;
+            }
+            imgKatana.Margin = pozice;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace _2DFightingGame
         private void Plocha_Loaded(object sender, RoutedEventArgs e)
         {
             Hitboxy.hrac1 = new Postava_1(Plocha, postava1, false, hrac1Details);
-            Hitboxy.hrac2 = new Postava_1(Plocha, postava2, true, hrac2Details);
+            Hitboxy.hrac2 = new Postava_2(Plocha, postava2, true, hrac2Details);
 
             hrac1Ukazatel.Width = postava1.Width;
             hrac2Ukazatel.Width = postava2.Width;
