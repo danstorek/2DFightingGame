@@ -34,8 +34,6 @@ namespace _2DFightingGame
         Postava souper;
         Image souperImg;
 
-        public readonly int cooldown = 400;
-
         public Fireball(Image postava, bool smer)
         {
             this.postava = postava;
@@ -114,8 +112,6 @@ namespace _2DFightingGame
         Image souperImg;
         bool zastaveno = false;
 
-        public readonly int cooldown = 1500;
-
         public Tornado(Image postava, bool smer)
         {
             this.postava = postava;
@@ -183,8 +179,6 @@ namespace _2DFightingGame
     class TNT : Updatable
     {
         Thickness pozice;
-
-        public readonly int cooldown = 1200;
 
         Image img = new Image();
         List<BitmapImage> animace = new List<BitmapImage>();
