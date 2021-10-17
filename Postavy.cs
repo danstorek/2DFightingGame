@@ -36,6 +36,7 @@ namespace _2DFightingGame
         protected int cooldownUtok1Max;
         protected int cooldownUtok2Max;
         protected int poskozeniTimer = 0;
+        protected DateTime zmrazen = DateTime.Now;
 
         protected int pohybX = 0;
         public abstract void Tick();
@@ -84,6 +85,14 @@ namespace _2DFightingGame
         public void setUtok2(bool hodnota)
         {
             utok2 = hodnota;
+        }
+        public void setZmrazen(int ms)
+        {
+            zmrazen = DateTime.Now + TimeSpan.FromMilliseconds(ms);
+        }
+        public bool getZmrazen()
+        {
+            return zmrazen > DateTime.Now;
         }
         //Odražení protivníkem
         public void Odrazeni(int sila)
@@ -208,7 +217,7 @@ namespace _2DFightingGame
                     gridPlocha.Children.Add(fireball.ReturnImage());
                     aktivni_projektily.Add(fireball);
                     cooldownUtok1 = DateTime.Now.AddMilliseconds(fireball.cooldown);
-                    if(naboje == 0)
+                    if (naboje == 0)
                     {
                         detaily.Content = "...";
                         cooldownPrebiti = DateTime.Now + TimeSpan.FromMilliseconds(1500);
@@ -224,10 +233,10 @@ namespace _2DFightingGame
             //Útok 2 - hráč 1
             if (utok2 && DateTime.Now > cooldownUtok2)
             {
-                    TNT sw = new TNT(imgPostava);
-                    gridPlocha.Children.Add(sw.ReturnImage());
-                    aktivni_projektily.Add(sw);
-                    cooldownUtok2 = DateTime.Now.AddMilliseconds(sw.cooldown);
+                TNT sw = new TNT(imgPostava);
+                gridPlocha.Children.Add(sw.ReturnImage());
+                aktivni_projektily.Add(sw);
+                cooldownUtok2 = DateTime.Now.AddMilliseconds(sw.cooldown);
             }
             //Pohyb - hráč 1
             if (vpravo && !skrceni)
@@ -238,7 +247,7 @@ namespace _2DFightingGame
             }
             else if (vlevo && !skrceni)
             {
-                if (pohybX > (0-maxRychlost) && !skrceni) pohybX -= maxRychlost / 10;
+                if (pohybX > (0 - maxRychlost) && !skrceni) pohybX -= maxRychlost / 10;
                 imgPostava.Source = animace_left[animace_index];
                 smer = false;
             }
@@ -258,17 +267,20 @@ namespace _2DFightingGame
             else
             {
                 animace_index = 0;
-                if(!smer) imgPostava.Source = animace_left[animace_index];
+                if (!smer) imgPostava.Source = animace_left[animace_index];
                 else imgPostava.Source = animace_right[animace_index];
             }
 
-            if (pohybX > 0)
+            if (!getZmrazen())
             {
-                if (pozice.Left + pohybX < 1800) pozice.Left += pohybX;
-            }
-            else
-            {
-                if (pozice.Left + pohybX > -70) pozice.Left += pohybX;
+                if (pohybX > 0)
+                {
+                    if (pozice.Left + pohybX < 1800) pozice.Left += pohybX;
+                }
+                else
+                {
+                    if (pozice.Left + pohybX > -70) pozice.Left += pohybX;
+                }
             }
 
             //Skrčení
@@ -277,8 +289,8 @@ namespace _2DFightingGame
                 if (skrceni)
                 {
                     pozice.Bottom = 45;
-                    if (smer) imgPostava.Source = animace_right[animace_right.Count-1];
-                    else imgPostava.Source = animace_left[animace_right.Count-1];
+                    if (smer) imgPostava.Source = animace_right[animace_right.Count - 1];
+                    else imgPostava.Source = animace_left[animace_right.Count - 1];
                 }
                 else
                 {
@@ -288,7 +300,7 @@ namespace _2DFightingGame
 
 
             //Skok - hráč 1
-            if (skokTrigger && !skrceni)
+            if (skokTrigger && !skrceni && !getZmrazen())
             {
                 if (!veVzduchu)
                 {
@@ -333,7 +345,7 @@ namespace _2DFightingGame
             if (smer) pozice.Left += 240;
             else pozice.Left -= 100;
             muzzleflash.Margin = pozice;
-            
+
             aktualizujProjektily();
         }
     }
@@ -418,7 +430,7 @@ namespace _2DFightingGame
                 katana_tick_animace = 1;
                 cooldownUtok1 = DateTime.Now + TimeSpan.FromMilliseconds(500);
             }
-            if(katana_tick_animace > 0)
+            if (katana_tick_animace > 0)
             {
                 switch (katana_tick_animace)
                 {
@@ -478,13 +490,16 @@ namespace _2DFightingGame
                 else imgPostava.Source = animace_right[animace_index];
             }
 
-            if (pohybX > 0)
+            if (!getZmrazen())
             {
-                if (pozice.Left + pohybX < 1800) pozice.Left += pohybX;
-            }
-            else
-            {
-                if (pozice.Left + pohybX > -70) pozice.Left += pohybX;
+                if (pohybX > 0)
+                {
+                    if (pozice.Left + pohybX < 1800) pozice.Left += pohybX;
+                }
+                else
+                {
+                    if (pozice.Left + pohybX > -70) pozice.Left += pohybX;
+                }
             }
 
             //Skrčení
@@ -504,7 +519,7 @@ namespace _2DFightingGame
 
 
             //Skok - hráč 1
-            if (skokTrigger && !skrceni)
+            if (skokTrigger && !skrceni && !getZmrazen())
             {
                 if (!veVzduchu)
                 {
@@ -543,7 +558,7 @@ namespace _2DFightingGame
                 Panel.SetZIndex(imgKatana, -1);
                 pozice.Left -= 300;
             }
-            else 
+            else
             {
                 imgKatana.Source = katana_animace_right[katana_animace_index];
                 Panel.SetZIndex(imgKatana, 1);
