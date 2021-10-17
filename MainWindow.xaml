@@ -15,16 +15,24 @@
         <Image x:Name="damage2" Opacity="0" Source="imgs/chars/damage.png" Width="240" Height="373" Margin="1700,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="0,980,0,0" Stroke="Black" VerticalAlignment="Top" Width="604"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="1316,980,0,0" Stroke="Black" VerticalAlignment="Top" Width="604"/>
+        <Rectangle Name="postava1Utok1" Fill="Red" Height="64" Width="64" Margin="210,980,1646,36" HorizontalAlignment="Right"></Rectangle>
+        <Rectangle Name="postava2Utok1" Fill="Red" Height="64" Width="64" Margin="210,980,329,36" HorizontalAlignment="Right"></Rectangle>
+        <Rectangle Name="postava1Utok2" Fill="Red" Height="64" Width="64" Margin="210,980,1578,36" HorizontalAlignment="Right"></Rectangle>
+        <Rectangle Name="postava2Utok2" Fill="Red" Height="64" Width="64" Margin="210,980,259,36" HorizontalAlignment="Right"></Rectangle>
+        <Label Content="N" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="64" Width="64" Margin="210,980,1646,0"/>
+        <Label Content="M" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="64" Width="64" Margin="279,980,1577,0"/>
+        <Label Content="Q" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="64" Width="64" Margin="1528,980,328,0"/>
+        <Label Content="E" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="64" Width="64" Margin="1597,980,259,0"/>
         <ProgressBar x:Name="health1" Value="100" HorizontalAlignment="Left" Height="38" Margin="1,1042,0,0" VerticalAlignment="Top" Width="602"/>
         <ProgressBar x:Name="health2" Value="100" HorizontalAlignment="Left" Height="38" Margin="1317,1042,0,0" VerticalAlignment="Top" Width="602"/>
         <Label Content="Hráč 1" FontSize="40" HorizontalAlignment="Left" Margin="1,980,0,0" VerticalAlignment="Top" Height="62" Width="209"/>
         <Label Content="Hráč 2" FontSize="40" HorizontalAlignment="Left" Margin="1317,980,0,0" VerticalAlignment="Top" Height="62" Width="209"/>
-        <Label x:Name="hrac1Details" Content="" FontSize="30" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="215,980,0,0" VerticalAlignment="Top" Height="62" Width="389"/>
-        <Label x:Name="hrac2Details" Content="" FontSize="30" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="1530,980,0,0" VerticalAlignment="Top" Height="62" Width="389"/>
-        <Label x:Name="hrac1Ukazatel" Content="Hráč 1" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="144,491,0,0" VerticalAlignment="Bottom" Height="110" Width="236"/>
-        <Label x:Name="hrac2Ukazatel" Content="Hráč 2" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="144,491,0,0" VerticalAlignment="Bottom" Height="110" Width="236"/>
-        <Label x:Name="hrac1Ukazatel1" FontWeight="Bold" Content="⛛" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="144,491,0,0" VerticalAlignment="Bottom" Height="110" Width="236"/>
-        <Label x:Name="hrac2Ukazatel1" FontWeight="Bold" Content="⛛" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="144,491,0,0" VerticalAlignment="Bottom" Height="110" Width="236"/>
+        <Label x:Name="hrac1Details" Content="" FontSize="30" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="505,980,0,0" VerticalAlignment="Top" Height="62" Width="99"/>
+        <Label x:Name="hrac2Details" Content="" FontSize="30" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="1820,980,0,0" VerticalAlignment="Top" Height="62" Width="99"/>
+        <Label x:Name="hrac1Ukazatel" Content="Hráč 1" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="750,0,0,10" VerticalAlignment="Bottom" Height="110" Width="236"/>
+        <Label x:Name="hrac2Ukazatel" Content="Hráč 2" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="750,0,0,10" VerticalAlignment="Bottom" Height="110" Width="236"/>
+        <Label x:Name="hrac1Ukazatel1" FontWeight="Bold" Content="⛛" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="750,0,0,10" VerticalAlignment="Bottom" Height="110" Width="236"/>
+        <Label x:Name="hrac2Ukazatel1" FontWeight="Bold" Content="⛛" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="750,0,0,10" VerticalAlignment="Bottom" Height="110" Width="236"/>
 
         <Border Name="napoveda1" Width="600" Height="700" HorizontalAlignment="Left" Margin="200,0,0,0" CornerRadius="20" BorderThickness="2" BorderBrush="Black" Background="White" Opacity="0.7">
             <Grid>

@@ -105,6 +105,83 @@ namespace _2DFightingGame
         }
     }
 
+    class Tornado : Updatable
+    {
+        int rychlost;
+        Image img = new Image();
+        Image postava;
+        Postava souper;
+        Image souperImg;
+
+        public readonly int cooldown = 1500;
+
+        public Tornado(Image postava, bool smer)
+        {
+            this.postava = postava;
+            if (postava == Hitboxy.hrac1.getImg())
+            {
+                souperImg = Hitboxy.hrac2.getImg();
+                souper = Hitboxy.hrac2;
+            }
+            else
+            {
+                souperImg = Hitboxy.hrac1.getImg();
+                souper = Hitboxy.hrac1;
+            }
+
+            Thickness pozice = postava.Margin;
+            img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tornado.png"));
+            if (smer)
+            {
+                pozice.Left += 200;
+            }
+            else
+            {
+                pozice.Left -= 80;
+            }
+            pozice.Bottom = 180;
+            img.Width = 200;
+            img.Height = 300;
+            img.VerticalAlignment = VerticalAlignment.Bottom;
+            img.HorizontalAlignment = HorizontalAlignment.Left;
+            img.Margin = pozice;
+
+            if (smer) rychlost = 30;
+            else rychlost = -30;
+        }
+
+        public override void Tick()
+        {
+            Thickness pozice = img.Margin;
+            pozice.Left += rychlost;
+            img.Margin = pozice;
+
+            //Označení výstřelu mimo obraz jako neaktivní
+            if (pozice.Left < -100 || pozice.Left > 2100) Neaktivni();
+
+            //Kolize se soupeřem
+            Thickness poziceSouper = souperImg.Margin;
+            if (pozice.Left + (img.Width / 2) > poziceSouper.Left + (souperImg.Width / 2 - 40) && pozice.Left + (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom+300 > poziceSouper.Bottom+100)
+            {
+                souper.Poskozeni(10);
+                if (rychlost > 0)
+                {
+                    souper.Odrazeni(-40);
+                }
+                else
+                {
+                    souper.Odrazeni(40);
+                }
+                Neaktivni();
+            }
+        }
+
+        public override Image ReturnImage()
+        {
+            return img;
+        }
+    }
+
     class TNT : Updatable
     {
         Thickness pozice;
@@ -172,6 +249,45 @@ namespace _2DFightingGame
         public override Image ReturnImage()
         {
             return img;
+        }
+    }
+    class Katana_Hit
+    {
+        double poziceX;
+        double poziceY;
+
+        Postava vyvolavaci;
+        Postava souper;
+        Image souperImg;
+
+        public Katana_Hit(double souradniceX, double souradniceY, Image postava, bool smer)
+        {
+            int rozdil;
+            if (smer) rozdil = 250;
+            else rozdil = -250;
+            poziceX = souradniceX+rozdil;
+            poziceY = souradniceY;
+
+            if (postava == Hitboxy.hrac1.getImg())
+            {
+                souperImg = Hitboxy.hrac2.getImg();
+                souper = Hitboxy.hrac2;
+                vyvolavaci = Hitboxy.hrac1;
+            }
+            else
+            {
+                souperImg = Hitboxy.hrac1.getImg();
+                souper = Hitboxy.hrac1;
+                vyvolavaci = Hitboxy.hrac2;
+            }
+
+            Thickness poziceSouper = souperImg.Margin;
+            if (poziceX > poziceSouper.Left - 150 && poziceX < poziceSouper.Left + 150)
+            {
+                souper.Poskozeni(15);
+                if (vyvolavaci.getImg().Margin.Left < souper.getImg().Margin.Left) souper.Odrazeni(30);
+                else souper.Odrazeni(-30);
+            }
         }
     }
 }

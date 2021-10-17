@@ -61,6 +61,12 @@ namespace _2DFightingGame
                 Hitboxy.hrac1.Tick();
                 Hitboxy.hrac2.Tick();
 
+                //Obnovení cooldownů
+                postava1Utok1.Width = Hitboxy.hrac1.getCooldown()[0];
+                postava1Utok2.Width = Hitboxy.hrac1.getCooldown()[1];
+                postava2Utok1.Width = Hitboxy.hrac2.getCooldown()[0];
+                postava2Utok2.Width = Hitboxy.hrac2.getCooldown()[1];
+
                 //Obnovení healthbarů
                 health1.Value = Hitboxy.hrac1.getHP();
                 if (health1.Value > 80) health1.Foreground = new SolidColorBrush(Color.FromRgb(0,255,0));
