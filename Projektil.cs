@@ -112,6 +112,7 @@ namespace _2DFightingGame
         Image postava;
         Postava souper;
         Image souperImg;
+        bool zastaveno = false;
 
         public readonly int cooldown = 1500;
 
@@ -153,27 +154,24 @@ namespace _2DFightingGame
         public override void Tick()
         {
             Thickness pozice = img.Margin;
+            if (!zastaveno)
+            {
             pozice.Left += rychlost;
             img.Margin = pozice;
+            }
 
             //Označení výstřelu mimo obraz jako neaktivní
             if (pozice.Left < -100 || pozice.Left > 2100) Neaktivni();
 
             //Kolize se soupeřem
             Thickness poziceSouper = souperImg.Margin;
-            if (pozice.Left + (img.Width / 2) > poziceSouper.Left + (souperImg.Width / 2 - 40) && pozice.Left + (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom+300 > poziceSouper.Bottom+100)
+            if (!zastaveno && pozice.Left + (img.Width / 2) > poziceSouper.Left + (souperImg.Width / 2 - 40) && pozice.Left + (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom+300 > poziceSouper.Bottom+100)
             {
+                zastaveno = true;
                 souper.Poskozeni(10);
-                if (rychlost > 0)
-                {
-                    souper.Odrazeni(-40);
-                }
-                else
-                {
-                    souper.Odrazeni(40);
-                }
-                Neaktivni();
+                souper.setZmrazen(1500);
             }
+            if (zastaveno && !souper.getZmrazen()) Neaktivni();
         }
 
         public override Image ReturnImage()
