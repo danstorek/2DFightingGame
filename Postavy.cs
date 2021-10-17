@@ -216,7 +216,7 @@ namespace _2DFightingGame
                     Fireball fireball = new Fireball(imgPostava, smer);
                     gridPlocha.Children.Add(fireball.ReturnImage());
                     aktivni_projektily.Add(fireball);
-                    cooldownUtok1 = DateTime.Now.AddMilliseconds(fireball.cooldown);
+                    cooldownUtok1 = DateTime.Now.AddMilliseconds(cooldownUtok1Max);
                     if (naboje == 0)
                     {
                         detaily.Content = "...";
@@ -236,7 +236,7 @@ namespace _2DFightingGame
                 TNT sw = new TNT(imgPostava);
                 gridPlocha.Children.Add(sw.ReturnImage());
                 aktivni_projektily.Add(sw);
-                cooldownUtok2 = DateTime.Now.AddMilliseconds(sw.cooldown);
+                cooldownUtok2 = DateTime.Now.AddMilliseconds(cooldownUtok2Max);
             }
             //Pohyb - hráč 1
             if (vpravo && !skrceni)
@@ -365,7 +365,7 @@ namespace _2DFightingGame
         public Postava_2(Grid plocha, Image postava, bool strana, Label detaily)
         {
             cooldownUtok1Max = 500;
-            cooldownUtok2Max = 1500;
+            cooldownUtok2Max = 3000;
 
             this.maxRychlost = 40;
 
@@ -428,7 +428,7 @@ namespace _2DFightingGame
             if (utok1 && DateTime.Now > cooldownUtok1)
             {
                 katana_tick_animace = 1;
-                cooldownUtok1 = DateTime.Now + TimeSpan.FromMilliseconds(500);
+                cooldownUtok1 = DateTime.Now + TimeSpan.FromMilliseconds(cooldownUtok1Max);
             }
             if (katana_tick_animace > 0)
             {
@@ -454,7 +454,7 @@ namespace _2DFightingGame
                 Tornado tornado = new Tornado(imgPostava, smer);
                 gridPlocha.Children.Add(tornado.ReturnImage());
                 aktivni_projektily.Add(tornado);
-                cooldownUtok2 = DateTime.Now.AddMilliseconds(tornado.cooldown);
+                cooldownUtok2 = DateTime.Now.AddMilliseconds(cooldownUtok2Max);
             }
 
             //Pohyb - hráč 1
