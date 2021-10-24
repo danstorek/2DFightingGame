@@ -14,6 +14,8 @@ namespace _2DFightingGame
 {
     abstract class Postava
     {
+        protected string jmeno;
+
         protected List<Updatable> aktivni_projektily = new List<Updatable>();
 
         protected Label detaily;
@@ -40,6 +42,14 @@ namespace _2DFightingGame
 
         protected int pohybX = 0;
         public abstract void Tick();
+        public void setJmeno(string jmeno)
+        {
+            this.jmeno = jmeno;
+        }
+        public string getJmeno()
+        {
+            return this.jmeno;
+        }
         public abstract void setSkrceni(bool hodnota);
         public int[] getCooldown()
         {
