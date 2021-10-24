@@ -55,6 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HlavniMenu.xaml.cs">
+      <DependentUpon>HlavniMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VyberPostav2Hraci.xaml.cs">
+      <DependentUpon>VyberPostav2Hraci.xaml</DependentUpon>
+    </Compile>
+    <Page Include="HlavniMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,6 +78,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="VyberPostav2Hraci.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Postavy.cs" />
@@ -173,6 +187,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imgs\attacks\tornado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char1\nahled.png" />
+    <Resource Include="imgs\chars\char2\nahled.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -21,6 +21,7 @@ namespace _2DFightingGame
     {
         bool aktivni = true;
         bool napoveda = true;
+        DispatcherTimer gameTick = new DispatcherTimer();
         public MainWindow()
         {
             InitializeComponent();
@@ -28,15 +29,31 @@ namespace _2DFightingGame
 
         private void Plocha_Loaded(object sender, RoutedEventArgs e)
         {
-            Hitboxy.hrac1 = new Postava_1(Plocha, postava1, false, hrac1Details);
-            Hitboxy.hrac2 = new Postava_2(Plocha, postava2, true, hrac2Details);
+            switch (Hitboxy.hrac1Postava)
+            {
+                case 0: Hitboxy.hrac1 = new Postava_1(Plocha, postava1, false, hrac1Details); break;
+                case 1: Hitboxy.hrac1 = new Postava_2(Plocha, postava1, false, hrac1Details); break;
+            }
 
+            switch (Hitboxy.hrac2Postava)
+            {
+                case 0: Hitboxy.hrac2 = new Postava_1(Plocha, postava2, false, hrac2Details); break;
+                case 1: Hitboxy.hrac2 = new Postava_2(Plocha, postava2, false, hrac2Details); break;
+            }
+
+            Hitboxy.hrac1.setJmeno(Hitboxy.hrac1Jmeno);
+            Hitboxy.hrac2.setJmeno(Hitboxy.hrac2Jmeno);
+
+            barJmeno1.Content = Hitboxy.hrac1.getJmeno();
+            barJmeno2.Content = Hitboxy.hrac2.getJmeno();
+
+            hrac1Ukazatel.Content = Hitboxy.hrac1.getJmeno();
             hrac1Ukazatel.Width = postava1.Width;
+            hrac2Ukazatel.Content = Hitboxy.hrac2.getJmeno();
             hrac2Ukazatel.Width = postava2.Width;
             hrac1Ukazatel1.Width = postava1.Width;
             hrac2Ukazatel1.Width = postava2.Width;
 
-            DispatcherTimer gameTick = new DispatcherTimer();
             gameTick.Interval = TimeSpan.FromMilliseconds(1000 / 60);
             gameTick.Tick += GameTick_Tick;
             gameTick.Start();
@@ -82,15 +99,36 @@ namespace _2DFightingGame
                 else if (health2.Value >= 0) health2.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
 
                 //Konec kola
-                if (Hitboxy.hrac1.getHP() <= 0)
+                //Remíza
+                if(Hitboxy.hrac1.getHP() <= 0 && Hitboxy.hrac2.getHP() <= 0)
                 {
-                    MessageBox.Show("Hráč 2 vyhrál");
+                    textVyhra.Content = "Remíza";
+                    textVyhra2.Content = "Remíza";
                     aktivni = false;
+                    gridVyhra.Visibility = Visibility.Visible;
                 }
+                //Výhra 1. hráče
+                else if (Hitboxy.hrac1.getHP() <= 0)
+                {
+                    textVyhra.Content = Hitboxy.hrac2.getJmeno()+" vyhrál";
+                    textVyhra2.Content = Hitboxy.hrac2.getJmeno() + " vyhrál";
+                    aktivni = false;
+                    gridVyhra.Visibility = Visibility.Visible;
+                }
+                //Výhra 2. hráče
                 else if (Hitboxy.hrac2.getHP() <= 0)
                 {
-                    MessageBox.Show("Hráč 1 vyhrál");
+                    textVyhra.Content = Hitboxy.hrac1.getJmeno() + " vyhrál";
+                    textVyhra2.Content = Hitboxy.hrac1.getJmeno() + " vyhrál";
                     aktivni = false;
+                    gridVyhra.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                if(gridVyhra.Opacity < 1)
+                {
+                    gridVyhra.Opacity += 0.1;
                 }
             }
         }
@@ -192,6 +230,15 @@ namespace _2DFightingGame
                     Hitboxy.hrac2.setUtok2(false);
                     break;
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            gameTick.Stop();
+            HlavniMenu okno = new HlavniMenu();
+            okno.Show();
+            System.Threading.Thread.Sleep(50);
+            this.Close();
         }
     }
 }

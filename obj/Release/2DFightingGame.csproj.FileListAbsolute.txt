@@ -13,3 +13,7 @@ C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGa
 C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.csproj.CoreCompileInputs.cache
 C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.exe
 C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.pdb
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\VyberPostav2Hraci.g.cs
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\VyberPostav2Hraci.baml
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\HlavniMenu.g.cs
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\HlavniMenu.baml
