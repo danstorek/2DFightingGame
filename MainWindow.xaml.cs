@@ -126,6 +126,10 @@ namespace _2DFightingGame
             }
             else
             {
+                if(Plocha.Opacity > 0.5)
+                {
+                    Plocha.Opacity -= 0.05;
+                }
                 if(gridVyhra.Opacity < 1)
                 {
                     gridVyhra.Opacity += 0.1;

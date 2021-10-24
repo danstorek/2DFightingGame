@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_2DFightingGame"
         mc:Ignorable="d"
-        Title="2D Fighting Game" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp">
-    <Grid x:Name="Plocha" Loaded="Plocha_Loaded">
+        Title="2D Fighting Game" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" Background="Black">
+    <Grid>
+        <Grid x:Name="Plocha" Loaded="Plocha_Loaded">
         <Image Panel.ZIndex="-2" Source="/imgs/maps/map1/background.png"></Image>
 
         <Image x:Name="postava1" Width="240" Height="373" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
@@ -62,16 +63,17 @@
                 <Label Content="Útoky" FontSize="40" FontWeight="Bold" Margin="0,542,0,70" HorizontalContentAlignment="Center"/>
             </Grid>
         </Border>
-        <Grid x:Name="gridVyhra" VerticalAlignment="Center" HorizontalAlignment="Center" Width="1100" Height="230" Opacity="0" Visibility="Hidden" Panel.ZIndex="999">
-            <Label Name="textVyhra" FontSize="100" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Content="Hráč 1 vyhrál"></Label>
-            <Label Name="textVyhra2" FontSize="103" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Blue" Content="Hráč 1 vyhrál"></Label>
-            <Button Width="400" Height="80" Content="Přejít do hlavního menu" FontSize="30" Margin="350,120,350,10" Click="Button_Click">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="50"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-        </Grid>
+    </Grid>
+    <Grid x:Name="gridVyhra" VerticalAlignment="Center" HorizontalAlignment="Center" Width="1100" Height="230" Opacity="0" Visibility="Hidden" Panel.ZIndex="999">
+        <Label Name="textVyhra" FontSize="100" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Content="Hráč 1 vyhrál"></Label>
+        <Label Name="textVyhra2" FontSize="103" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="SkyBlue" Content="Hráč 1 vyhrál"></Label>
+        <Button Width="400" Height="80" Content="Přejít do hlavního menu" FontSize="30" Margin="350,120,350,10" Click="Button_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="50"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+    </Grid>
     </Grid>
 </Window>
