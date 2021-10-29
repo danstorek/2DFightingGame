@@ -51,14 +51,14 @@ namespace _2DFightingGame
             Thickness pozice = postava.Margin;
             if (smer)
             {
-                pozice.Left += 200;
-                pozice.Bottom += 210;
+                pozice.Left += 100;
+                pozice.Bottom += 75;
                 img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/fireball.png"));
             }
             else
             {
-                pozice.Left -= 80;
-                pozice.Bottom += 210;
+                pozice.Left -= 40;
+                pozice.Bottom += 75;
                 img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/fireballleft.png"));
             }
             img.Width = 91;
@@ -187,8 +187,8 @@ namespace _2DFightingGame
         public TNT(Image postava)
         {
             pozice = postava.Margin;
-            img.Height = 371;
-            img.Width = 398;
+            img.Height = 150;
+            img.Width = 150;
             img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/1.png"));
             img.HorizontalAlignment = HorizontalAlignment.Left;
             img.VerticalAlignment = VerticalAlignment.Bottom;
@@ -255,8 +255,8 @@ namespace _2DFightingGame
         public Katana_Hit(double souradniceX, double souradniceY, Image postava, bool smer)
         {
             int rozdil;
-            if (smer) rozdil = 250;
-            else rozdil = -250;
+            if (smer) rozdil = 150;
+            else rozdil = -150;
             poziceX = souradniceX+rozdil;
             poziceY = souradniceY;
 
@@ -274,7 +274,7 @@ namespace _2DFightingGame
             }
 
             Thickness poziceSouper = souperImg.Margin;
-            if (poziceX > poziceSouper.Left - 150 && poziceX < poziceSouper.Left + 150)
+            if (poziceX > poziceSouper.Left - 100 && poziceX < poziceSouper.Left + 100 && poziceY < poziceSouper.Bottom+175 && poziceY > poziceSouper.Bottom - 150)
             {
                 souper.Poskozeni(15);
                 if (vyvolavaci.getImg().Margin.Left < souper.getImg().Margin.Left) souper.Odrazeni(30);
