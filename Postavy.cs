@@ -129,8 +129,8 @@ namespace _2DFightingGame
         {
             imgDamage.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/damage.png"));
             imgDamage.Opacity = 0;
-            imgDamage.Width = 240;
-            imgDamage.Height = 373;
+            imgDamage.Width = 120;
+            imgDamage.Height = 185;
             imgDamage.HorizontalAlignment = HorizontalAlignment.Left;
             imgDamage.VerticalAlignment = VerticalAlignment.Bottom;
             Panel.SetZIndex(imgDamage, 2);
@@ -164,11 +164,13 @@ namespace _2DFightingGame
             cooldownUtok1Max = 400;
             cooldownUtok2Max = 1200;
 
+            this.maxRychlost = 20;
+
             imgPostava = postava;
             gridPlocha = plocha;
             this.detaily = detaily;
 
-            muzzleflash.Width = 100;
+            muzzleflash.Width = 50;
             muzzleflash.HorizontalAlignment = HorizontalAlignment.Left;
             muzzleflash.VerticalAlignment = VerticalAlignment.Bottom;
             //muzzleflash.Opacity = 0;
@@ -298,7 +300,7 @@ namespace _2DFightingGame
             {
                 if (skrceni)
                 {
-                    pozice.Bottom = 45;
+                    pozice.Bottom = 150;
                     if (smer) imgPostava.Source = animace_right[animace_right.Count - 1];
                     else imgPostava.Source = animace_left[animace_right.Count - 1];
                 }
@@ -351,9 +353,9 @@ namespace _2DFightingGame
             {
                 muzzleflash.Opacity -= 0.2;
             }
-            pozice.Bottom += 235;
-            if (smer) pozice.Left += 240;
-            else pozice.Left -= 100;
+            pozice.Bottom += 117;
+            if (smer) pozice.Left += 120;
+            else pozice.Left -= 50;
             muzzleflash.Margin = pozice;
 
             aktualizujProjektily();
@@ -377,7 +379,7 @@ namespace _2DFightingGame
             cooldownUtok1Max = 500;
             cooldownUtok2Max = 3000;
 
-            this.maxRychlost = 40;
+            this.maxRychlost = 30;
 
             imgPostava = postava;
             gridPlocha = plocha;
@@ -413,8 +415,8 @@ namespace _2DFightingGame
 
             if (smer) imgKatana.Source = katana_animace_left[0];
             else imgKatana.Source = katana_animace_right[0];
-            imgKatana.Width = 640;
-            imgKatana.Height = 880;
+            imgKatana.Width = 320;
+            imgKatana.Height = 440;
             gridPlocha.Children.Add(imgKatana);
         }
 
@@ -447,7 +449,7 @@ namespace _2DFightingGame
                     case 1: katana_animace_index = 1; break;
                     case 3: katana_animace_index = 2; break;
                     case 5: katana_animace_index = 3; break;
-                    case 7: katana_animace_index = 4; new Katana_Hit(getImg().Margin.Left, getImg().Margin.Right, getImg(), smer); break;
+                    case 7: katana_animace_index = 4; new Katana_Hit(getImg().Margin.Left, getImg().Margin.Bottom, getImg(), smer); break;
                     case 9: katana_animace_index = 3; break;
                     case 11: katana_animace_index = 2; break;
                     case 13: katana_animace_index = 1; break;
@@ -517,7 +519,7 @@ namespace _2DFightingGame
             {
                 if (skrceni)
                 {
-                    pozice.Bottom = 45;
+                    pozice.Bottom = 150;
                     if (smer) imgPostava.Source = animace_right[animace_right.Count - 1];
                     else imgPostava.Source = animace_left[animace_right.Count - 1];
                 }
@@ -559,20 +561,20 @@ namespace _2DFightingGame
             imgPostava.Margin = pozice;
 
             //Pohyb katany s tělem
-            pozice.Bottom -= 200;
+            pozice.Bottom -= 100;
             imgKatana.HorizontalAlignment = HorizontalAlignment.Left;
             imgKatana.VerticalAlignment = VerticalAlignment.Bottom;
             if (!smer)
             {
                 imgKatana.Source = katana_animace_left[katana_animace_index];
                 Panel.SetZIndex(imgKatana, -1);
-                pozice.Left -= 300;
+                pozice.Left -= 150;
             }
             else
             {
                 imgKatana.Source = katana_animace_right[katana_animace_index];
                 Panel.SetZIndex(imgKatana, 1);
-                pozice.Left -= 100;
+                pozice.Left -= 50;
             }
             imgKatana.Margin = pozice;
             aktualizujProjektily();
