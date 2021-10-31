@@ -30,6 +30,7 @@ namespace _2DFightingGame
         protected bool skokTrigger = false;
         protected bool veVzduchu = false;
         protected bool skok = false;
+        protected int skokPocet = 0;
         protected bool utok1 = false;
         protected bool utok2 = false;
         protected int maxRychlost = 30;
@@ -42,6 +43,114 @@ namespace _2DFightingGame
 
         protected int pohybX = 0;
         public abstract void Tick();
+        protected List<BitmapImage> animace_left = new List<BitmapImage>();
+        protected List<BitmapImage> animace_right = new List<BitmapImage>();
+        protected int animace_index = 0;
+        protected int tick_animace = 0;
+        protected void Pohyb(Thickness pozice)
+        {
+            //Pohyb - hráč 1
+            if (vpravo && !skrceni)
+            {
+                if (pohybX < maxRychlost && !skrceni) pohybX += maxRychlost / 10;
+                imgPostava.Source = animace_right[animace_index];
+                smer = true;
+            }
+            else if (vlevo && !skrceni)
+            {
+                if (pohybX > (0 - maxRychlost) && !skrceni) pohybX -= maxRychlost / 10;
+                imgPostava.Source = animace_left[animace_index];
+                smer = false;
+            }
+            else
+            {
+                if (pohybX < 3 && pohybX > -3) pohybX = 0;
+                if (pohybX > 0) pohybX -= 3;
+                if (pohybX < 0) pohybX += 3;
+            }
+
+            if (pohybX != 0)
+            {
+                tick_animace++;
+                if (tick_animace > 30) tick_animace = 0;
+                animace_index = tick_animace / 7;
+            }
+            else
+            {
+                animace_index = 0;
+                if (!smer) imgPostava.Source = animace_left[animace_index];
+                else imgPostava.Source = animace_right[animace_index];
+            }
+
+            if (!getZmrazen())
+            {
+                if (pohybX > 0)
+                {
+                    if (pozice.Left + pohybX < 1800 && (pozice.Left + pohybX < Hitboxy.getSouper(this).getImg().Margin.Left-100 || pozice.Left > Hitboxy.getSouper(this).getImg().Margin.Left || pozice.Bottom < Hitboxy.getSouper(this).getImg().Margin.Bottom -50 || pozice.Bottom > Hitboxy.getSouper(this).getImg().Margin.Bottom+50)) pozice.Left += pohybX;
+                }
+                else
+                {
+                    if (pozice.Left + pohybX > -70 && (pozice.Left + pohybX + getImg().Width > Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width+100 || pozice.Left + getImg().Width < Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width || pozice.Bottom < Hitboxy.getSouper(this).getImg().Margin.Bottom - 50 || pozice.Bottom > Hitboxy.getSouper(this).getImg().Margin.Bottom + 50)) pozice.Left += pohybX;
+                }
+            }
+
+            //Skrčení
+            if (!veVzduchu && Hitboxy.MuzePadat(this) == 210 && !getZmrazen())
+            {
+                int pad = Hitboxy.MuzePadat(this);
+                if (skrceni)
+                {
+                    pozice.Bottom = Hitboxy.MuzePadat(this) - 50;
+                    if (smer) imgPostava.Source = animace_right[animace_right.Count - 1];
+                    else imgPostava.Source = animace_left[animace_right.Count - 1];
+                }
+                else if (pad != 1)
+                {
+                    pozice.Bottom = pad;
+                }
+            }
+            else if(!veVzduchu && Hitboxy.MuzePadat(this) != 210 && Hitboxy.MuzePadat(this) != 1 && skrceni && !getZmrazen())
+            {
+                pozice.Bottom -= 25;
+            }
+
+
+            //Skok - hráč 1
+            if (skokTrigger && !skrceni && !getZmrazen())
+            {
+                if (!veVzduchu)
+                {
+                    veVzduchu = true;
+                    skok = true;
+                }
+            }
+            if (skok)
+            {
+                pozice.Bottom += 20;
+                skokPocet++;
+                if (skokPocet >= 12)
+                {
+                    skok = false;
+                    skokPocet = 0;
+                }
+            }
+
+            //Gravitace - hráč 1
+            if (veVzduchu || Hitboxy.MuzePadat(this) >= 1)
+            {
+                if (!skok)
+                {
+                    int pad = Hitboxy.MuzePadat(this);
+                    if (pad == 1) pozice.Bottom -= 25;
+                    else if(!skrceni)
+                    {
+                        pozice.Bottom = pad;
+                        veVzduchu = false;
+                    }
+                }
+            }
+            imgPostava.Margin = pozice;
+        }
         public void setJmeno(string jmeno)
         {
             this.jmeno = jmeno;
@@ -152,10 +261,6 @@ namespace _2DFightingGame
     {
         Image muzzleflash = new Image();
 
-        List<BitmapImage> animace_left = new List<BitmapImage>();
-        List<BitmapImage> animace_right = new List<BitmapImage>();
-        int animace_index = 0;
-        int tick_animace = 0;
         int naboje = 7;
         DateTime cooldownPrebiti = DateTime.Now;
         DateTime muzzleTimer = DateTime.Now;
@@ -245,101 +350,13 @@ namespace _2DFightingGame
             //Útok 2 - hráč 1
             if (utok2 && DateTime.Now > cooldownUtok2)
             {
-                TNT sw = new TNT(imgPostava);
+                TNT sw = new TNT(this);
                 gridPlocha.Children.Add(sw.ReturnImage());
                 aktivni_projektily.Add(sw);
                 cooldownUtok2 = DateTime.Now.AddMilliseconds(cooldownUtok2Max);
             }
-            //Pohyb - hráč 1
-            if (vpravo && !skrceni)
-            {
-                if (pohybX < maxRychlost && !skrceni) pohybX += maxRychlost / 10;
-                imgPostava.Source = animace_right[animace_index];
-                smer = true;
-            }
-            else if (vlevo && !skrceni)
-            {
-                if (pohybX > (0 - maxRychlost) && !skrceni) pohybX -= maxRychlost / 10;
-                imgPostava.Source = animace_left[animace_index];
-                smer = false;
-            }
-            else
-            {
-                if (pohybX < 3 && pohybX > -3) pohybX = 0;
-                if (pohybX > 0) pohybX -= 3;
-                if (pohybX < 0) pohybX += 3;
-            }
 
-            if (pohybX != 0)
-            {
-                tick_animace++;
-                if (tick_animace > 30) tick_animace = 0;
-                animace_index = tick_animace / 7;
-            }
-            else
-            {
-                animace_index = 0;
-                if (!smer) imgPostava.Source = animace_left[animace_index];
-                else imgPostava.Source = animace_right[animace_index];
-            }
-
-            if (!getZmrazen())
-            {
-                if (pohybX > 0)
-                {
-                    if (pozice.Left + pohybX < 1800) pozice.Left += pohybX;
-                }
-                else
-                {
-                    if (pozice.Left + pohybX > -70) pozice.Left += pohybX;
-                }
-            }
-
-            //Skrčení
-            if (!veVzduchu)
-            {
-                if (skrceni)
-                {
-                    pozice.Bottom = 150;
-                    if (smer) imgPostava.Source = animace_right[animace_right.Count - 1];
-                    else imgPostava.Source = animace_left[animace_right.Count - 1];
-                }
-                else
-                {
-                    pozice.Bottom = 211;
-                }
-            }
-
-
-            //Skok - hráč 1
-            if (skokTrigger && !skrceni && !getZmrazen())
-            {
-                if (!veVzduchu)
-                {
-                    veVzduchu = true;
-                    skok = true;
-                }
-            }
-            if (skok)
-            {
-                pozice.Bottom += 20;
-                if (pozice.Bottom >= 500) skok = false;
-            }
-
-            //Gravitace - hráč 1
-            if (veVzduchu)
-            {
-                if (!skok)
-                {
-                    pozice.Bottom -= 25;
-                    if (pozice.Bottom < 211)
-                    {
-                        pozice.Bottom = 211;
-                        veVzduchu = false;
-                    }
-                }
-            }
-            imgPostava.Margin = pozice;
+            Pohyb(pozice);
 
             //Výstřel zbraně
             if (!smer) muzzleflash.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/muzzle_left.png"));
@@ -363,11 +380,6 @@ namespace _2DFightingGame
     }
     class Postava_2 : Postava
     {
-        int animace_index = 0;
-        int tick_animace = 0;
-        List<BitmapImage> animace_left = new List<BitmapImage>();
-        List<BitmapImage> animace_right = new List<BitmapImage>();
-
         //Příprava pro animace katany
         Image imgKatana = new Image();
         int katana_tick_animace = 0;
@@ -463,103 +475,15 @@ namespace _2DFightingGame
             }
             if (utok2 && DateTime.Now > cooldownUtok2)
             {
-                Tornado tornado = new Tornado(imgPostava, smer);
+                Tornado tornado = new Tornado(this, smer);
                 gridPlocha.Children.Add(tornado.ReturnImage());
                 aktivni_projektily.Add(tornado);
                 cooldownUtok2 = DateTime.Now.AddMilliseconds(cooldownUtok2Max);
             }
 
-            //Pohyb - hráč 1
-            if (vpravo && !skrceni)
-            {
-                if (pohybX < maxRychlost && !skrceni) pohybX += maxRychlost / 10;
-                imgPostava.Source = animace_right[animace_index];
-                smer = true;
-            }
-            else if (vlevo && !skrceni)
-            {
-                if (pohybX > (0 - maxRychlost) && !skrceni) pohybX -= maxRychlost / 10;
-                imgPostava.Source = animace_left[animace_index];
-                smer = false;
-            }
-            else
-            {
-                if (pohybX < 3 && pohybX > -3) pohybX = 0;
-                if (pohybX > 0) pohybX -= 3;
-                if (pohybX < 0) pohybX += 3;
-            }
+            Pohyb(pozice);
 
-            if (pohybX != 0)
-            {
-                tick_animace++;
-                if (tick_animace > 30) tick_animace = 0;
-                animace_index = tick_animace / 7;
-            }
-            else
-            {
-                animace_index = 0;
-                if (!smer) imgPostava.Source = animace_left[animace_index];
-                else imgPostava.Source = animace_right[animace_index];
-            }
-
-            if (!getZmrazen())
-            {
-                if (pohybX > 0)
-                {
-                    if (pozice.Left + pohybX < 1800) pozice.Left += pohybX;
-                }
-                else
-                {
-                    if (pozice.Left + pohybX > -70) pozice.Left += pohybX;
-                }
-            }
-
-            //Skrčení
-            if (!veVzduchu)
-            {
-                if (skrceni)
-                {
-                    pozice.Bottom = 150;
-                    if (smer) imgPostava.Source = animace_right[animace_right.Count - 1];
-                    else imgPostava.Source = animace_left[animace_right.Count - 1];
-                }
-                else
-                {
-                    pozice.Bottom = 211;
-                }
-            }
-
-
-            //Skok - hráč 1
-            if (skokTrigger && !skrceni && !getZmrazen())
-            {
-                if (!veVzduchu)
-                {
-                    veVzduchu = true;
-                    skok = true;
-                }
-            }
-            if (skok)
-            {
-                pozice.Bottom += 20;
-                if (pozice.Bottom >= 500) skok = false;
-            }
-
-            //Gravitace - hráč 1
-            if (veVzduchu)
-            {
-                if (!skok)
-                {
-                    pozice.Bottom -= 25;
-                    if (pozice.Bottom < 211)
-                    {
-                        pozice.Bottom = 211;
-                        veVzduchu = false;
-                    }
-                }
-            }
-            imgPostava.Margin = pozice;
-
+            pozice = imgPostava.Margin;
             //Pohyb katany s tělem
             pozice.Bottom -= 100;
             imgKatana.HorizontalAlignment = HorizontalAlignment.Left;
