@@ -29,6 +29,39 @@ namespace _2DFightingGame
 
         private void Plocha_Loaded(object sender, RoutedEventArgs e)
         {
+            Hitboxy.platformy = new List<Image>();
+
+            Hitboxy.platformy.Add(new Image());
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map1/platform1.png"));
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 1500;
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 10;
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(200, 0, 0, 650);
+
+            Hitboxy.platformy.Add(new Image());
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map1/platform1.png"));
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 1200;
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 10;
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(350, 0, 0, 500);
+
+            Hitboxy.platformy.Add(new Image());
+            Hitboxy.platformy[Hitboxy.platformy.Count-1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map1/platform1.png"));
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 1500;
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 10;
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(200, 0, 0, 350);
+
+            Hitboxy.platformy.Add(new Image());
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 2100;
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 10;
+            Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(-150, 0, 0, 200);
+
+            foreach (Image i in Hitboxy.platformy)
+            {
+                i.Stretch = Stretch.Fill;
+                i.VerticalAlignment = VerticalAlignment.Bottom;
+                i.HorizontalAlignment = HorizontalAlignment.Left;
+                Plocha.Children.Add(i);
+            }
+
             switch (Hitboxy.hrac1Postava)
             {
                 case 0: Hitboxy.hrac1 = new Postava_1(Plocha, postava1, false, hrac1Details); break;

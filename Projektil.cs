@@ -82,10 +82,10 @@ namespace _2DFightingGame
 
             //Kolize se soupeřem
             Thickness poziceSouper = souperImg.Margin;
-            if (pozice.Left+(img.Width/2) > poziceSouper.Left + (souperImg.Width/2-40) && pozice.Left+ (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom > poziceSouper.Bottom && pozice.Bottom < poziceSouper.Bottom + souperImg.Height-20)
+            if (pozice.Left + (img.Width / 2) > poziceSouper.Left + (souperImg.Width / 2 - 40) && pozice.Left + (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom > poziceSouper.Bottom && pozice.Bottom < poziceSouper.Bottom + souperImg.Height - 20)
             {
                 souper.Poskozeni(10);
-                if(rychlost > 0)
+                if (rychlost > 0)
                 {
                     souper.Odrazeni(20);
                 }
@@ -112,31 +112,23 @@ namespace _2DFightingGame
         Image souperImg;
         bool zastaveno = false;
 
-        public Tornado(Image postava, bool smer)
+        public Tornado(Postava postava, bool smer)
         {
-            this.postava = postava;
-            if (postava == Hitboxy.hrac1.getImg())
-            {
-                souperImg = Hitboxy.hrac2.getImg();
-                souper = Hitboxy.hrac2;
-            }
-            else
-            {
-                souperImg = Hitboxy.hrac1.getImg();
-                souper = Hitboxy.hrac1;
-            }
+            this.postava = postava.getImg();
+            souper = Hitboxy.getSouper(postava);
+            souperImg = souper.getImg();
 
-            Thickness pozice = postava.Margin;
+            Thickness pozice = this.postava.Margin;
             img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tornado.png"));
             if (smer)
             {
-                pozice.Left += 200;
+                pozice.Left += 0;
             }
             else
             {
-                pozice.Left -= 80;
+                pozice.Left -= 0;
             }
-            pozice.Bottom = 180;
+            pozice.Bottom -= 50;
             img.Width = 200;
             img.Height = 300;
             img.VerticalAlignment = VerticalAlignment.Bottom;
@@ -152,8 +144,8 @@ namespace _2DFightingGame
             Thickness pozice = img.Margin;
             if (!zastaveno)
             {
-            pozice.Left += rychlost;
-            img.Margin = pozice;
+                pozice.Left += rychlost;
+                img.Margin = pozice;
             }
 
             //Označení výstřelu mimo obraz jako neaktivní
@@ -161,7 +153,7 @@ namespace _2DFightingGame
 
             //Kolize se soupeřem
             Thickness poziceSouper = souperImg.Margin;
-            if (!zastaveno && pozice.Left + (img.Width / 2) > poziceSouper.Left + (souperImg.Width / 2 - 40) && pozice.Left + (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom+300 > poziceSouper.Bottom+100)
+            if (!zastaveno && pozice.Left + (img.Width / 2) > poziceSouper.Left + (souperImg.Width / 2 - 40) && pozice.Left + (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom - 100 < poziceSouper.Bottom && pozice.Bottom + img.Height + 100 > poziceSouper.Bottom + souperImg.Height)
             {
                 zastaveno = true;
                 souper.Poskozeni(10);
@@ -184,15 +176,20 @@ namespace _2DFightingGame
         List<BitmapImage> animace = new List<BitmapImage>();
         int cisloFrame = 0;
 
-        public TNT(Image postava)
+        public Image getImg()
         {
-            pozice = postava.Margin;
+            return img;
+        }
+
+        public TNT(Postava postava)
+        {
+            pozice = postava.getImg().Margin;
             img.Height = 150;
             img.Width = 150;
             img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/1.png"));
             img.HorizontalAlignment = HorizontalAlignment.Left;
             img.VerticalAlignment = VerticalAlignment.Bottom;
-            img.Margin = new Thickness(pozice.Left, pozice.Top, pozice.Right, 211);
+            img.Margin = new Thickness(pozice.Left, pozice.Top, pozice.Right, pozice.Bottom);
 
             animace.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/1.png")));
             animace.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/10.png")));
@@ -207,20 +204,34 @@ namespace _2DFightingGame
             Thickness postava2Pozice = Hitboxy.hrac2.getImg().Margin;
             if (getAktivni())
             {
+                Thickness poziceTNT = img.Margin;
+                //Gravitace
+                if (Hitboxy.MuzePadat(this) >= 1)
+                {
+                    int pad = Hitboxy.MuzePadat(this);
+                    if (pad == 1) poziceTNT.Bottom -= 25;
+                    else
+                    {
+                        poziceTNT.Bottom = pad;
+                    }
+                }
+
+                img.Margin = poziceTNT;
                 switch (cisloFrame)
                 {
                     case 0: img.Source = animace[0]; break;
                     case 15: img.Source = animace[1]; break;
                     case 30: img.Source = animace[2]; break;
                     case 45: img.Source = animace[3]; break;
-                    case 60: img.Source = animace[4];
-                        if (pozice.Left > postava1Pozice.Left - 350 && pozice.Left < postava1Pozice.Left + 350)
+                    case 60:
+                        img.Source = animace[4];
+                        if (pozice.Left > postava1Pozice.Left - 350 && pozice.Left < postava1Pozice.Left + 350 && poziceTNT.Bottom- 200 < postava1Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava1Pozice.Bottom + Hitboxy.hrac1.getImg().Height)
                         {
                             Hitboxy.hrac1.Poskozeni(20);
                             if (pozice.Left + 200 > postava1Pozice.Left + 120) Hitboxy.hrac1.Odrazeni(-45);
                             else Hitboxy.hrac1.Odrazeni(45);
                         }
-                        if (pozice.Left > postava2Pozice.Left - 350 && pozice.Left < postava2Pozice.Left + 350)
+                        if (pozice.Left > postava2Pozice.Left - 350 && pozice.Left < postava2Pozice.Left + 350 && poziceTNT.Bottom - 200 < postava2Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava2Pozice.Bottom + Hitboxy.hrac2.getImg().Height)
                         {
                             Hitboxy.hrac2.Poskozeni(20);
                             if (pozice.Left + 200 > postava2Pozice.Left + 120) Hitboxy.hrac2.Odrazeni(-45);
@@ -257,7 +268,7 @@ namespace _2DFightingGame
             int rozdil;
             if (smer) rozdil = 150;
             else rozdil = -150;
-            poziceX = souradniceX+rozdil;
+            poziceX = souradniceX + rozdil;
             poziceY = souradniceY;
 
             if (postava == Hitboxy.hrac1.getImg())
@@ -274,7 +285,7 @@ namespace _2DFightingGame
             }
 
             Thickness poziceSouper = souperImg.Margin;
-            if (poziceX > poziceSouper.Left - 100 && poziceX < poziceSouper.Left + 100 && poziceY < poziceSouper.Bottom+175 && poziceY > poziceSouper.Bottom - 150)
+            if (poziceX > poziceSouper.Left - 100 && poziceX < poziceSouper.Left + 100 && poziceY < poziceSouper.Bottom + 175 && poziceY > poziceSouper.Bottom - 150)
             {
                 souper.Poskozeni(15);
                 if (vyvolavaci.getImg().Margin.Left < souper.getImg().Margin.Left) souper.Odrazeni(30);
