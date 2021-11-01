@@ -8,6 +8,9 @@
         Title="2D Fighting Game" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" Background="Black">
     <Grid>
         <Grid x:Name="Plocha" Loaded="Plocha_Loaded">
+            <Grid.RenderTransform>
+                <ScaleTransform CenterX="0" CenterY="0" ScaleX="1" ScaleY="1"></ScaleTransform>
+            </Grid.RenderTransform>
         <Image Panel.ZIndex="-2" Source="/imgs/maps/map1/background.png"></Image>
 
         <Image x:Name="postava1" Width="120" Height="185" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
