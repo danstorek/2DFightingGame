@@ -17,3 +17,5 @@ C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGa
 C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\VyberPostav2Hraci.baml
 C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\HlavniMenu.g.cs
 C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\HlavniMenu.baml
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\VyberMapy.g.cs
+C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\VyberMapy.baml

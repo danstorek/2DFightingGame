@@ -17,6 +17,15 @@ namespace _2DFightingGame
         protected string jmeno;
 
         protected List<Updatable> aktivni_projektily = new List<Updatable>();
+        public void smazatProjektily()
+        {
+            foreach (Updatable i in aktivni_projektily)
+            {
+                gridPlocha.Children.Remove(i.ReturnImage());
+                i.Neaktivni();
+            }
+            aktivni_projektily.Clear();
+        }
 
         protected Label detaily;
         protected Image imgPostava;
@@ -95,7 +104,7 @@ namespace _2DFightingGame
             }
 
             //Skrčení
-            if (!veVzduchu && Hitboxy.MuzePadat(this) == 210 && !getZmrazen())
+            if (!veVzduchu && Hitboxy.MuzePadat(this) == Hitboxy.platformy[Hitboxy.platformy.Count-1].Margin.Bottom + 10 && !getZmrazen())
             {
                 int pad = Hitboxy.MuzePadat(this);
                 if (skrceni)
@@ -109,7 +118,7 @@ namespace _2DFightingGame
                     pozice.Bottom = pad;
                 }
             }
-            else if(!veVzduchu && Hitboxy.MuzePadat(this) != 210 && Hitboxy.MuzePadat(this) != 1 && skrceni && !getZmrazen())
+            else if(!veVzduchu && Hitboxy.MuzePadat(this) != Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom + 10 && Hitboxy.MuzePadat(this) != 1 && skrceni && !getZmrazen())
             {
                 pozice.Bottom -= 25;
             }
@@ -184,6 +193,10 @@ namespace _2DFightingGame
         public int getHP()
         {
             return hp;
+        }
+        public void setHP(int hp)
+        {
+            this.hp = hp;
         }
         public void setVlevo(bool hodnota)
         {
@@ -261,12 +274,12 @@ namespace _2DFightingGame
     {
         Image muzzleflash = new Image();
 
-        int naboje = 7;
+        int naboje = 12;
         DateTime cooldownPrebiti = DateTime.Now;
         DateTime muzzleTimer = DateTime.Now;
         public Postava_1(Grid plocha, Image postava, bool strana, Label detaily)
         {
-            cooldownUtok1Max = 400;
+            cooldownUtok1Max = 300;
             cooldownUtok2Max = 1200;
 
             this.maxRychlost = 20;
@@ -319,7 +332,7 @@ namespace _2DFightingGame
             //Přebíjení
             if (naboje == 0 && DateTime.Now > cooldownPrebiti)
             {
-                naboje = 7;
+                naboje = 12;
                 this.detaily.Content = naboje;
             }
             Thickness pozice = imgPostava.Margin;
@@ -430,6 +443,7 @@ namespace _2DFightingGame
             imgKatana.Width = 320;
             imgKatana.Height = 440;
             gridPlocha.Children.Add(imgKatana);
+            Panel.SetZIndex(imgKatana, 3);
         }
 
         public override void setSkrceni(bool hodnota)

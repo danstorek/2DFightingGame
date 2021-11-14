@@ -61,6 +61,10 @@
     <Compile Include="HlavniMenu.xaml.cs">
       <DependentUpon>HlavniMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Mapy.cs" />
+    <Compile Include="VyberMapy.xaml.cs">
+      <DependentUpon>VyberMapy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VyberPostav2Hraci.xaml.cs">
       <DependentUpon>VyberPostav2Hraci.xaml</DependentUpon>
     </Compile>
@@ -81,6 +85,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="VyberMapy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="VyberPostav2Hraci.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -197,6 +205,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imgs\maps\map1\platform1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\maps\map2\background.png" />
+    <Resource Include="imgs\maps\map2\platform1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
