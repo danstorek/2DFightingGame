@@ -442,8 +442,8 @@ namespace _2DFightingGame
             else imgKatana.Source = katana_animace_right[0];
             imgKatana.Width = 320;
             imgKatana.Height = 440;
+            Panel.SetZIndex(imgKatana, 2);
             gridPlocha.Children.Add(imgKatana);
-            Panel.SetZIndex(imgKatana, 3);
         }
 
         public override void setSkrceni(bool hodnota)
@@ -505,13 +505,13 @@ namespace _2DFightingGame
             if (!smer)
             {
                 imgKatana.Source = katana_animace_left[katana_animace_index];
-                Panel.SetZIndex(imgKatana, -1);
+                Panel.SetZIndex(imgKatana, 2);
                 pozice.Left -= 150;
             }
             else
             {
                 imgKatana.Source = katana_animace_right[katana_animace_index];
-                Panel.SetZIndex(imgKatana, 1);
+                Panel.SetZIndex(imgKatana, 2);
                 pozice.Left -= 50;
             }
             imgKatana.Margin = pozice;
