@@ -5,11 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace _2DFightingGame
 {
     static class Hitboxy
     {
+        public static int aktivniKolo = 0;
+        public static int[] kola = new int[3] { 0,0,0 };
+
         public static string hrac1Jmeno;
         public static string hrac2Jmeno;
 
@@ -32,12 +37,13 @@ namespace _2DFightingGame
         }
 
         public static List<Image> platformy;
+        public static BitmapImage pozadiMapa;
 
         public static int MuzePadat(Postava hrac)
         {
             int tmp = 0;
             Thickness pozice = hrac.getImg().Margin;
-            if (pozice.Bottom < 190) return 210;
+            if (pozice.Bottom < Convert.ToInt32(Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom - 10)) return Convert.ToInt32(Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom + 10);
             foreach (Image platforma in platformy)
             {
                 if (pozice.Left+(hrac.getImg().Height/2) > platforma.Margin.Left && pozice.Left < platforma.Margin.Left + platforma.Width)
@@ -60,7 +66,7 @@ namespace _2DFightingGame
         {
             int tmp = 0;
             Thickness pozice = tnt.getImg().Margin;
-            if (pozice.Bottom < 190) return 210;
+            if (pozice.Bottom < 190) return Convert.ToInt32(Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom + 10);
             foreach (Image platforma in platformy)
             {
                 if (pozice.Left + (tnt.getImg().Height / 2) > platforma.Margin.Left && pozice.Left < platforma.Margin.Left + platforma.Width)

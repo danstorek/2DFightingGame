@@ -54,8 +54,8 @@ namespace _2DFightingGame
                 Hitboxy.hrac2Postava = (int)selectedHrac2.Tag;
 
                 tmr.Stop();
-                MainWindow hra = new MainWindow();
-                hra.Show();
+                VyberMapy vybermapy = new VyberMapy();
+                vybermapy.Show();
                 System.Threading.Thread.Sleep(50);
                 this.Close();
             }

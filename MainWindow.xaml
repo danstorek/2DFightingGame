@@ -8,14 +8,17 @@
         Title="2D Fighting Game" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" Background="Black">
     <Grid>
         <Grid x:Name="Plocha" Loaded="Plocha_Loaded">
-        <Image Panel.ZIndex="-2" Source="/imgs/maps/map1/background.png"></Image>
+        <Image x:Name="pozadiMapa" Panel.ZIndex="-2" Source="/imgs/maps/map1/background.png"></Image>
 
-        <Image x:Name="postava1" Width="120" Height="185" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
-        <Image x:Name="postava2" Width="120" Height="185" Margin="1700,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
+        <Image x:Name="postava1" Width="120" Height="185" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="2"></Image>
+            <Image x:Name="postava2" Width="120" Height="185" Margin="1700,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="2"></Image>
         <Image x:Name="damage1" Opacity="0" Source="imgs/chars/damage.png" Width="120" Height="185" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
         <Image x:Name="damage2" Opacity="0" Source="imgs/chars/damage.png" Width="120" Height="185" Margin="1700,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="0,980,0,0" Stroke="Black" VerticalAlignment="Top" Width="604"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="1316,980,0,0" Stroke="Black" VerticalAlignment="Top" Width="604"/>
+        <Rectangle Fill="LightBlue" HorizontalAlignment="Left" Height="100" Margin="0,980,0,0" Stroke="Black" VerticalAlignment="Top" Width="604"/>
+        <Rectangle Fill="LightPink" HorizontalAlignment="Left" Height="100" Margin="1316,980,0,0" Stroke="Black" VerticalAlignment="Top" Width="604"/>
+        <Rectangle x:Name="round1" Fill="White" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="-200,0,0,0"></Rectangle>
+        <Rectangle x:Name="round3" Fill="White" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="200,0,0,0"></Rectangle>
+        <Rectangle x:Name="round2" Fill="White" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Rectangle>
         <Rectangle Name="postava1Utok1" Fill="Red" Height="64" Width="64" Margin="210,980,1646,36" HorizontalAlignment="Right"></Rectangle>
         <Rectangle Name="postava2Utok1" Fill="Red" Height="64" Width="64" Margin="210,980,329,36" HorizontalAlignment="Right"></Rectangle>
         <Rectangle Name="postava1Utok2" Fill="Red" Height="64" Width="64" Margin="210,980,1578,36" HorizontalAlignment="Right"></Rectangle>
@@ -67,7 +70,7 @@
     <Grid x:Name="gridVyhra" VerticalAlignment="Center" HorizontalAlignment="Center" Width="1100" Height="230" Opacity="0" Visibility="Hidden" Panel.ZIndex="999">
         <Label Name="textVyhra" FontSize="100" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Content="Hráč 1 vyhrál"></Label>
         <Label Name="textVyhra2" FontSize="103" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="SkyBlue" Content="Hráč 1 vyhrál"></Label>
-        <Button Width="400" Height="80" Content="Přejít do hlavního menu" FontSize="30" Margin="350,120,350,10" Click="Button_Click">
+        <Button x:Name="tlacVyhra" Width="400" Height="80" Content="Přejít do hlavního menu" FontSize="30" Margin="350,120,350,10" Click="Button_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="50"/>

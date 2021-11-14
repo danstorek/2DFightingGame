@@ -16,7 +16,7 @@ namespace _2DFightingGame
         bool aktivni = true;
         public abstract void Tick();
         public abstract Image ReturnImage();
-        protected void Neaktivni()
+        public void Neaktivni()
         {
             aktivni = false;
         }
@@ -285,7 +285,7 @@ namespace _2DFightingGame
             }
 
             Thickness poziceSouper = souperImg.Margin;
-            if (poziceX > poziceSouper.Left - 100 && poziceX < poziceSouper.Left + 100 && poziceY < poziceSouper.Bottom + 175 && poziceY > poziceSouper.Bottom - 150)
+            if (poziceX > poziceSouper.Left - 150 && poziceX < poziceSouper.Left + 150 && poziceY < poziceSouper.Bottom + 100 && poziceY > poziceSouper.Bottom - 300)
             {
                 souper.Poskozeni(15);
                 if (vyvolavaci.getImg().Margin.Left < souper.getImg().Margin.Left) souper.Odrazeni(30);
