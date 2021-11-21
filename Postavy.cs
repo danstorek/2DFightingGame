@@ -30,6 +30,7 @@ namespace _2DFightingGame
         protected Label detaily;
         protected Image imgPostava;
         protected Image imgDamage = new Image();
+        protected Image imgHPRegen = new Image();
         protected Grid gridPlocha;
         protected int hp = 100;
         protected bool vlevo = false;
@@ -48,6 +49,7 @@ namespace _2DFightingGame
         protected int cooldownUtok1Max;
         protected int cooldownUtok2Max;
         protected int poskozeniTimer = 0;
+        protected int regenTimer = 0;
         protected DateTime zmrazen = DateTime.Now;
 
         protected int pohybX = 0;
@@ -59,13 +61,13 @@ namespace _2DFightingGame
         protected void Pohyb(Thickness pozice)
         {
             //Pohyb - hráč 1
-            if (vpravo && !skrceni)
+            if (vpravo)
             {
                 if (pohybX < maxRychlost && !skrceni) pohybX += maxRychlost / 10;
                 imgPostava.Source = animace_right[animace_index];
                 smer = true;
             }
-            else if (vlevo && !skrceni)
+            else if (vlevo)
             {
                 if (pohybX > (0 - maxRychlost) && !skrceni) pohybX -= maxRychlost / 10;
                 imgPostava.Source = animace_left[animace_index];
@@ -95,30 +97,16 @@ namespace _2DFightingGame
             {
                 if (pohybX > 0)
                 {
-                    if (pozice.Left + pohybX < 1800 && (pozice.Left + pohybX < Hitboxy.getSouper(this).getImg().Margin.Left-100 || pozice.Left > Hitboxy.getSouper(this).getImg().Margin.Left || pozice.Bottom < Hitboxy.getSouper(this).getImg().Margin.Bottom -50 || pozice.Bottom > Hitboxy.getSouper(this).getImg().Margin.Bottom+50)) pozice.Left += pohybX;
+                    if (pozice.Left + pohybX < 1800 && (pozice.Left + pohybX < Hitboxy.getSouper(this).getImg().Margin.Left - 100 || pozice.Left > Hitboxy.getSouper(this).getImg().Margin.Left || pozice.Bottom < Hitboxy.getSouper(this).getImg().Margin.Bottom - 50 || pozice.Bottom > Hitboxy.getSouper(this).getImg().Margin.Bottom + 50)) pozice.Left += pohybX;
                 }
                 else
                 {
-                    if (pozice.Left + pohybX > -70 && (pozice.Left + pohybX + getImg().Width > Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width+100 || pozice.Left + getImg().Width < Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width || pozice.Bottom < Hitboxy.getSouper(this).getImg().Margin.Bottom - 50 || pozice.Bottom > Hitboxy.getSouper(this).getImg().Margin.Bottom + 50)) pozice.Left += pohybX;
+                    if (pozice.Left + pohybX > -70 && (pozice.Left + pohybX + getImg().Width > Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width + 100 || pozice.Left + getImg().Width < Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width || pozice.Bottom < Hitboxy.getSouper(this).getImg().Margin.Bottom - 50 || pozice.Bottom > Hitboxy.getSouper(this).getImg().Margin.Bottom + 50)) pozice.Left += pohybX;
                 }
             }
 
             //Skrčení
-            if (!veVzduchu && Hitboxy.MuzePadat(this) == Hitboxy.platformy[Hitboxy.platformy.Count-1].Margin.Bottom + 10 && !getZmrazen())
-            {
-                int pad = Hitboxy.MuzePadat(this);
-                if (skrceni)
-                {
-                    pozice.Bottom = Hitboxy.MuzePadat(this) - 50;
-                    if (smer) imgPostava.Source = animace_right[animace_right.Count - 1];
-                    else imgPostava.Source = animace_left[animace_right.Count - 1];
-                }
-                else if (pad != 1)
-                {
-                    pozice.Bottom = pad;
-                }
-            }
-            else if(!veVzduchu && Hitboxy.MuzePadat(this) != Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom + 10 && Hitboxy.MuzePadat(this) != 1 && skrceni && !getZmrazen())
+            if (!veVzduchu && Hitboxy.MuzePadat(this) != Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 54 && Hitboxy.MuzePadat(this) != 1 && skrceni && !getZmrazen())
             {
                 pozice.Bottom -= 25;
             }
@@ -127,7 +115,7 @@ namespace _2DFightingGame
             //Skok - hráč 1
             if (skokTrigger && !skrceni && !getZmrazen())
             {
-                if (!veVzduchu)
+                if (!veVzduchu && Hitboxy.MuzePadat(this) != 1)
                 {
                     veVzduchu = true;
                     skok = true;
@@ -151,13 +139,14 @@ namespace _2DFightingGame
                 {
                     int pad = Hitboxy.MuzePadat(this);
                     if (pad == 1) pozice.Bottom -= 25;
-                    else if(!skrceni)
+                    else if (!skrceni)
                     {
                         pozice.Bottom = pad;
                         veVzduchu = false;
                     }
                 }
             }
+            if (pozice.Bottom < -40 && pozice.Bottom > -70) this.Poskozeni(100);
             imgPostava.Margin = pozice;
         }
         public void setJmeno(string jmeno)
@@ -238,6 +227,14 @@ namespace _2DFightingGame
             hp -= rozdil;
             poskozeniTimer = 10;
         }
+
+        //Regenerace HP
+        public void Regen(int rozdil)
+        {
+            hp += rozdil;
+            if (hp > 100) hp = 100;
+            regenTimer = 10;
+        }
         //Aktualizace aktivních projektilů ve hře
         public void aktualizujProjektily()
         {
@@ -257,6 +254,15 @@ namespace _2DFightingGame
             imgDamage.VerticalAlignment = VerticalAlignment.Bottom;
             Panel.SetZIndex(imgDamage, 2);
             gridPlocha.Children.Add(imgDamage);
+
+            imgHPRegen.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/hpregen.png"));
+            imgHPRegen.Opacity = 0;
+            imgHPRegen.Width = 120;
+            imgHPRegen.Height = 185;
+            imgHPRegen.HorizontalAlignment = HorizontalAlignment.Left;
+            imgHPRegen.VerticalAlignment = VerticalAlignment.Bottom;
+            Panel.SetZIndex(imgHPRegen, 2);
+            gridPlocha.Children.Add(imgHPRegen);
         }
         protected void AktualizujDmgIndikator()
         {
@@ -267,6 +273,14 @@ namespace _2DFightingGame
                 poskozeniTimer--;
             }
             else if (imgDamage.Opacity > 0) imgDamage.Opacity -= 0.1;
+
+            imgHPRegen.Margin = imgPostava.Margin;
+            if (regenTimer > 0 && imgHPRegen.Opacity < 1)
+            {
+                imgHPRegen.Opacity += 0.1;
+                regenTimer--;
+            }
+            else if (imgHPRegen.Opacity > 0) imgHPRegen.Opacity -= 0.1;
         }
     }
 

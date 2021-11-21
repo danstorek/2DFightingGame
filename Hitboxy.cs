@@ -12,8 +12,10 @@ namespace _2DFightingGame
 {
     static class Hitboxy
     {
+        public static Random rnd = new Random();
+
         public static int aktivniKolo = 0;
-        public static int[] kola = new int[3] { 0,0,0 };
+        public static int[] kola = new int[3] { 0, 0, 0 };
 
         public static string hrac1Jmeno;
         public static string hrac2Jmeno;
@@ -28,7 +30,7 @@ namespace _2DFightingGame
         {
             if (postava == hrac1)
             {
-                return  hrac2;
+                return hrac2;
             }
             else
             {
@@ -38,7 +40,7 @@ namespace _2DFightingGame
 
         public static List<Image> platformy;
         public static BitmapImage pozadiMapa;
-
+        public static List<Bonus> bonusy;
         public static int MuzePadat(Postava hrac)
         {
             int tmp = 0;
@@ -46,7 +48,7 @@ namespace _2DFightingGame
             if (pozice.Bottom < Convert.ToInt32(Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom - 10)) return Convert.ToInt32(Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom + 10);
             foreach (Image platforma in platformy)
             {
-                if (pozice.Left+(hrac.getImg().Height/2) > platforma.Margin.Left && pozice.Left < platforma.Margin.Left + platforma.Width)
+                if (pozice.Left + (hrac.getImg().Height / 2) > platforma.Margin.Left && pozice.Left < platforma.Margin.Left + platforma.Width)
                 {
                     if (pozice.Bottom > platforma.Margin.Bottom + platforma.Height + 25)
                     {
@@ -66,7 +68,7 @@ namespace _2DFightingGame
         {
             int tmp = 0;
             Thickness pozice = tnt.getImg().Margin;
-            if (pozice.Bottom < 190) return Convert.ToInt32(Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom + 10);
+            if (pozice.Bottom <= Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom+54) return Convert.ToInt32(Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 54);
             foreach (Image platforma in platformy)
             {
                 if (pozice.Left + (tnt.getImg().Height / 2) > platforma.Margin.Left && pozice.Left < platforma.Margin.Left + platforma.Width)
