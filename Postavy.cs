@@ -115,7 +115,7 @@ namespace _2DFightingGame
             //Skok - hráč 1
             if (skokTrigger && !skrceni && !getZmrazen())
             {
-                if (!veVzduchu)
+                if (!veVzduchu && Hitboxy.MuzePadat(this) != 1)
                 {
                     veVzduchu = true;
                     skok = true;

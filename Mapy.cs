@@ -46,6 +46,48 @@ namespace _2DFightingGame
 
                 case 1:
                     Hitboxy.platformy.Add(new Image());
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map2/platform1.png"));
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 430;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 54;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(0, 0, 0, 720);
+
+                    Hitboxy.platformy.Add(new Image());
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map2/platform1.png"));
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 430;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 54;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(743, 0, 0, 720);
+
+                    Hitboxy.platformy.Add(new Image());
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map2/platform1.png"));
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 430;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 54;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(1490, 0, 0, 720);
+
+                    Hitboxy.platformy.Add(new Image());
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map2/platform1.png"));
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 751;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 54;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(585, 0, 0, 530);
+
+                    Hitboxy.platformy.Add(new Image());
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map2/platform1.png"));
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 430;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 54;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(0, 0, 0, 340);
+
+                    Hitboxy.platformy.Add(new Image());
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map2/platform1.png"));
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 430;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 54;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(743, 0, 0, 340);
+
+                    Hitboxy.platformy.Add(new Image());
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map2/platform1.png"));
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 430;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 54;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(1490, 0, 0, 340);
+
+                    Hitboxy.platformy.Add(new Image());
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map3/platform1.png"));
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 751;
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 54;

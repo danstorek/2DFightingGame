@@ -252,7 +252,7 @@ namespace _2DFightingGame
                             if (!i.sebrano)
                             {
                                 i.sebrano = true;
-                                Plocha.Children.Add(i.getIkona());
+                                Plocha.Children.Remove(i.getIkona());
                             }
 
                         }
