@@ -25,6 +25,7 @@ namespace _2DFightingGame
         DispatcherTimer tmr = new DispatcherTimer();
         BitmapImage[] mapy = new BitmapImage[] {
             new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map2/background.png")),
+            new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map3/background.png")),
             new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map1/background.png"))
         };
         public VyberMapy()

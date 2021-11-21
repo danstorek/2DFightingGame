@@ -1,7 +1,7 @@
 ﻿2DFightingGame
 
 
-winexe
+exe
 C#
 .cs
 C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\
@@ -12,7 +12,7 @@ DEBUG;TRACE
 C:\Users\danst\OneDrive\Dokumenty\škola\mat_projekt\2DFightingGame\2DFightingGame\App.xaml
 4-609618922
 
-121974085613
+13546405224
 13-1505183044
 HlavniMenu.xaml;MainWindow.xaml;VyberMapy.xaml;VyberPostav2Hraci.xaml;
 

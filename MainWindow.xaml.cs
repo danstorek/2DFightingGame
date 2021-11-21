@@ -19,6 +19,7 @@ namespace _2DFightingGame
 {
     public partial class MainWindow : Window
     {
+        DateTime dalsiBonus;
         DateTime dalsiKolo;
         int aktivni = 0;
         bool napoveda = true;
@@ -31,6 +32,8 @@ namespace _2DFightingGame
 
         private void Plocha_Loaded(object sender, RoutedEventArgs e)
         {
+            Hitboxy.bonusy = new List<Bonus>();
+
             pozadiMapa.Source = Hitboxy.pozadiMapa;
 
             foreach (Image i in Hitboxy.platformy)
@@ -53,8 +56,8 @@ namespace _2DFightingGame
                 case 1: Hitboxy.hrac2 = new Postava_2(Plocha, postava2, false, hrac2Details); break;
             }
 
-            Hitboxy.hrac1.getImg().Margin = new Thickness(0, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom);
-            Hitboxy.hrac2.getImg().Margin = new Thickness(1700, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom);
+            Hitboxy.hrac1.getImg().Margin = new Thickness(0, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
+            Hitboxy.hrac2.getImg().Margin = new Thickness(1700, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
 
             Hitboxy.hrac1.setJmeno(Hitboxy.hrac1Jmeno);
             Hitboxy.hrac2.setJmeno(Hitboxy.hrac2Jmeno);
@@ -77,6 +80,8 @@ namespace _2DFightingGame
 
             if (Hitboxy.kola[2] == 1) round3.Fill = Brushes.Blue;
             else if (Hitboxy.kola[2] == 2) round3.Fill = Brushes.Red;
+
+            dalsiBonus = DateTime.Now + TimeSpan.FromMilliseconds(Hitboxy.rnd.Next(5000, 10000));
 
             gameTick.Interval = TimeSpan.FromMilliseconds(1000 / 60);
             gameTick.Tick += GameTick_Tick;
@@ -103,6 +108,24 @@ namespace _2DFightingGame
                     Hitboxy.hrac2.setSkokTrigger(false);
                     Hitboxy.hrac2.setUtok1(false);
                     Hitboxy.hrac2.setUtok2(false);
+                }
+
+                //Spawn bonusů
+                if (DateTime.Now > dalsiBonus)
+                {
+                    switch (Hitboxy.rnd.Next(1, 2))
+                    {
+                        case 1: Hitboxy.bonusy.Add(new HP()); Plocha.Children.Add(Hitboxy.bonusy[Hitboxy.bonusy.Count - 1].getIkona()); break;
+                    }
+
+                    dalsiBonus = DateTime.Now + TimeSpan.FromMilliseconds(Hitboxy.rnd.Next(5000, 10000));
+                }
+
+                //Obnovení bonusů
+                foreach (Bonus i in Hitboxy.bonusy)
+                {
+                    if (!i.sebrano) i.Sebrani();
+                    else Plocha.Children.Remove(i.getIkona());
                 }
 
 
@@ -204,7 +227,7 @@ namespace _2DFightingGame
                 else aktivni++;
             }
 
-            if(aktivni > 1)
+            if (aktivni > 1)
             {
                 if (Plocha.Opacity > 0.5)
                 {
@@ -222,11 +245,23 @@ namespace _2DFightingGame
                     {
                         aktivni = 0;
                         //Další kolo
+                        dalsiBonus = DateTime.Now + TimeSpan.FromMilliseconds(Hitboxy.rnd.Next(5000, 10000));
+
+                        foreach (Bonus i in Hitboxy.bonusy)
+                        {
+                            if (!i.sebrano)
+                            {
+                                i.sebrano = true;
+                                Plocha.Children.Add(i.getIkona());
+                            }
+
+                        }
+
                         Hitboxy.hrac1.smazatProjektily();
                         Hitboxy.hrac2.smazatProjektily();
 
-                        Hitboxy.hrac1.getImg().Margin = new Thickness(0, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom);
-                        Hitboxy.hrac2.getImg().Margin = new Thickness(1700, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom);
+                        Hitboxy.hrac1.getImg().Margin = new Thickness(0, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
+                        Hitboxy.hrac2.getImg().Margin = new Thickness(1700, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
 
                         Hitboxy.hrac1.setHP(100);
                         Hitboxy.hrac2.setHP(100);
@@ -306,10 +341,10 @@ namespace _2DFightingGame
                 case Key.Up:
                     Hitboxy.hrac1.setSkokTrigger(true);
                     break;
-                case Key.M:
+                case Key.N:
                     Hitboxy.hrac1.setUtok1(true);
                     break;
-                case Key.N:
+                case Key.M:
                     Hitboxy.hrac1.setUtok2(true);
                     break;
 
@@ -353,10 +388,10 @@ namespace _2DFightingGame
                 case Key.Down:
                     Hitboxy.hrac1.setSkrceni(false);
                     break;
-                case Key.M:
+                case Key.N:
                     Hitboxy.hrac1.setUtok1(false);
                     break;
-                case Key.N:
+                case Key.M:
                     Hitboxy.hrac1.setUtok2(false);
                     break;
 

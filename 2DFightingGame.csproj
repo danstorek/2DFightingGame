@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Bonusy.cs" />
     <Compile Include="HlavniMenu.xaml.cs">
       <DependentUpon>HlavniMenu.xaml</DependentUpon>
     </Compile>
@@ -209,6 +210,16 @@
   <ItemGroup>
     <Resource Include="imgs\maps\map2\background.png" />
     <Resource Include="imgs\maps\map2\platform1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\maps\map3\background.png" />
+    <Resource Include="imgs\maps\map3\platform1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\bonuses\hp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\hpregen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
