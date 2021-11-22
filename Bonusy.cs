@@ -35,12 +35,12 @@ namespace _2DFightingGame
         }
         public override void Sebrani()
         {
-            if(Hitboxy.hrac1.getImg().Margin.Left > ikona.Margin.Left && Hitboxy.hrac1.getImg().Margin.Left < ikona.Margin.Left+ikona.Width && Hitboxy.hrac1.getImg().Margin.Bottom > ikona.Margin.Bottom-25 && Hitboxy.hrac1.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
+            if(Hitboxy.hrac1.getImg().Margin.Left + 100 > ikona.Margin.Left && Hitboxy.hrac1.getImg().Margin.Left < ikona.Margin.Left + 100 && Hitboxy.hrac1.getImg().Margin.Bottom > ikona.Margin.Bottom-25 && Hitboxy.hrac1.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
             {
                 Hitboxy.hrac1.Regen(50);
                 sebrano = true;
             }
-            else if (Hitboxy.hrac2.getImg().Margin.Left > ikona.Margin.Left && Hitboxy.hrac2.getImg().Margin.Left < ikona.Margin.Left + ikona.Width && Hitboxy.hrac2.getImg().Margin.Bottom > ikona.Margin.Bottom - 25 && Hitboxy.hrac2.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
+            else if (Hitboxy.hrac2.getImg().Margin.Left + 100 > ikona.Margin.Left && Hitboxy.hrac2.getImg().Margin.Left < ikona.Margin.Left + 100 && Hitboxy.hrac2.getImg().Margin.Bottom > ikona.Margin.Bottom - 25 && Hitboxy.hrac2.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
             {
                 Hitboxy.hrac2.Regen(50);
                 sebrano = true;
