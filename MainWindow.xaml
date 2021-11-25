@@ -78,5 +78,22 @@
             </Button.Resources>
         </Button>
     </Grid>
+        <Grid x:Name="pauseMenu" Opacity="0.8" Visibility="Hidden" Background="Black">
+            <Label Foreground="White" FontSize="80" FontWeight="Bold" Content="Hra pozastavena" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,200,0,0"/>
+            <Button x:Name="tlacPokracovat" Width="400" Height="80" Content="Pokračovat" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,500,0,0" Click="tlacPokracovat_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="50"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="tlacUkoncit" Width="400" Height="80" Content="Přejít do hlavního menu" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,600,0,0" Click="tlacUkoncit_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="50"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
     </Grid>
 </Window>
