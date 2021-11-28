@@ -6,6 +6,31 @@
         xmlns:local="clr-namespace:_2DFightingGame"
         mc:Ignorable="d"
         Title="2D Fighting Game" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize">
+    <Window.Resources>
+        <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        BorderThickness="0"
+                        Padding="4,2" 
+                        BorderBrush="DarkGray" 
+                        CornerRadius="3" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid x:Name="gridVyber" Background="#333333">
         <Rectangle Width="4" Height="750" Fill="White"></Rectangle>
         <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="Výběr postav"></Label>
@@ -20,13 +45,10 @@
         <Label Name="lblReady2" Visibility="Hidden" Opacity="0" Content="READY" Width="582" FontSize="150" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="1150,438,188,410"/>
         <TextBox x:Name="jmenoHrac2" TextWrapping="Wrap" Text="Hráč 2" Margin="967,780,-9,155" Background="#333333" FontSize="50" MaxLength="10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <TextBox x:Name="jmenoHrac1" TextWrapping="Wrap" Text="Hráč 1" Margin="0,780,968,155" Background="#333333" FontSize="50" MaxLength="10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button Width="400" Height="80" Content="Zpět do hlavního menu" FontSize="30" HorizontalAlignment="Center" Margin="0,959,0,41" Click="Navrat">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="50"/>
-                </Style>
-            </Button.Resources>
+        <Button Style="{StaticResource MyButtonStyle}" Width="500" Height="160" Content="Zpět do hlavního menu" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="710,933,710,-13" Click="Navrat">
+            <Button.Background>
+                <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
+            </Button.Background>
         </Button>
-
     </Grid>
 </Window>

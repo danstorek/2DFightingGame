@@ -6,6 +6,31 @@
         xmlns:local="clr-namespace:_2DFightingGame"
         mc:Ignorable="d"
         Title="2D Fighting Game" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize">
+    <Window.Resources>
+        <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        BorderThickness="0"
+                        Padding="4,2" 
+                        BorderBrush="DarkGray" 
+                        CornerRadius="3" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid x:Name="gridVyber" Background="#333333">
         <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="Výběr mapy"></Label>
         <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="Výběr mapy"></Label>
@@ -13,13 +38,10 @@
         <Label Content="→" Tag="mapavpravo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="1732,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
         <Image x:Name="selectedMap" HorizontalAlignment="Left" Height="720" Margin="320,205,0,0" VerticalAlignment="Top" Width="1280" MouseDown="selectedHrac1_MouseDown"/>
         <Label Name="mapReady" Visibility="Hidden" Opacity="0" Content="VYBRÁNO" FontSize="150" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="320,432,320,403"/>
-        <Button Width="400" Height="80" Content="Zpět do hlavního menu" FontSize="30" HorizontalAlignment="Center" Margin="0,959,0,41" Click="Navrat">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="50"/>
-                </Style>
-            </Button.Resources>
+        <Button Style="{StaticResource MyButtonStyle}" Width="500" Height="160" Content="Zpět do hlavního menu" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="710,933,710,-13" Click="Navrat">
+            <Button.Background>
+                <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
+            </Button.Background>
         </Button>
-
     </Grid>
 </Window>
