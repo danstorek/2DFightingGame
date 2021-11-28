@@ -32,23 +32,19 @@ namespace _2DFightingGame
         Image img = new Image();
         Image postava;
         Postava souper;
+        Postava vyvolavaci;
         Image souperImg;
 
-        public Fireball(Image postava, bool smer)
+        public Fireball(Postava postava, bool smer)
         {
-            this.postava = postava;
-            if (postava == Hitboxy.hrac1.getImg())
-            {
-                souperImg = Hitboxy.hrac2.getImg();
-                souper = Hitboxy.hrac2;
-            }
-            else
-            {
-                souperImg = Hitboxy.hrac1.getImg();
-                souper = Hitboxy.hrac1;
-            }
+            this.vyvolavaci = postava;
+            this.postava = postava.getImg();
+            this.souper = Hitboxy.getSouper(postava);
+            this.souperImg = this.souper.getImg();
 
-            Thickness pozice = postava.Margin;
+            vyvolavaci.celkem += 1;
+
+            Thickness pozice = this.postava.Margin;
             if (smer)
             {
                 pozice.Left += 100;
@@ -84,7 +80,11 @@ namespace _2DFightingGame
             Thickness poziceSouper = souperImg.Margin;
             if (pozice.Left + (img.Width / 2) > poziceSouper.Left + (souperImg.Width / 2 - 40) && pozice.Left + (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom > poziceSouper.Bottom && pozice.Bottom < poziceSouper.Bottom + souperImg.Height - 20)
             {
-                souper.Poskozeni(10);
+                vyvolavaci.skore += 10;
+                vyvolavaci.uspesne += 1;
+                if(vyvolavaci.getSila()) souper.Poskozeni(20);
+                else souper.Poskozeni(10);
+
                 if (rychlost > 0)
                 {
                     souper.Odrazeni(20);
@@ -108,18 +108,23 @@ namespace _2DFightingGame
         int rychlost;
         Image img = new Image();
         Image postava;
+        Postava vyvolavaci;
         Postava souper;
         Image souperImg;
         bool zastaveno = false;
 
         public Tornado(Postava postava, bool smer)
         {
+            this.vyvolavaci = postava;
             this.postava = postava.getImg();
             souper = Hitboxy.getSouper(postava);
             souperImg = souper.getImg();
 
+            vyvolavaci.celkem += 1;
+
             Thickness pozice = this.postava.Margin;
             img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tornado.png"));
+            Panel.SetZIndex(img, 3);
             if (smer)
             {
                 pozice.Left += 0;
@@ -155,8 +160,11 @@ namespace _2DFightingGame
             Thickness poziceSouper = souperImg.Margin;
             if (!zastaveno && pozice.Left + (img.Width / 2) > poziceSouper.Left + (souperImg.Width / 2 - 40) && pozice.Left + (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom - 100 < poziceSouper.Bottom && pozice.Bottom + img.Height + 100 > poziceSouper.Bottom + souperImg.Height)
             {
+                vyvolavaci.skore += 15;
+                vyvolavaci.uspesne += 1;
                 zastaveno = true;
-                souper.Poskozeni(10);
+                if(vyvolavaci.getSila()) souper.Poskozeni(20);
+                else souper.Poskozeni(10);
                 souper.setZmrazen(1500);
             }
             if (zastaveno && !souper.getZmrazen()) Neaktivni();
@@ -172,6 +180,7 @@ namespace _2DFightingGame
     {
         Thickness pozice;
 
+        Postava vyvolavaci;
         Image img = new Image();
         List<BitmapImage> animace = new List<BitmapImage>();
         int cisloFrame = 0;
@@ -183,6 +192,10 @@ namespace _2DFightingGame
 
         public TNT(Postava postava)
         {
+            vyvolavaci = postava;
+
+            vyvolavaci.celkem += 1;
+
             pozice = postava.getImg().Margin;
             img.Height = 150;
             img.Width = 150;
@@ -227,13 +240,27 @@ namespace _2DFightingGame
                         img.Source = animace[4];
                         if (pozice.Left > postava1Pozice.Left - 350 && pozice.Left < postava1Pozice.Left + 350 && poziceTNT.Bottom- 200 < postava1Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava1Pozice.Bottom + Hitboxy.hrac1.getImg().Height)
                         {
-                            Hitboxy.hrac1.Poskozeni(20);
+                            if(Hitboxy.hrac1 != vyvolavaci)
+                            {
+                                vyvolavaci.skore += 15;
+                                vyvolavaci.uspesne += 1;
+                            }
+
+                            if(vyvolavaci.getSila()) Hitboxy.hrac1.Poskozeni(40);
+                            else Hitboxy.hrac1.Poskozeni(20);
                             if (pozice.Left + 200 > postava1Pozice.Left + 120) Hitboxy.hrac1.Odrazeni(-45);
                             else Hitboxy.hrac1.Odrazeni(45);
                         }
                         if (pozice.Left > postava2Pozice.Left - 350 && pozice.Left < postava2Pozice.Left + 350 && poziceTNT.Bottom - 200 < postava2Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava2Pozice.Bottom + Hitboxy.hrac2.getImg().Height)
                         {
-                            Hitboxy.hrac2.Poskozeni(20);
+                            if (Hitboxy.hrac2 != vyvolavaci)
+                            {
+                                vyvolavaci.skore += 15;
+                                vyvolavaci.uspesne += 1;
+                            }
+
+                            if (vyvolavaci.getSila()) Hitboxy.hrac2.Poskozeni(40);
+                            else Hitboxy.hrac2.Poskozeni(20);
                             if (pozice.Left + 200 > postava2Pozice.Left + 120) Hitboxy.hrac2.Odrazeni(-45);
                             else Hitboxy.hrac2.Odrazeni(45);
                         }
@@ -263,31 +290,27 @@ namespace _2DFightingGame
         Postava souper;
         Image souperImg;
 
-        public Katana_Hit(double souradniceX, double souradniceY, Image postava, bool smer)
+        public Katana_Hit(double souradniceX, double souradniceY, Postava postava, bool smer)
         {
             int rozdil;
             if (smer) rozdil = 150;
             else rozdil = -150;
-            poziceX = souradniceX + rozdil;
-            poziceY = souradniceY;
+            this.poziceX = souradniceX + rozdil;
+            this.poziceY = souradniceY;
 
-            if (postava == Hitboxy.hrac1.getImg())
-            {
-                souperImg = Hitboxy.hrac2.getImg();
-                souper = Hitboxy.hrac2;
-                vyvolavaci = Hitboxy.hrac1;
-            }
-            else
-            {
-                souperImg = Hitboxy.hrac1.getImg();
-                souper = Hitboxy.hrac1;
-                vyvolavaci = Hitboxy.hrac2;
-            }
+            this.vyvolavaci = postava;
+            this.souper = Hitboxy.getSouper(postava);
+            this.souperImg = souper.getImg();
+
+            vyvolavaci.celkem += 1;
 
             Thickness poziceSouper = souperImg.Margin;
             if (poziceX > poziceSouper.Left - 150 && poziceX < poziceSouper.Left + 150 && poziceY < poziceSouper.Bottom + 100 && poziceY > poziceSouper.Bottom - 300)
             {
-                souper.Poskozeni(15);
+                vyvolavaci.uspesne += 1;
+                vyvolavaci.skore += 10;
+                if(vyvolavaci.getSila()) souper.Poskozeni(30);
+                else souper.Poskozeni(15);
                 if (vyvolavaci.getImg().Margin.Left < souper.getImg().Margin.Left) souper.Odrazeni(30);
                 else souper.Odrazeni(-30);
             }

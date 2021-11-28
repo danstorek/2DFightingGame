@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Media;
 using System.Reflection;
@@ -43,6 +44,7 @@ namespace _2DFightingGame
         protected int skokPocet = 0;
         protected bool utok1 = false;
         protected bool utok2 = false;
+        protected int zakladniRychlost = 30;
         protected int maxRychlost = 30;
         protected DateTime cooldownUtok1 = DateTime.Now;
         protected DateTime cooldownUtok2 = DateTime.Now;
@@ -52,14 +54,62 @@ namespace _2DFightingGame
         protected int regenTimer = 0;
         protected DateTime zmrazen = DateTime.Now;
 
+        protected Stopwatch silaTimer = new Stopwatch();
+        protected Stopwatch rychlostTimer = new Stopwatch();
+
         protected int pohybX = 0;
         public abstract void Tick();
         protected List<BitmapImage> animace_left = new List<BitmapImage>();
         protected List<BitmapImage> animace_right = new List<BitmapImage>();
         protected int animace_index = 0;
         protected int tick_animace = 0;
+
+        //Statistiky
+        public int uspesne = 0;
+        public int celkem = 0;
+        public int skore = 0;
+
+        //Aktivace bonusů
+        protected void clearBonusy()
+        {
+            silaTimer.Reset();
+            rychlostTimer.Reset();
+        }
+        protected void checkBonusy()
+        {
+            if (silaTimer.ElapsedMilliseconds > 5000)
+            {
+                silaTimer.Reset();
+            }
+            if (rychlostTimer.ElapsedMilliseconds > 5000)
+            {
+                rychlostTimer.Reset();
+            }
+        }
+        public void sebratSila()
+        {
+            silaTimer.Restart();
+        }
+        public void sebratRychlost()
+        {
+            rychlostTimer.Restart();
+        }
+        public bool getSila()
+        {
+            if (silaTimer.IsRunning) return true;
+            return false;
+        }
+        public bool getRychlost()
+        {
+            if (rychlostTimer.IsRunning) return true;
+            return false;
+        }
+
         protected void Pohyb(Thickness pozice)
         {
+            if (getRychlost()) this.maxRychlost = Convert.ToInt32(this.zakladniRychlost * 1.5);
+            else this.maxRychlost = this.zakladniRychlost;
+
             //Pohyb - hráč 1
             if (vpravo)
             {
@@ -297,6 +347,7 @@ namespace _2DFightingGame
             cooldownUtok2Max = 1200;
 
             this.maxRychlost = 20;
+            this.zakladniRychlost = 20;
 
             imgPostava = postava;
             gridPlocha = plocha;
@@ -342,6 +393,7 @@ namespace _2DFightingGame
         }
         public override void Tick()
         {
+            checkBonusy();
             AktualizujDmgIndikator();
             //Přebíjení
             if (naboje == 0 && DateTime.Now > cooldownPrebiti)
@@ -357,7 +409,7 @@ namespace _2DFightingGame
                 {
                     naboje--;
                     muzzleTimer = DateTime.Now + TimeSpan.FromMilliseconds(150);
-                    Fireball fireball = new Fireball(imgPostava, smer);
+                    Fireball fireball = new Fireball(this, smer);
                     gridPlocha.Children.Add(fireball.ReturnImage());
                     aktivni_projektily.Add(fireball);
                     cooldownUtok1 = DateTime.Now.AddMilliseconds(cooldownUtok1Max);
@@ -419,6 +471,7 @@ namespace _2DFightingGame
             cooldownUtok2Max = 3000;
 
             this.maxRychlost = 30;
+            this.zakladniRychlost = 30;
 
             imgPostava = postava;
             gridPlocha = plocha;
@@ -473,6 +526,7 @@ namespace _2DFightingGame
 
         public override void Tick()
         {
+            checkBonusy();
             AktualizujDmgIndikator();
             Thickness pozice = imgPostava.Margin;
 
@@ -489,7 +543,7 @@ namespace _2DFightingGame
                     case 1: katana_animace_index = 1; break;
                     case 3: katana_animace_index = 2; break;
                     case 5: katana_animace_index = 3; break;
-                    case 7: katana_animace_index = 4; new Katana_Hit(getImg().Margin.Left, getImg().Margin.Bottom, getImg(), smer); break;
+                    case 7: katana_animace_index = 4; new Katana_Hit(getImg().Margin.Left, getImg().Margin.Bottom, this, smer); break;
                     case 9: katana_animace_index = 3; break;
                     case 11: katana_animace_index = 2; break;
                     case 13: katana_animace_index = 1; break;

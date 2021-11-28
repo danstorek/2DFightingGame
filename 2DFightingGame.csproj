@@ -221,5 +221,17 @@
   <ItemGroup>
     <Resource Include="imgs\chars\hpregen.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\hlavni_menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\tlacitko_menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\bonuses\sila.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\bonuses\rychlost.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
