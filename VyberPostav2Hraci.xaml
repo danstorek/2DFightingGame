@@ -31,7 +31,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid x:Name="gridVyber" Background="#333333">
+    <Grid x:Name="gridVyber" Background="#333333" Loaded="gridVyber_Loaded">
         <Rectangle Width="4" Height="750" Fill="White"></Rectangle>
         <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="Výběr postav"></Label>
         <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="Výběr postav"></Label>

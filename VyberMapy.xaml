@@ -31,7 +31,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid x:Name="gridVyber" Background="#333333">
+    <Grid x:Name="gridVyber" Background="#333333" Loaded="gridVyber_Loaded">
         <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="Výběr mapy"></Label>
         <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="Výběr mapy"></Label>
         <Label Content="←" Tag="mapavlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>

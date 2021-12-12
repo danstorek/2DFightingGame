@@ -12,6 +12,16 @@ namespace _2DFightingGame
 {
     static class Hitboxy
     {
+        public static void zmenitScale(Grid Okno)
+        {
+            ScaleTransform scale = new ScaleTransform();
+            scale.ScaleX = Okno.ActualWidth / 1920;
+            scale.ScaleY = Okno.ActualHeight / 1080;
+            scale.CenterX = Okno.ActualWidth / 2;
+            scale.CenterY = Okno.ActualHeight / 2;
+            Okno.LayoutTransform = scale;
+        }
+
         public static Random rnd = new Random();
 
         public static int aktivniKolo = 0;
