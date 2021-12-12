@@ -36,5 +36,10 @@ namespace _2DFightingGame
             System.Threading.Thread.Sleep(50);
             this.Close();
         }
+
+        private void hlMenu_Loaded(object sender, RoutedEventArgs e)
+        {
+            Hitboxy.zmenitScale((Grid)sender);
+        }
     }
 }

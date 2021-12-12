@@ -145,5 +145,10 @@ namespace _2DFightingGame
             System.Threading.Thread.Sleep(50);
             this.Close();
         }
+
+        private void gridVyber_Loaded(object sender, RoutedEventArgs e)
+        {
+            Hitboxy.zmenitScale((Grid)sender);
+        }
     }
 }

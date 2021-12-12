@@ -31,7 +31,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid x:Name="hlMenu" Background="#333333">
+    <Grid x:Name="hlMenu" Background="#333333" Loaded="hlMenu_Loaded">
         <Image Source="imgs/hlavni_menu.png"/>
         <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="2D Fighting Game" Margin="0,72,0,0"></Label>
         <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="2D Fighting Game" Margin="0,72,0,0"></Label>

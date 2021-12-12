@@ -233,5 +233,11 @@
   <ItemGroup>
     <Resource Include="imgs\bonuses\rychlost.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\ui\hp_back_left.png" />
+    <Resource Include="imgs\ui\hp_back_right.png" />
+    <Resource Include="imgs\ui\hp_fore_left.png" />
+    <Resource Include="imgs\ui\hp_fore_right.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -169,18 +169,12 @@ namespace _2DFightingGame
                     postava2Utok2.Width = Hitboxy.hrac2.getCooldown()[1];
 
                     //Obnovení healthbarů
-                    health1.Value = Hitboxy.hrac1.getHP();
-                    if (health1.Value > 80) health1.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-                    else if (health1.Value > 60) health1.Foreground = new SolidColorBrush(Color.FromRgb(155, 255, 0));
-                    else if (health1.Value > 40) health1.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 0));
-                    else if (health1.Value > 20) health1.Foreground = new SolidColorBrush(Color.FromRgb(255, 155, 0));
-                    else if (health1.Value >= 0) health1.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-                    health2.Value = Hitboxy.hrac2.getHP();
-                    if (health2.Value > 80) health2.Foreground = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-                    else if (health2.Value > 60) health2.Foreground = new SolidColorBrush(Color.FromRgb(155, 255, 0));
-                    else if (health2.Value > 40) health2.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 0));
-                    else if (health2.Value > 20) health2.Foreground = new SolidColorBrush(Color.FromRgb(255, 155, 0));
-                    else if (health2.Value >= 0) health2.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                    double hp1 = Hitboxy.hrac1.getHP() * 6.59;
+                    double hp2 = Hitboxy.hrac2.getHP() * 6.59;
+                    if (hp1 < 0) hp1 = 0;
+                    if (hp2 < 0) hp2 = 0;
+                    health1.Width = hp1;
+                    health2.Width = hp2;
 
                     //Konec kola
                     if (aktivni == 0)
@@ -522,6 +516,11 @@ namespace _2DFightingGame
             okno.Show();
             System.Threading.Thread.Sleep(50);
             this.Close();
+        }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            Hitboxy.zmenitScale((Grid)sender);
         }
     }
 }
