@@ -37,8 +37,6 @@
 
             <Image x:Name="postava1" Width="120" Height="185" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="2"></Image>
             <Image x:Name="postava2" Width="120" Height="185" Margin="1700,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="2"></Image>
-            <Image x:Name="damage1" Opacity="0" Source="imgs/chars/damage.png" Width="120" Height="185" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
-            <Image x:Name="damage2" Opacity="0" Source="imgs/chars/damage.png" Width="120" Height="185" Margin="1700,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom"></Image>
             <Rectangle x:Name="round1" Fill="Transparent" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="-200,0,0,970"></Rectangle>
             <Rectangle x:Name="round3" Fill="Transparent" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="200,0,0,970"></Rectangle>
             <Rectangle x:Name="round2" Fill="Transparent" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,970"></Rectangle>
