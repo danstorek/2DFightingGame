@@ -291,6 +291,8 @@ namespace _2DFightingGame
                             //Další kolo
                             dalsiBonus = Hitboxy.rnd.Next(7500, 15000);
                             bonusCasovac.Restart();
+                            Hitboxy.hrac1.clearBonusy();
+                            Hitboxy.hrac2.clearBonusy();
 
                             foreach (Bonus i in Hitboxy.bonusy)
                             {

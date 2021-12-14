@@ -239,5 +239,9 @@
     <Resource Include="imgs\ui\hp_fore_left.png" />
     <Resource Include="imgs\ui\hp_fore_right.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\damageboost.png" />
+    <Resource Include="imgs\chars\speedboost.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

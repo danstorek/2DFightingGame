@@ -32,6 +32,8 @@ namespace _2DFightingGame
         protected Image imgPostava;
         protected Image imgDamage = new Image();
         protected Image imgHPRegen = new Image();
+        protected Image imgDamageBoost = new Image();
+        protected Image imgSpeedBoost = new Image();
         protected Grid gridPlocha;
         protected int hp = 100;
         protected bool vlevo = false;
@@ -70,7 +72,7 @@ namespace _2DFightingGame
         public int skore = 0;
 
         //Aktivace bonusů
-        protected void clearBonusy()
+        public void clearBonusy()
         {
             silaTimer.Reset();
             rychlostTimer.Reset();
@@ -294,7 +296,7 @@ namespace _2DFightingGame
                 else gridPlocha.Children.Remove(i.ReturnImage());
             }
         }
-        protected void VytvorDmgIndikator()
+        protected void VytvorIndikatory()
         {
             imgDamage.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/damage.png"));
             imgDamage.Opacity = 0;
@@ -313,8 +315,26 @@ namespace _2DFightingGame
             imgHPRegen.VerticalAlignment = VerticalAlignment.Bottom;
             Panel.SetZIndex(imgHPRegen, 2);
             gridPlocha.Children.Add(imgHPRegen);
+
+            imgSpeedBoost.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/speedboost.png"));
+            imgSpeedBoost.Opacity = 0;
+            imgSpeedBoost.Width = 120;
+            imgSpeedBoost.Height = 185;
+            imgSpeedBoost.HorizontalAlignment = HorizontalAlignment.Left;
+            imgSpeedBoost.VerticalAlignment = VerticalAlignment.Bottom;
+            Panel.SetZIndex(imgSpeedBoost, 2);
+            gridPlocha.Children.Add(imgSpeedBoost);
+
+            imgDamageBoost.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/damageboost.png"));
+            imgDamageBoost.Opacity = 0;
+            imgDamageBoost.Width = 120;
+            imgDamageBoost.Height = 185;
+            imgDamageBoost.HorizontalAlignment = HorizontalAlignment.Left;
+            imgDamageBoost.VerticalAlignment = VerticalAlignment.Bottom;
+            Panel.SetZIndex(imgDamageBoost, 2);
+            gridPlocha.Children.Add(imgDamageBoost);
         }
-        protected void AktualizujDmgIndikator()
+        protected void AktualizujIndikatory()
         {
             imgDamage.Margin = imgPostava.Margin;
             if (poskozeniTimer > 0 && imgDamage.Opacity < 1)
@@ -331,6 +351,15 @@ namespace _2DFightingGame
                 regenTimer--;
             }
             else if (imgHPRegen.Opacity > 0) imgHPRegen.Opacity -= 0.1;
+
+            //Bonusy
+            imgDamageBoost.Margin = imgPostava.Margin;
+            if (getSila() && imgDamageBoost.Opacity < 1) imgDamageBoost.Opacity += 0.1;
+            else if (!getSila() && imgDamageBoost.Opacity > 0) imgDamageBoost.Opacity -= 0.1;
+
+            imgSpeedBoost.Margin = imgPostava.Margin;
+            if (getRychlost() && imgSpeedBoost.Opacity < 1) imgSpeedBoost.Opacity += 0.1;
+            else if (!getRychlost() && imgSpeedBoost.Opacity > 0) imgSpeedBoost.Opacity -= 0.1;
         }
     }
 
@@ -359,7 +388,7 @@ namespace _2DFightingGame
             //muzzleflash.Opacity = 0;
             gridPlocha.Children.Add(muzzleflash);
 
-            VytvorDmgIndikator();
+            VytvorIndikatory();
 
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/0.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/1.png")));
@@ -394,7 +423,7 @@ namespace _2DFightingGame
         public override void Tick()
         {
             checkBonusy();
-            AktualizujDmgIndikator();
+            AktualizujIndikatory();
             //Přebíjení
             if (naboje == 0 && DateTime.Now > cooldownPrebiti)
             {
@@ -477,7 +506,7 @@ namespace _2DFightingGame
             gridPlocha = plocha;
             this.detaily = detaily;
 
-            VytvorDmgIndikator();
+            VytvorIndikatory();
 
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/0.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/1.png")));
@@ -527,7 +556,7 @@ namespace _2DFightingGame
         public override void Tick()
         {
             checkBonusy();
-            AktualizujDmgIndikator();
+            AktualizujIndikatory();
             Thickness pozice = imgPostava.Margin;
 
             //Útok
