@@ -76,15 +76,6 @@ namespace _2DFightingGame
             hrac1Ukazatel1.Width = postava1.Width;
             hrac2Ukazatel1.Width = postava2.Width;
 
-            if (Hitboxy.kola[0] == 1) round1.Fill = Brushes.Blue;
-            else if (Hitboxy.kola[0] == 2) round1.Fill = Brushes.Red;
-
-            if (Hitboxy.kola[1] == 1) round2.Fill = Brushes.Blue;
-            else if (Hitboxy.kola[1] == 2) round2.Fill = Brushes.Red;
-
-            if (Hitboxy.kola[2] == 1) round3.Fill = Brushes.Blue;
-            else if (Hitboxy.kola[2] == 2) round3.Fill = Brushes.Red;
-
             dalsiBonus = Hitboxy.rnd.Next(7500, 15000);
             bonusCasovac.Start();
 
@@ -184,28 +175,29 @@ namespace _2DFightingGame
                         {
                             textVyhra.Content = "Remíza";
                             textVyhra2.Content = "Remíza";
-                            textVyhra2.Foreground = Brushes.White;
                             aktivni += 1;
                             gridVyhra.Visibility = Visibility.Visible;
                         }
-                        //Výhra 1. hráče
+                        //Výhra 2. hráče
                         else if (Hitboxy.hrac1.getHP() <= 0)
                         {
                             Hitboxy.kola[Hitboxy.aktivniKolo] = 2;
                             Hitboxy.aktivniKolo++;
                             if (Vyhodnotit() == 0)
                             {
+                                postava2round1.Fill = postava2round1.Stroke;
+
                                 dalsiKolo = DateTime.Now + TimeSpan.FromMilliseconds(1500);
                                 textVyhra.Content = Hitboxy.hrac2.getJmeno() + " vyhrál kolo";
                                 textVyhra2.Content = Hitboxy.hrac2.getJmeno() + " vyhrál kolo";
-                                textVyhra2.Foreground = Brushes.LightPink;
                             }
                             else
                             {
+                                postava2round2.Fill = postava2round2.Stroke;
+
                                 Statistika();
                                 textVyhra.Content = Hitboxy.hrac2.getJmeno() + " vyhrál zápas";
                                 textVyhra2.Content = Hitboxy.hrac2.getJmeno() + " vyhrál zápas";
-                                textVyhra2.Foreground = Brushes.LightPink;
                                 tlacVyhra.IsEnabled = true;
                                 tlacVyhra.Opacity = 1;
                                 vyhraHrac1.Opacity = 1;
@@ -222,24 +214,26 @@ namespace _2DFightingGame
                             aktivni += 1;
                             gridVyhra.Visibility = Visibility.Visible;
                         }
-                        //Výhra 2. hráče
+                        //Výhra 1. hráče
                         else if (Hitboxy.hrac2.getHP() <= 0)
                         {
                             Hitboxy.kola[Hitboxy.aktivniKolo] = 1;
                             Hitboxy.aktivniKolo++;
                             if (Vyhodnotit() == 0)
                             {
+                                postava1round1.Fill = postava1round1.Stroke;
+
                                 dalsiKolo = DateTime.Now + TimeSpan.FromMilliseconds(1500);
                                 textVyhra.Content = Hitboxy.hrac1.getJmeno() + " vyhrál kolo";
                                 textVyhra2.Content = Hitboxy.hrac1.getJmeno() + " vyhrál kolo";
-                                textVyhra2.Foreground = Brushes.LightBlue;
                             }
                             else
                             {
+                                postava1round2.Fill = postava1round2.Stroke;
+
                                 Statistika();
                                 textVyhra.Content = Hitboxy.hrac1.getJmeno() + " vyhrál zápas";
                                 textVyhra2.Content = Hitboxy.hrac1.getJmeno() + " vyhrál zápas";
-                                textVyhra2.Foreground = Brushes.LightBlue;
                                 tlacVyhra.IsEnabled = true;
                                 tlacVyhra.Opacity = 1;
                                 vyhraHrac1.Opacity = 1;
@@ -340,17 +334,9 @@ namespace _2DFightingGame
             else vyhraHrac2Uspesnost.Content = "Úspěšnost: 0%";
         }
 
+        //Vyhodnocení dosavadního výsledku zápasu
         int Vyhodnotit()
         {
-            if (Hitboxy.kola[0] == 1) round1.Fill = Brushes.Blue;
-            else if (Hitboxy.kola[0] == 2) round1.Fill = Brushes.Red;
-
-            if (Hitboxy.kola[1] == 1) round2.Fill = Brushes.Blue;
-            else if (Hitboxy.kola[1] == 2) round2.Fill = Brushes.Red;
-
-            if (Hitboxy.kola[2] == 1) round3.Fill = Brushes.Blue;
-            else if (Hitboxy.kola[2] == 2) round3.Fill = Brushes.Red;
-
             if (Hitboxy.aktivniKolo == 2)
             {
                 if (Hitboxy.kola[0] == 1 && Hitboxy.kola[1] == 1)
