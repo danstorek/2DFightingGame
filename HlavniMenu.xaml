@@ -36,7 +36,7 @@
         <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="2D Fighting Game" Margin="0,72,0,0"></Label>
         <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="2D Fighting Game" Margin="0,72,0,0"></Label>
 
-        <Button Style="{StaticResource MyButtonStyle}" Width="500" Height="160" Content="Hra pro jednoho hráče" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="341,418,1079,502" Click="Ukoncit">
+        <Button Style="{StaticResource MyButtonStyle}" Width="500" Height="160" Content="Hra pro jednoho hráče" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="341,418,1079,502" Click="HraProJednohoHrace">
             <Button.Background>
                 <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
             </Button.Background>

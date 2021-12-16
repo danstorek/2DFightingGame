@@ -109,6 +109,9 @@ namespace _2DFightingGame
                         Hitboxy.hrac2.setUtok2(false);
                     }
 
+                    //Pohyb bota ve hře pro jednoho hráče
+                    if (Hitboxy.rezimHry) SinglePlayer.AI();
+
                     //Spawn bonusů
                     if (bonusCasovac.ElapsedMilliseconds > dalsiBonus)
                     {
@@ -416,22 +419,22 @@ namespace _2DFightingGame
 
                 //Hráč 2
                 case Key.A:
-                    Hitboxy.hrac2.setVlevo(true);
+                    if(!Hitboxy.rezimHry)Hitboxy.hrac2.setVlevo(true);
                     break;
                 case Key.D:
-                    Hitboxy.hrac2.setVpravo(true);
+                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setVpravo(true);
                     break;
                 case Key.W:
-                    Hitboxy.hrac2.setSkokTrigger(true);
+                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setSkokTrigger(true);
                     break;
                 case Key.S:
-                    Hitboxy.hrac2.setSkrceni(true);
+                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setSkrceni(true);
                     break;
                 case Key.Q:
-                    Hitboxy.hrac2.setUtok1(true);
+                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setUtok1(true);
                     break;
                 case Key.E:
-                    Hitboxy.hrac2.setUtok2(true);
+                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setUtok2(true);
                     break;
             }
         }
@@ -462,27 +465,27 @@ namespace _2DFightingGame
 
                 //Hráč 2
                 case Key.A:
-                    Hitboxy.hrac2.setVlevo(false);
+                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setVlevo(false);
                     break;
                 case Key.D:
-                    Hitboxy.hrac2.setVpravo(false);
+                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setVpravo(false);
                     break;
                 case Key.W:
-                    Hitboxy.hrac2.setSkokTrigger(false);
+                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setSkokTrigger(false);
                     break;
                 case Key.S:
-                    Hitboxy.hrac2.setSkrceni(false);
+                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setSkrceni(false);
                     break;
                 case Key.Q:
-                    Hitboxy.hrac2.setUtok1(false);
+                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setUtok1(false);
                     break;
                 case Key.E:
-                    Hitboxy.hrac2.setUtok2(false);
+                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setUtok2(false);
                     break;
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void tlacMenu_Click(object sender, RoutedEventArgs e)
         {
             gameTick.Stop();
             HlavniMenu okno = new HlavniMenu();
