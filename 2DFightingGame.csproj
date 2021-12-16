@@ -63,6 +63,7 @@
       <DependentUpon>HlavniMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mapy.cs" />
+    <Compile Include="SinglePlayer.cs" />
     <Compile Include="VyberMapy.xaml.cs">
       <DependentUpon>VyberMapy.xaml</DependentUpon>
     </Compile>

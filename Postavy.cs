@@ -15,6 +15,12 @@ namespace _2DFightingGame
 {
     abstract class Postava
     {
+        protected int id;
+        public int getId
+        {
+            get { return id; }
+        }
+
         protected string jmeno;
 
         protected List<Updatable> aktivni_projektily = new List<Updatable>();
@@ -105,6 +111,11 @@ namespace _2DFightingGame
         {
             if (rychlostTimer.IsRunning) return true;
             return false;
+        }
+
+        public void setSmer(bool smer)
+        {
+            this.smer = smer;
         }
 
         protected void Pohyb(Thickness pozice)
@@ -378,6 +389,7 @@ namespace _2DFightingGame
             this.maxRychlost = 20;
             this.zakladniRychlost = 20;
 
+            id = 0;
             imgPostava = postava;
             gridPlocha = plocha;
             this.detaily = detaily;
@@ -502,6 +514,7 @@ namespace _2DFightingGame
             this.maxRychlost = 30;
             this.zakladniRychlost = 30;
 
+            id = 1;
             imgPostava = postava;
             gridPlocha = plocha;
             this.detaily = detaily;

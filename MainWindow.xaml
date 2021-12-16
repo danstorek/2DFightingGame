@@ -102,7 +102,7 @@
         <Grid x:Name="gridVyhra" VerticalAlignment="Center" HorizontalAlignment="Center" Width="1100" Height="660" Opacity="0" Visibility="Hidden" Panel.ZIndex="999" Margin="410,290,410,130">
             <Label Name="textVyhra" FontSize="100" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Content="Hráč 1 vyhrál"/>
             <Label Name="textVyhra2" FontSize="103" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="SkyBlue" Content="Hráč 1 vyhrál"/>
-            <Button Style="{StaticResource MyButtonStyle}" x:Name="tlacVyhra" Width="500" Height="160" Content="Přejít do hlavního menu" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="300,500,300,0" Click="Button_Click">
+            <Button Style="{StaticResource MyButtonStyle}" x:Name="tlacVyhra" Width="500" Height="160" Content="Přejít do hlavního menu" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="300,500,300,0" Click="tlacMenu_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
                 </Button.Background>

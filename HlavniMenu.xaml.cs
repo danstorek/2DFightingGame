@@ -29,8 +29,18 @@ namespace _2DFightingGame
             this.Close();
         }
 
+        private void HraProJednohoHrace(object sender, RoutedEventArgs e)
+        {
+            Hitboxy.rezimHry = true;
+            VyberPostav2Hraci vyberPostav = new VyberPostav2Hraci();
+            vyberPostav.Show();
+            System.Threading.Thread.Sleep(50);
+            this.Close();
+        }
+
         private void HraProDvaHrace(object sender, RoutedEventArgs e)
         {
+            Hitboxy.rezimHry = false;
             VyberPostav2Hraci vyberPostav = new VyberPostav2Hraci();
             vyberPostav.Show();
             System.Threading.Thread.Sleep(50);
