@@ -50,18 +50,20 @@ namespace _2DFightingGame
 
             switch (Hitboxy.hrac1Postava)
             {
-                case 0: Hitboxy.hrac1 = new Postava_1(Plocha, postava1, false, hrac1Details); break;
-                case 1: Hitboxy.hrac1 = new Postava_2(Plocha, postava1, false, hrac1Details); break;
+                case 0: Hitboxy.hrac1 = new Postava_1(Plocha, postava1, false); break;
+                case 1: Hitboxy.hrac1 = new Postava_2(Plocha, postava1, false); break;
             }
 
             switch (Hitboxy.hrac2Postava)
             {
-                case 0: Hitboxy.hrac2 = new Postava_1(Plocha, postava2, false, hrac2Details); break;
-                case 1: Hitboxy.hrac2 = new Postava_2(Plocha, postava2, false, hrac2Details); break;
+                case 0: Hitboxy.hrac2 = new Postava_1(Plocha, postava2, false); break;
+                case 1: Hitboxy.hrac2 = new Postava_2(Plocha, postava2, false); break;
             }
 
             Hitboxy.hrac1.getImg().Margin = new Thickness(0, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
             Hitboxy.hrac2.getImg().Margin = new Thickness(1700, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
+
+            Hitboxy.hrac2.setSmer(false);
 
             Hitboxy.hrac1.setJmeno(Hitboxy.hrac1Jmeno);
             Hitboxy.hrac2.setJmeno(Hitboxy.hrac2Jmeno);
@@ -77,7 +79,6 @@ namespace _2DFightingGame
             hrac2Ukazatel1.Width = postava2.Width;
 
             dalsiBonus = Hitboxy.rnd.Next(7500, 15000);
-            bonusCasovac.Start();
 
             gameTick.Interval = TimeSpan.FromMilliseconds(1000 / 60);
             gameTick.Tick += GameTick_Tick;
@@ -88,7 +89,6 @@ namespace _2DFightingGame
         {
             if (!pozastaveno)
             {
-                if (!bonusCasovac.IsRunning) bonusCasovac.Start();
                 if (aktivni < 60)
                 {
                     //Vypnutí ovládání po skončení kola
@@ -108,9 +108,8 @@ namespace _2DFightingGame
                         Hitboxy.hrac2.setUtok1(false);
                         Hitboxy.hrac2.setUtok2(false);
                     }
-
                     //Pohyb bota ve hře pro jednoho hráče
-                    if (Hitboxy.rezimHry) SinglePlayer.AI();
+                    else if (!napoveda && Hitboxy.rezimHry) SinglePlayer.AI();
 
                     //Spawn bonusů
                     if (bonusCasovac.ElapsedMilliseconds > dalsiBonus)
@@ -169,6 +168,20 @@ namespace _2DFightingGame
                     if (hp2 < 0) hp2 = 0;
                     health1.Width = hp1;
                     health2.Width = hp2;
+
+                    //Automatické doplnění energie
+                    Hitboxy.hrac1.setEnergie(Hitboxy.hrac1.getEnergie() + 0.5);
+                    Hitboxy.hrac2.setEnergie(Hitboxy.hrac2.getEnergie() + 0.5);
+                    if (Hitboxy.hrac1.getEnergie() > 100) Hitboxy.hrac1.setEnergie(100);
+                    if (Hitboxy.hrac2.getEnergie() > 100) Hitboxy.hrac2.setEnergie(100);
+
+                    //Obnovení barů na energii
+                    double en1 = Hitboxy.hrac1.getEnergie() * 3.2;
+                    double en2 = Hitboxy.hrac2.getEnergie() * 3.2;
+                    if (en1 < 0) en1 = 0;
+                    if (en2 < 0) en2 = 0;
+                    energie1.Width = en1;
+                    energie2.Width = en2;
 
                     //Konec kola
                     if (aktivni == 0)
@@ -310,6 +323,9 @@ namespace _2DFightingGame
                             Hitboxy.hrac1.setHP(100);
                             Hitboxy.hrac2.setHP(100);
 
+                            Hitboxy.hrac1.setEnergie(100);
+                            Hitboxy.hrac2.setEnergie(100);
+
                             gridVyhra.Opacity = 0;
                             gridVyhra.Visibility = Visibility.Hidden;
                             Plocha.Opacity = 1;
@@ -323,6 +339,11 @@ namespace _2DFightingGame
 
         void Statistika()
         {
+            //Uložení do žebříčku
+            Ukladani ukl = new Ukladani();
+            ukl.PridatSkore(Hitboxy.hrac1.getJmeno(), Hitboxy.hrac1.skore);
+            ukl.PridatSkore(Hitboxy.hrac2.getJmeno(), Hitboxy.hrac2.skore);
+
             vyhraHrac1.Content = Hitboxy.hrac1Jmeno;
             vyhraHrac2.Content = Hitboxy.hrac2Jmeno;
             vyhraHrac1Neuspesne.Content = "Neúspěšné útoky: "+(Hitboxy.hrac1.celkem - Hitboxy.hrac1.uspesne);
@@ -376,6 +397,7 @@ namespace _2DFightingGame
         {
             if (napoveda)
             {
+                bonusCasovac.Start();
                 napoveda = false;
                 Plocha.Children.Remove(napoveda1);
                 Plocha.Children.Remove(napoveda2);

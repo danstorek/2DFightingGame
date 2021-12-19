@@ -20,8 +20,6 @@ namespace _2DFightingGame
             if (!cooldownStrela.IsRunning) cooldownStrela.Start();
 
             //Reset pohybů
-            //Hitboxy.hrac2.setVlevo(false);
-            //Hitboxy.hrac2.setVpravo(false);
             Hitboxy.hrac2.setSkrceni(false);
             Hitboxy.hrac2.setSkokTrigger(false);
             Hitboxy.hrac2.setUtok1(false);

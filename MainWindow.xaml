@@ -57,8 +57,6 @@
             <Label Panel.ZIndex="10" Content="E" FontSize="30" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="64" Width="64" Margin="1820,103,0,0"/>
             <Label Name="barJmeno1" Panel.ZIndex="10" Content="Hráč 1" FontWeight="Bold" FontSize="50" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="70" Width="600"/>
             <Label Name="barJmeno2" Panel.ZIndex="10" Content="Hráč 2" FontWeight="Bold" FontSize="50" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="10,0,0,0" VerticalAlignment="Top" Height="70" Width="600"/>
-            <Label x:Name="hrac1Details" Content="" FontSize="30" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="505,980,0,0" VerticalAlignment="Top" Height="62" Width="99"/>
-            <Label x:Name="hrac2Details" Content="" FontSize="30" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="1820,980,0,0" VerticalAlignment="Top" Height="62" Width="99"/>
             <Label x:Name="hrac1Ukazatel" Content="Hráč 1" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="750,0,0,10" VerticalAlignment="Bottom" Height="110" Width="236"/>
             <Label x:Name="hrac2Ukazatel" Content="Hráč 2" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="750,0,0,10" VerticalAlignment="Bottom" Height="110" Width="236"/>
             <Label x:Name="hrac1Ukazatel1" FontWeight="Bold" Content="⛛" HorizontalContentAlignment="Center" FontSize="40" HorizontalAlignment="Left" Margin="750,0,0,10" VerticalAlignment="Bottom" Height="110" Width="236"/>
@@ -69,6 +67,13 @@
 
             <Image Panel.ZIndex="10" Width="659" Height="71" Source="/imgs/ui/hp_back_right.png" Margin="1251,67,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
             <Image Panel.ZIndex="11" x:Name="health2" Width="659" Height="71" Source="/imgs/ui/hp_fore_right.png" Margin="1251,67,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Stretch="UniformToFill"/>
+
+            <Image Panel.ZIndex="10" Width="320" Height="35" Source="/imgs/ui/mana_back_left.png" Margin="340,143,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <Image Panel.ZIndex="11" x:Name="energie1" Width="320" Height="35" Source="/imgs/ui/mana_fore_left.png" Margin="340,143,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Stretch="UniformToFill"/>
+
+            <Image Panel.ZIndex="10" Width="320" Height="35" Source="/imgs/ui/mana_back_right.png" Margin="1260,143,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <Image Panel.ZIndex="11" x:Name="energie2" Width="320" Height="35" Source="/imgs/ui/mana_fore_right.png" Margin="1260,143,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Stretch="UniformToFill"/>
+
 
             <Border Panel.ZIndex="999" Name="napoveda1" Width="600" Height="700" HorizontalAlignment="Left" Margin="200,0,0,0" CornerRadius="20" BorderThickness="2" BorderBrush="Black" Background="White" Opacity="0.7">
                 <Grid>

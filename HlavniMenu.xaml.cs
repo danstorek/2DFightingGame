@@ -51,5 +51,13 @@ namespace _2DFightingGame
         {
             Hitboxy.zmenitScale((Grid)sender);
         }
+
+        private void UspechyZebricek(object sender, RoutedEventArgs e)
+        {
+            Uspechy uspechy = new Uspechy();
+            uspechy.Show();
+            System.Threading.Thread.Sleep(50);
+            this.Close();
+        }
     }
 }

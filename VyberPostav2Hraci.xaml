@@ -50,5 +50,6 @@
                 <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
             </Button.Background>
         </Button>
+        <Label Name="botVarovani" Visibility="Hidden" Content="Pokud hráč nevybere botovi postavu jako první, tak si bot náhodně vybere sám." Foreground="White" FontSize="20" HorizontalAlignment="Left" Margin="971,159,0,0" VerticalAlignment="Top" Width="939"/>
     </Grid>
 </Window>

@@ -34,14 +34,14 @@ namespace _2DFightingGame
             aktivni_projektily.Clear();
         }
 
-        protected Label detaily;
         protected Image imgPostava;
         protected Image imgDamage = new Image();
         protected Image imgHPRegen = new Image();
         protected Image imgDamageBoost = new Image();
         protected Image imgSpeedBoost = new Image();
         protected Grid gridPlocha;
-        protected int hp = 100;
+        protected double hp = 100;
+        protected double energie = 100;
         protected bool vlevo = false;
         protected bool vpravo = false;
         protected bool skrceni = false;
@@ -242,13 +242,21 @@ namespace _2DFightingGame
         {
             return imgPostava;
         }
-        public int getHP()
+        public double getHP()
         {
             return hp;
         }
-        public void setHP(int hp)
+        public void setHP(double hp)
         {
             this.hp = hp;
+        }
+        public double getEnergie()
+        {
+            return energie;
+        }
+        public void setEnergie(double energie)
+        {
+            this.energie = energie;
         }
         public void setVlevo(bool hodnota)
         {
@@ -378,10 +386,8 @@ namespace _2DFightingGame
     {
         Image muzzleflash = new Image();
 
-        int naboje = 12;
-        DateTime cooldownPrebiti = DateTime.Now;
         DateTime muzzleTimer = DateTime.Now;
-        public Postava_1(Grid plocha, Image postava, bool strana, Label detaily)
+        public Postava_1(Grid plocha, Image postava, bool strana)
         {
             cooldownUtok1Max = 300;
             cooldownUtok2Max = 1200;
@@ -392,7 +398,6 @@ namespace _2DFightingGame
             id = 0;
             imgPostava = postava;
             gridPlocha = plocha;
-            this.detaily = detaily;
 
             muzzleflash.Width = 50;
             muzzleflash.HorizontalAlignment = HorizontalAlignment.Left;
@@ -416,8 +421,6 @@ namespace _2DFightingGame
             animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/4.png")));
             animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/crouch.png")));
 
-            this.detaily.Content = naboje;
-
             if (strana) imgPostava.Source = animace_left[animace_index];
             else imgPostava.Source = animace_right[animace_index];
         }
@@ -436,40 +439,22 @@ namespace _2DFightingGame
         {
             checkBonusy();
             AktualizujIndikatory();
-            //Přebíjení
-            if (naboje == 0 && DateTime.Now > cooldownPrebiti)
-            {
-                naboje = 12;
-                this.detaily.Content = naboje;
-            }
             Thickness pozice = imgPostava.Margin;
             //Útok 1 - hráč 1
-            if (utok1 && DateTime.Now > cooldownUtok1)
+            if (utok1 && DateTime.Now > cooldownUtok1 && energie >= 15)
             {
-                if (naboje > 0)
-                {
-                    naboje--;
+                    energie -= 15;
                     muzzleTimer = DateTime.Now + TimeSpan.FromMilliseconds(150);
                     Fireball fireball = new Fireball(this, smer);
                     gridPlocha.Children.Add(fireball.ReturnImage());
                     aktivni_projektily.Add(fireball);
                     cooldownUtok1 = DateTime.Now.AddMilliseconds(cooldownUtok1Max);
-                    if (naboje == 0)
-                    {
-                        detaily.Content = "...";
-                        cooldownPrebiti = DateTime.Now + TimeSpan.FromMilliseconds(1500);
-                    }
-                    else
-                    {
-                        this.detaily.Content = naboje;
-                    }
-                }
-
             }
 
             //Útok 2 - hráč 1
-            if (utok2 && DateTime.Now > cooldownUtok2)
+            if (utok2 && DateTime.Now > cooldownUtok2 && energie >= 25)
             {
+                energie -= 25;
                 TNT sw = new TNT(this);
                 gridPlocha.Children.Add(sw.ReturnImage());
                 aktivni_projektily.Add(sw);
@@ -506,7 +491,7 @@ namespace _2DFightingGame
         int katana_animace_index = 0;
         List<BitmapImage> katana_animace_left = new List<BitmapImage>();
         List<BitmapImage> katana_animace_right = new List<BitmapImage>();
-        public Postava_2(Grid plocha, Image postava, bool strana, Label detaily)
+        public Postava_2(Grid plocha, Image postava, bool strana)
         {
             cooldownUtok1Max = 500;
             cooldownUtok2Max = 3000;
@@ -517,7 +502,6 @@ namespace _2DFightingGame
             id = 1;
             imgPostava = postava;
             gridPlocha = plocha;
-            this.detaily = detaily;
 
             VytvorIndikatory();
 
@@ -573,8 +557,9 @@ namespace _2DFightingGame
             Thickness pozice = imgPostava.Margin;
 
             //Útok
-            if (utok1 && DateTime.Now > cooldownUtok1)
+            if (utok1 && DateTime.Now > cooldownUtok1 && energie >= 20)
             {
+                energie -= 20;
                 katana_tick_animace = 1;
                 cooldownUtok1 = DateTime.Now + TimeSpan.FromMilliseconds(cooldownUtok1Max);
             }
@@ -597,8 +582,9 @@ namespace _2DFightingGame
                     katana_animace_index = 0;
                 }
             }
-            if (utok2 && DateTime.Now > cooldownUtok2)
+            if (utok2 && DateTime.Now > cooldownUtok2 && energie >= 30)
             {
+                energie -= 30;
                 Tornado tornado = new Tornado(this, smer);
                 gridPlocha.Children.Add(tornado.ReturnImage());
                 aktivni_projektily.Add(tornado);
