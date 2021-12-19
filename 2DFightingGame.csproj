@@ -64,6 +64,10 @@
     </Compile>
     <Compile Include="Mapy.cs" />
     <Compile Include="SinglePlayer.cs" />
+    <Compile Include="Ukladani.cs" />
+    <Compile Include="Uspechy.xaml.cs">
+      <DependentUpon>Uspechy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VyberMapy.xaml.cs">
       <DependentUpon>VyberMapy.xaml</DependentUpon>
     </Compile>
@@ -87,6 +91,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Uspechy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VyberMapy.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -243,6 +251,12 @@
   <ItemGroup>
     <Resource Include="imgs\chars\damageboost.png" />
     <Resource Include="imgs\chars\speedboost.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\ui\mana_back_left.png" />
+    <Resource Include="imgs\ui\mana_back_right.png" />
+    <Resource Include="imgs\ui\mana_fore_left.png" />
+    <Resource Include="imgs\ui\mana_fore_right.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

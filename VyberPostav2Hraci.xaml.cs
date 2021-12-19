@@ -31,6 +31,15 @@ namespace _2DFightingGame
         public VyberPostav2Hraci()
         {
             InitializeComponent();
+
+            //Základní názvy postav ve hře pro jednoho hráče
+            if (Hitboxy.rezimHry)
+            {
+                jmenoHrac1.Text = "Hráč";
+                jmenoHrac2.Text = "Bot";
+                botVarovani.Visibility = Visibility.Visible;
+            }
+
             tmr.Interval = TimeSpan.FromMilliseconds(1000 / 60);
             tmr.Tick += Tmr_Tick;
             tmr.Start();
@@ -122,6 +131,13 @@ namespace _2DFightingGame
                 jmenoHrac1.IsEnabled = false;
                 lblReady1.Visibility = Visibility.Visible;
                 hrac1Ready = true;
+                if(Hitboxy.rezimHry && !hrac2Ready)
+                {
+                    lblReady2.Visibility = Visibility.Visible;
+                    selectedHrac2.Tag = Hitboxy.rnd.Next(0, postavy.Length);
+                    selectedHrac2.Source = postavy[(int)selectedHrac2.Tag];
+                    hrac2Ready = true;
+                }
                 if (hrac1Ready && hrac2Ready) zahajeni = DateTime.Now + TimeSpan.FromSeconds(2);
             }
         }
