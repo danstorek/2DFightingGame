@@ -55,6 +55,9 @@ namespace _2DFightingGame
         public static List<Image> platformy;
         public static BitmapImage pozadiMapa;
         public static List<Bonus> bonusy;
+
+        //Ukládání
+        public static Ukladani ukl = new Ukladani();
         public static int MuzePadat(Postava hrac)
         {
             int tmp = 0;

@@ -65,9 +65,9 @@ namespace _2DFightingGame
 
                     Hitboxy.platformy.Add(new Image());
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map3/platform1.png"));
-                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 751;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 1200;
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 54;
-                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(585, 0, 0, 530);
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(360, 0, 0, 530);
 
                     Hitboxy.platformy.Add(new Image());
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map3/platform1.png"));

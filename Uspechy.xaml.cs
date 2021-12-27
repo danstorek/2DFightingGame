@@ -19,15 +19,16 @@ namespace _2DFightingGame
     /// </summary>
     public partial class Uspechy : Window
     {
-        Ukladani ukl = new Ukladani();
         public Uspechy()
         {
             InitializeComponent();
         }
         private void gridHlavni_Loaded(object sender, RoutedEventArgs e)
         {
+            Hitboxy.zmenitScale((Grid)sender);
+
             //Načtení žebříčku
-            Dictionary<string, int> zebricek = ukl.SerazeneSkore();
+            List<KeyValuePair<string, int>> zebricek = Hitboxy.ukl.SerazeneSkore();
             int aktualniVyska = 0;
             int aktualniPoradi = 1;
             foreach(KeyValuePair<string, int> i in zebricek)
@@ -72,6 +73,16 @@ namespace _2DFightingGame
                 aktualniPoradi++;
                 aktualniVyska += 80;
             }
+
+            aktualniVyska = 0;
+            //Načtení achievementů
+            for(int i = 0; i<=2; i++)
+            {
+                Grid tmp = Achievementy.achievementUkazatel(i);
+                tmp.Margin = new Thickness(50, aktualniVyska, 0, 0);
+                gridUspechy.Children.Add(tmp);
+                aktualniVyska += 180;
+            }
         }
         private void Navrat(object sender, RoutedEventArgs e)
         {
@@ -82,7 +93,7 @@ namespace _2DFightingGame
         }
         private void VymazatZebricek(object sender, RoutedEventArgs e)
         {
-            ukl.VymazatZebricek();
+            Hitboxy.ukl.VymazatZebricek();
             gridZebricek.Children.Clear();
         }
     }
