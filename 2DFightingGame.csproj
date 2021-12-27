@@ -59,6 +59,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bonusy.cs" />
+    <Compile Include="Achievementy.cs" />
     <Compile Include="HlavniMenu.xaml.cs">
       <DependentUpon>HlavniMenu.xaml</DependentUpon>
     </Compile>
@@ -257,6 +258,11 @@
     <Resource Include="imgs\ui\mana_back_right.png" />
     <Resource Include="imgs\ui\mana_fore_left.png" />
     <Resource Include="imgs\ui\mana_fore_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\achievements\0.png" />
+    <Resource Include="imgs\achievements\1.png" />
+    <Resource Include="imgs\achievements\2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -112,10 +112,13 @@ namespace _2DFightingGame
             if (rychlostTimer.IsRunning) return true;
             return false;
         }
-
         public void setSmer(bool smer)
         {
             this.smer = smer;
+        }
+        public bool getSmer()
+        {
+            return smer;
         }
 
         protected void Pohyb(Thickness pozice)
@@ -285,6 +288,11 @@ namespace _2DFightingGame
         public bool getZmrazen()
         {
             return zmrazen > DateTime.Now;
+        }
+
+        public bool getVeVzduchu()
+        {
+            return veVzduchu;
         }
         //Odražení protivníkem
         public void Odrazeni(int sila)

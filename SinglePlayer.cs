@@ -68,22 +68,25 @@ namespace _2DFightingGame
             //Střelba po soupeři
             if (Hitboxy.rnd.Next(1, 11) >= 3)
             {
-                if (poziceBot.Bottom > poziceHrac.Bottom - 10 && poziceBot.Bottom < poziceHrac.Bottom+30)
+                if (poziceBot.Bottom > poziceHrac.Bottom - 10 && poziceBot.Bottom < poziceHrac.Bottom + 30)
                 {
-                    if(poziceBot.Left < poziceHrac.Left)
+                    if (poziceBot.Left < poziceHrac.Left)
                     {
                         Hitboxy.hrac2.setSmer(true);
-                        if(Hitboxy.hrac2.getId == 0)
+                        if (Hitboxy.hrac2.getId == 0)
                         {
                             if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok2(true);
                             Hitboxy.hrac2.setUtok1(true);
                         }
-                        if(Hitboxy.hrac2.getId == 1)
+                        if (Hitboxy.hrac2.getId == 1)
                         {
                             if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
                             else Hitboxy.hrac2.setUtok2(true);
                             Hitboxy.hrac2.setVpravo(true);
                             Hitboxy.hrac2.setVlevo(false);
+
+                            //Vyhnutí se mezery mezi platformami
+                            if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
                         }
 
                     }
@@ -99,9 +102,11 @@ namespace _2DFightingGame
                         {
                             if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
                             else Hitboxy.hrac2.setUtok2(true);
-                            Hitboxy.hrac2.setUtok1(true);
                             Hitboxy.hrac2.setVpravo(false);
                             Hitboxy.hrac2.setVlevo(true);
+
+                            //Vyhnutí se mezery mezi platformami
+                            if (aktualniPlatforma != null && poziceBot.Left < aktualniPlatforma.Margin.Left + 150) Hitboxy.hrac2.setSkokTrigger(true);
                         }
                     }
                     pohybX = 0;
@@ -110,7 +115,7 @@ namespace _2DFightingGame
             }
 
             //Výskok na platformu
-            else if(cooldownPlatformy.ElapsedMilliseconds > 1500 && platformaNad != null && Hitboxy.rnd.Next(1,11) >= 4)
+            else if (cooldownPlatformy.ElapsedMilliseconds > 1500 && platformaNad != null && Hitboxy.rnd.Next(1, 11) >= 4)
             {
                 pohybX = 0;
                 Hitboxy.hrac2.setSkokTrigger(true);
@@ -118,7 +123,7 @@ namespace _2DFightingGame
             }
 
             //Seskok z platformy
-            else if(cooldownPlatformy.ElapsedMilliseconds > 1500 && platformaPod != null && Hitboxy.rnd.Next(1, 11) >= 4)
+            else if (cooldownPlatformy.ElapsedMilliseconds > 1500 && platformaPod != null && Hitboxy.rnd.Next(1, 11) >= 4)
             {
                 pohybX = 0;
                 Hitboxy.hrac2.setSkrceni(true);
@@ -126,18 +131,18 @@ namespace _2DFightingGame
             }
 
             //Pohyb
-            if(pohybX == 0 && cooldownStrela.ElapsedMilliseconds > 200)
+            if (pohybX == 0 && cooldownStrela.ElapsedMilliseconds > 200)
             {
                 Hitboxy.hrac2.setVlevo(false);
                 Hitboxy.hrac2.setVpravo(false);
-                if(aktualniPlatforma != null) pohybX = Hitboxy.rnd.Next(Convert.ToInt32(aktualniPlatforma.Margin.Left), Convert.ToInt32(aktualniPlatforma.Margin.Left + aktualniPlatforma.Width));
+                if (aktualniPlatforma != null) pohybX = Hitboxy.rnd.Next(Convert.ToInt32(aktualniPlatforma.Margin.Left), Convert.ToInt32(aktualniPlatforma.Margin.Left + aktualniPlatforma.Width));
             }
-            else if(pohybX != 0)
+            else if (pohybX != 0)
             {
                 if (Math.Abs(poziceBot.Left - pohybX) < 150) pohybX = 0;
                 else if (poziceBot.Left < pohybX)
                 {
-                    Hitboxy.hrac2.setVpravo(true); 
+                    Hitboxy.hrac2.setVpravo(true);
                     Hitboxy.hrac2.setVlevo(false);
                 }
                 else if (poziceBot.Left > pohybX)

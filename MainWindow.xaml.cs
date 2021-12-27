@@ -27,11 +27,19 @@ namespace _2DFightingGame
 
         int dalsiBonus;
         Stopwatch bonusCasovac;
+
+        Stopwatch casKola;
         public MainWindow()
         {
             InitializeComponent();
             gameTick = new DispatcherTimer();
             bonusCasovac = new Stopwatch();
+            casKola = new Stopwatch();
+
+            //Přidat průběh achievementů
+            Hitboxy.ukl.PridatPrubeh(0, 1);
+            Hitboxy.ukl.PridatPrubeh(1, 1);
+            Hitboxy.ukl.PridatPrubeh(2, 1);
         }
 
         private void Plocha_Loaded(object sender, RoutedEventArgs e)
@@ -340,9 +348,8 @@ namespace _2DFightingGame
         void Statistika()
         {
             //Uložení do žebříčku
-            Ukladani ukl = new Ukladani();
-            ukl.PridatSkore(Hitboxy.hrac1.getJmeno(), Hitboxy.hrac1.skore);
-            ukl.PridatSkore(Hitboxy.hrac2.getJmeno(), Hitboxy.hrac2.skore);
+            Hitboxy.ukl.PridatSkore(Hitboxy.hrac1.getJmeno(), Hitboxy.hrac1.skore);
+            if(!Hitboxy.rezimHry)Hitboxy.ukl.PridatSkore(Hitboxy.hrac2.getJmeno(), Hitboxy.hrac2.skore);
 
             vyhraHrac1.Content = Hitboxy.hrac1Jmeno;
             vyhraHrac2.Content = Hitboxy.hrac2Jmeno;
@@ -397,6 +404,7 @@ namespace _2DFightingGame
         {
             if (napoveda)
             {
+                casKola.Start();
                 bonusCasovac.Start();
                 napoveda = false;
                 Plocha.Children.Remove(napoveda1);
