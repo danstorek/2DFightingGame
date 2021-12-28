@@ -42,6 +42,7 @@
         <Image x:Name="selectedHrac1" HorizontalAlignment="Left" Height="720" Margin="193,205,0,0" VerticalAlignment="Top" Width="582" MouseDown="selectedHrac1_MouseDown"/>
         <Image x:Name="selectedHrac2" HorizontalAlignment="Left" Height="720" Margin="1150,205,0,0" VerticalAlignment="Top" Width="582" MouseDown="selectedHrac2_MouseDown"/>
         <Label Name="lblReady1" Visibility="Hidden" Opacity="0" Content="READY" Width="582" FontSize="150" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="193,438,1145,410"/>
+        <Label Name="lblUzamceno1" Visibility="Hidden" Content="UZAMČENO" Width="582" FontSize="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="193,438,1145,410"/>
         <Label Name="lblReady2" Visibility="Hidden" Opacity="0" Content="READY" Width="582" FontSize="150" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="1150,438,188,410"/>
         <TextBox x:Name="jmenoHrac2" TextWrapping="Wrap" Text="Hráč 2" Margin="967,780,-9,155" Background="#333333" FontSize="50" MaxLength="10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <TextBox x:Name="jmenoHrac1" TextWrapping="Wrap" Text="Hráč 1" Margin="0,780,968,155" Background="#333333" FontSize="50" MaxLength="10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>

@@ -264,5 +264,11 @@
     <Resource Include="imgs\achievements\1.png" />
     <Resource Include="imgs\achievements\2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\achievements\4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\achievements\3.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

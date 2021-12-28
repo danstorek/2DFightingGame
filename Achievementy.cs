@@ -37,21 +37,35 @@ namespace _2DFightingGame
                     nazev = "Začátečník";
                     popis = "Odehraj 1 zápas v režimu pro jednoho hráče.\nOdemkne novou postavu: Ninja";
                     splneni = 1;
-                    progressNyni = Hitboxy.ukl.ziskatPrubehAchievementu(id);
+                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
                 case 1:
                     nazev = "Amatér";
                     popis = "Odehraj 10 zápasů v režimu pro jednoho hráče.";
                     splneni = 10;
-                    progressNyni = Hitboxy.ukl.ziskatPrubehAchievementu(id);
+                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
                 case 2:
                     nazev = "Profesionál";
                     popis = "Odehraj 50 zápasů v režimu pro jednoho hráče.";
                     splneni = 50;
-                    progressNyni = Hitboxy.ukl.ziskatPrubehAchievementu(id);
+                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
+                    obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
+                    break;
+                case 3:
+                    nazev = "Rychlostřelec";
+                    popis = "Poraž soupeře v prvních 10 sekundách kola\nv režimu pro jednoho hráče.";
+                    splneni = 1;
+                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
+                    obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
+                    break;
+                case 4:
+                    nazev = "Ostrostřelec";
+                    popis = "Vyhraj zápas s úspěšností střel větší než 75%\nv režimu pro jednoho hráče.";
+                    splneni = 1;
+                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
             }

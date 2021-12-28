@@ -176,6 +176,10 @@ namespace _2DFightingGame
             {
                 pozice.Bottom -= 25;
             }
+            else if(skrceni)
+            {
+                skrceni = false;
+            }
 
 
             //Skok - hráč 1
