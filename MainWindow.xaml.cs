@@ -347,6 +347,9 @@ namespace _2DFightingGame
 
         void Statistika()
         {
+            //Achievement
+            if ((Hitboxy.hrac1.uspesne * 100 / Hitboxy.hrac1.celkem) >= 75) Hitboxy.ukl.PridatPrubeh(3, 1);
+
             //Uložení do žebříčku
             Hitboxy.ukl.PridatSkore(Hitboxy.hrac1.getJmeno(), Hitboxy.hrac1.skore);
             if(!Hitboxy.rezimHry)Hitboxy.ukl.PridatSkore(Hitboxy.hrac2.getJmeno(), Hitboxy.hrac2.skore);

@@ -25,7 +25,7 @@ namespace _2DFightingGame
             File.WriteAllLines("profil.sav",soubor);
         }
 
-        public int ziskatPrubehAchievementu(int id) {
+        public int ZiskatPrubeh(int id) {
             return Convert.ToInt32(soubor[2].Split(';')[id]);
         } 
 

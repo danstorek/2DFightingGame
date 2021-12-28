@@ -32,7 +32,6 @@
         </Style>
     </Window.Resources>
     <Grid x:Name="gridHlavni" Background="#333333" Loaded="gridHlavni_Loaded">
-        <Rectangle Width="4" Height="750" Fill="White"></Rectangle>
         <Button Style="{StaticResource MyButtonStyle}" Width="500" Height="160" Content="Zpět do hlavního menu" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="710,933,710,-13" Click="Navrat">
             <Button.Background>
                 <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
@@ -48,8 +47,12 @@
                 <ImageBrush ImageSource="/imgs/tlacitko_menu.png" />
             </Button.Background>
         </Button>
-        <Grid Name="gridZebricek" Margin="967,165,10,165"/>
-        <Grid Name="gridUspechy" Margin="12,165,965,165"/>
+        <ScrollViewer Margin="967,165,10,165" >
+            <Grid Name="gridZebricek"/>
+        </ScrollViewer>
+        <ScrollViewer Margin="12,165,965,165">
+            <Grid Name="gridUspechy"/>
+        </ScrollViewer>
     </Grid>
 
 </Window>

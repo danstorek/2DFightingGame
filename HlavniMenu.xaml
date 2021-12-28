@@ -31,7 +31,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid x:Name="hlMenu" Background="#333333" Loaded="hlMenu_Loaded">
+    <Grid x:Name="hlMenu" Background="#333333" Loaded="hlMenu_Loaded" MouseMove="hlMenu_MouseMove">
         <Image Source="imgs/hlavni_menu.png"/>
         <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="2D Fighting Game" Margin="0,72,0,0"></Label>
         <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="2D Fighting Game" Margin="0,72,0,0"></Label>
@@ -57,5 +57,8 @@
                 <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
             </Button.Background>
         </Button>
+        <Border x:Name="bdNapoveda" Panel.ZIndex="10" Visibility="Hidden" Width="550" Height="150" CornerRadius="50" Background="#333333" Opacity="0.9" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Label Name="lbNapoveda" Content="TEST" Foreground="White" FontSize="30" FontFamily="Bahnschrift" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        </Border>
     </Grid>
 </Window>

@@ -52,6 +52,9 @@ namespace _2DFightingGame
 
         private void Tmr_Tick(object sender, EventArgs e)
         {
+            if ((int)selectedHrac1.Tag == 1 && Hitboxy.ukl.ZiskatPrubeh(0) < 1) lblUzamceno1.Visibility = Visibility.Visible;
+            else lblUzamceno1.Visibility = Visibility.Hidden;
+
             if (hrac1Ready && lblReady1.Opacity < 1) lblReady1.Opacity += 0.05;
             if (hrac2Ready && lblReady2.Opacity < 1) lblReady2.Opacity += 0.05;
             if (hrac1Ready && hrac2Ready && zahajeni < DateTime.Now)
@@ -126,12 +129,12 @@ namespace _2DFightingGame
 
         private void selectedHrac1_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!hrac1Ready)
+            if (!hrac1Ready && ((int)selectedHrac1.Tag != 1 || Hitboxy.ukl.ZiskatPrubeh(0)>=1))
             {
                 jmenoHrac1.IsEnabled = false;
                 lblReady1.Visibility = Visibility.Visible;
                 hrac1Ready = true;
-                if(Hitboxy.rezimHry && !hrac2Ready)
+                if (Hitboxy.rezimHry && !hrac2Ready)
                 {
                     lblReady2.Visibility = Visibility.Visible;
                     selectedHrac2.Tag = Hitboxy.rnd.Next(0, postavy.Length);

@@ -59,5 +59,39 @@ namespace _2DFightingGame
             System.Threading.Thread.Sleep(50);
             this.Close();
         }
+
+        private void hlMenu_MouseMove(object sender, MouseEventArgs e)
+        {
+            double mysX = e.GetPosition(this).X;
+            double mysY = e.GetPosition(this).Y;
+
+            bdNapoveda.Margin = new Thickness(mysX + 10, mysY - 160, 0, 0);
+
+            if (mysX > 350 && mysX < 840)
+            {
+                if (mysY > 418 && mysY < 578)
+                {
+                    lbNapoveda.Content = "Spustí hru pro jednoho hráče, můžeš\nhrát pouze s odemčenými postavami";
+                    bdNapoveda.Visibility = Visibility.Visible;
+                }
+                else if (mysY > 583 && mysY < 743)
+                {
+                    lbNapoveda.Content = "Spustí hru pro dva hráče, můžeš\nhrát s jakoukoliv postavou";
+                    bdNapoveda.Visibility = Visibility.Visible;
+                }
+                else if (mysY > 748 && mysY < 908)
+                {
+                    lbNapoveda.Content = "Zobrazí ti odemknuté úspěchy a\nžebříček tvých nejlepší výsledků";
+                    bdNapoveda.Visibility = Visibility.Visible;
+                }
+                else if (mysY > 920 && mysY < 1080)
+                {
+                    lbNapoveda.Content = "Ukončí hru";
+                    bdNapoveda.Visibility = Visibility.Visible;
+                }
+                else bdNapoveda.Visibility = Visibility.Hidden;
+            }
+            else bdNapoveda.Visibility = Visibility.Hidden;
+        }
     }
 }
