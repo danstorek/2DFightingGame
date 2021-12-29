@@ -71,7 +71,6 @@ C:\Users\danst\Desktop\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DF
 D:\mat_projekt\2DFightingGame\2DFightingGame\bin\Release\2DFightingGame.exe.config
 D:\mat_projekt\2DFightingGame\2DFightingGame\bin\Release\2DFightingGame.exe
 D:\mat_projekt\2DFightingGame\2DFightingGame\bin\Release\2DFightingGame.pdb
-D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.csproj.AssemblyReference.cache
 D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\HlavniMenu.g.cs
 D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\MainWindow.g.cs
 D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\Uspechy.g.cs

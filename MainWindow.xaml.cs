@@ -37,9 +37,12 @@ namespace _2DFightingGame
             casKola = new Stopwatch();
 
             //Přidat průběh achievementů
-            Hitboxy.ukl.PridatPrubeh(0, 1);
-            Hitboxy.ukl.PridatPrubeh(1, 1);
-            Hitboxy.ukl.PridatPrubeh(2, 1);
+            if (Hitboxy.rezimHry)
+            {
+                Hitboxy.ukl.PridatPrubeh(0, 1);
+                Hitboxy.ukl.PridatPrubeh(1, 1);
+                Hitboxy.ukl.PridatPrubeh(2, 1);
+            }
         }
 
         private void Plocha_Loaded(object sender, RoutedEventArgs e)
@@ -60,12 +63,14 @@ namespace _2DFightingGame
             {
                 case 0: Hitboxy.hrac1 = new Postava_1(Plocha, postava1, false); break;
                 case 1: Hitboxy.hrac1 = new Postava_2(Plocha, postava1, false); break;
+                case 2: Hitboxy.hrac1 = new Postava_3(Plocha, postava1, false); break;
             }
 
             switch (Hitboxy.hrac2Postava)
             {
                 case 0: Hitboxy.hrac2 = new Postava_1(Plocha, postava2, false); break;
                 case 1: Hitboxy.hrac2 = new Postava_2(Plocha, postava2, false); break;
+                case 2: Hitboxy.hrac2 = new Postava_3(Plocha, postava2, false); break;
             }
 
             Hitboxy.hrac1.getImg().Margin = new Thickness(0, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
@@ -303,6 +308,9 @@ namespace _2DFightingGame
                         vyhraHrac2Uspesnost.Opacity = 0;
                         tlacVyhra.IsEnabled = false;
                         tlacVyhra.Opacity = 0;
+                        //Achievement
+                        if (Hitboxy.rezimHry && casKola.ElapsedMilliseconds <= 12000) Hitboxy.ukl.PridatPrubeh(3,1);
+
                         if (dalsiKolo < DateTime.Now)
                         {
                             aktivni = 0;
@@ -347,8 +355,9 @@ namespace _2DFightingGame
 
         void Statistika()
         {
-            //Achievement
-            if ((Hitboxy.hrac1.uspesne * 100 / Hitboxy.hrac1.celkem) >= 75) Hitboxy.ukl.PridatPrubeh(3, 1);
+            //Achievementy
+            if (Hitboxy.rezimHry && casKola.ElapsedMilliseconds <= 12000) Hitboxy.ukl.PridatPrubeh(3, 1);
+            if (Hitboxy.rezimHry && (Hitboxy.hrac1.uspesne * 100 / Hitboxy.hrac1.celkem) >= 75) Hitboxy.ukl.PridatPrubeh(4, 1);
 
             //Uložení do žebříčku
             Hitboxy.ukl.PridatSkore(Hitboxy.hrac1.getJmeno(), Hitboxy.hrac1.skore);
@@ -419,11 +428,13 @@ namespace _2DFightingGame
                 case Key.Escape:
                     if (!pozastaveno && aktivni == 0)
                     {
+                        casKola.Stop();
                         pauseMenu.Visibility = Visibility.Visible;
                         pozastaveno = true;
                     }
                     else if (pozastaveno && aktivni == 0)
                     {
+                        casKola.Start();
                         pauseMenu.Visibility = Visibility.Hidden;
                         pozastaveno = false;
                     }

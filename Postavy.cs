@@ -70,7 +70,10 @@ namespace _2DFightingGame
         protected List<BitmapImage> animace_left = new List<BitmapImage>();
         protected List<BitmapImage> animace_right = new List<BitmapImage>();
         protected int animace_index = 0;
-        protected int tick_animace = 0;
+        protected double tick_animace = 0;
+        protected bool utoceni1 = false;
+        protected List<BitmapImage> animaceUtoceni1_left = new List<BitmapImage>();
+        protected List<BitmapImage> animaceUtoceni1_right = new List<BitmapImage>();
 
         //Statistiky
         public int uspesne = 0;
@@ -130,13 +133,11 @@ namespace _2DFightingGame
             if (vpravo)
             {
                 if (pohybX < maxRychlost && !skrceni) pohybX += maxRychlost / 10;
-                imgPostava.Source = animace_right[animace_index];
                 smer = true;
             }
             else if (vlevo)
             {
                 if (pohybX > (0 - maxRychlost) && !skrceni) pohybX -= maxRychlost / 10;
-                imgPostava.Source = animace_left[animace_index];
                 smer = false;
             }
             else
@@ -146,17 +147,39 @@ namespace _2DFightingGame
                 if (pohybX < 0) pohybX += 3;
             }
 
-            if (pohybX != 0)
+            //Animace
+            if (utoceni1)
             {
-                tick_animace++;
-                if (tick_animace > 30) tick_animace = 0;
-                animace_index = tick_animace / 7;
+                tick_animace += Convert.ToDouble(animaceUtoceni1_left.Count) / 30;
+                if (tick_animace >= animaceUtoceni1_left.Count - 0.49)
+                {
+                    tick_animace = 0;
+                    utoceni1 = false;
+                }
+                animace_index = Convert.ToInt32(tick_animace);
+            }
+            else if (pohybX != 0)
+            {
+                tick_animace += Convert.ToDouble(animace_left.Count) / 30;
+                if (tick_animace >= animace_left.Count - 0.49) tick_animace = 1;
+                animace_index = Convert.ToInt32(tick_animace);
             }
             else
             {
                 animace_index = 0;
                 if (!smer) imgPostava.Source = animace_left[animace_index];
                 else imgPostava.Source = animace_right[animace_index];
+            }
+
+            if(smer)
+            {
+                if(!utoceni1) imgPostava.Source = animace_right[animace_index];
+                else imgPostava.Source = animaceUtoceni1_right[animace_index];
+            }
+            else
+            {
+                if(!utoceni1) imgPostava.Source = animace_left[animace_index];
+                else imgPostava.Source = animaceUtoceni1_left[animace_index];
             }
 
             if (!getZmrazen())
@@ -176,7 +199,7 @@ namespace _2DFightingGame
             {
                 pozice.Bottom -= 25;
             }
-            else if(skrceni)
+            else if (skrceni)
             {
                 skrceni = false;
             }
@@ -396,12 +419,10 @@ namespace _2DFightingGame
 
     class Postava_1 : Postava
     {
-        Image muzzleflash = new Image();
-
-        DateTime muzzleTimer = DateTime.Now;
+        bool zautoceno = false;
         public Postava_1(Grid plocha, Image postava, bool strana)
         {
-            cooldownUtok1Max = 300;
+            cooldownUtok1Max = 450;
             cooldownUtok2Max = 1200;
 
             this.maxRychlost = 20;
@@ -411,27 +432,51 @@ namespace _2DFightingGame
             imgPostava = postava;
             gridPlocha = plocha;
 
-            muzzleflash.Width = 50;
-            muzzleflash.HorizontalAlignment = HorizontalAlignment.Left;
-            muzzleflash.VerticalAlignment = VerticalAlignment.Bottom;
-            //muzzleflash.Opacity = 0;
-            gridPlocha.Children.Add(muzzleflash);
-
             VytvorIndikatory();
 
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/00.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/0.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/1.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/2.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/3.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/4.png")));
-            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/crouch.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/5.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/6.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/7.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/8.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/9.png")));
 
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/00.png")));
             animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/0.png")));
             animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/1.png")));
             animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/2.png")));
             animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/3.png")));
             animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/4.png")));
-            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/crouch.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/5.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/6.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/7.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/8.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/9.png")));
+
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/attack/0.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/attack/1.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/attack/2.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/attack/3.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/attack/4.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/attack/5.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/attack/7.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/attack/8.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/attack/9.png")));
+
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/attack/0.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/attack/1.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/attack/2.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/attack/3.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/attack/4.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/attack/5.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/attack/7.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/attack/8.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/attack/9.png")));
 
             if (strana) imgPostava.Source = animace_left[animace_index];
             else imgPostava.Source = animace_right[animace_index];
@@ -455,12 +500,18 @@ namespace _2DFightingGame
             //Útok 1 - hráč 1
             if (utok1 && DateTime.Now > cooldownUtok1 && energie >= 15)
             {
-                    energie -= 15;
-                    muzzleTimer = DateTime.Now + TimeSpan.FromMilliseconds(150);
-                    Fireball fireball = new Fireball(this, smer);
-                    gridPlocha.Children.Add(fireball.ReturnImage());
-                    aktivni_projektily.Add(fireball);
-                    cooldownUtok1 = DateTime.Now.AddMilliseconds(cooldownUtok1Max);
+                tick_animace = 0;
+                utoceni1 = true;
+                zautoceno = false;
+                energie -= 20;
+                cooldownUtok1 = DateTime.Now.AddMilliseconds(cooldownUtok1Max);
+            }
+            if (utoceni1 && tick_animace > 4 && !zautoceno)
+            {
+                Sip sip = new Sip(this, smer);
+                gridPlocha.Children.Add(sip.ReturnImage());
+                aktivni_projektily.Add(sip);
+                zautoceno = true;
             }
 
             //Útok 2 - hráč 1
@@ -475,34 +526,12 @@ namespace _2DFightingGame
 
             Pohyb(pozice);
 
-            //Výstřel zbraně
-            if (!smer) muzzleflash.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/muzzle_left.png"));
-            else muzzleflash.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/muzzle_right.png"));
-
-            if (muzzleTimer > DateTime.Now && muzzleflash.Opacity <= 1)
-            {
-                muzzleflash.Opacity += 0.2;
-            }
-            else if (muzzleTimer < DateTime.Now && muzzleflash.Opacity >= 0)
-            {
-                muzzleflash.Opacity -= 0.2;
-            }
-            pozice.Bottom += 117;
-            if (smer) pozice.Left += 120;
-            else pozice.Left -= 50;
-            muzzleflash.Margin = pozice;
-
             aktualizujProjektily();
         }
     }
     class Postava_2 : Postava
     {
-        //Příprava pro animace katany
-        Image imgKatana = new Image();
-        int katana_tick_animace = 0;
-        int katana_animace_index = 0;
-        List<BitmapImage> katana_animace_left = new List<BitmapImage>();
-        List<BitmapImage> katana_animace_right = new List<BitmapImage>();
+        bool zautoceno = false;
         public Postava_2(Grid plocha, Image postava, bool strana)
         {
             cooldownUtok1Max = 500;
@@ -517,38 +546,49 @@ namespace _2DFightingGame
 
             VytvorIndikatory();
 
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/00.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/0.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/1.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/2.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/3.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/4.png")));
-            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/crouch.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/5.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/6.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/7.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/8.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/9.png")));
 
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/00.png")));
             animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/0.png")));
             animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/1.png")));
             animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/2.png")));
             animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/3.png")));
             animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/4.png")));
-            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/crouch.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/5.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/6.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/7.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/8.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/9.png")));
 
-            katana_animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/katana_left/idle.png")));
-            katana_animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/katana_left/0.png")));
-            katana_animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/katana_left/1.png")));
-            katana_animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/katana_left/2.png")));
-            katana_animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/katana_left/3.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/attack/0.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/attack/1.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/attack/2.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/attack/3.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/attack/4.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/attack/5.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/attack/7.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/attack/8.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/attack/9.png")));
 
-            katana_animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/katana_right/idle.png")));
-            katana_animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/katana_right/0.png")));
-            katana_animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/katana_right/1.png")));
-            katana_animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/katana_right/2.png")));
-            katana_animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/katana_right/3.png")));
-
-            if (smer) imgKatana.Source = katana_animace_left[0];
-            else imgKatana.Source = katana_animace_right[0];
-            imgKatana.Width = 320;
-            imgKatana.Height = 440;
-            Panel.SetZIndex(imgKatana, 2);
-            gridPlocha.Children.Add(imgKatana);
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/attack/0.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/attack/1.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/attack/2.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/attack/3.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/attack/4.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/attack/5.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/attack/7.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/attack/8.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/attack/9.png")));
         }
 
         public override void setSkrceni(bool hodnota)
@@ -571,28 +611,16 @@ namespace _2DFightingGame
             //Útok
             if (utok1 && DateTime.Now > cooldownUtok1 && energie >= 20)
             {
+                tick_animace = 0;
+                utoceni1 = true;
+                zautoceno = false;
                 energie -= 20;
-                katana_tick_animace = 1;
                 cooldownUtok1 = DateTime.Now + TimeSpan.FromMilliseconds(cooldownUtok1Max);
             }
-            if (katana_tick_animace > 0)
+            if (utoceni1 && tick_animace > 4 && !zautoceno)
             {
-                switch (katana_tick_animace)
-                {
-                    case 1: katana_animace_index = 1; break;
-                    case 3: katana_animace_index = 2; break;
-                    case 5: katana_animace_index = 3; break;
-                    case 7: katana_animace_index = 4; new Katana_Hit(getImg().Margin.Left, getImg().Margin.Bottom, this, smer); break;
-                    case 9: katana_animace_index = 3; break;
-                    case 11: katana_animace_index = 2; break;
-                    case 13: katana_animace_index = 1; break;
-                }
-                katana_tick_animace++;
-                if (katana_tick_animace >= 15)
-                {
-                    katana_tick_animace = 0;
-                    katana_animace_index = 0;
-                }
+                new Katana_Hit(getImg().Margin.Left, getImg().Margin.Bottom, this, smer);
+                zautoceno = true;
             }
             if (utok2 && DateTime.Now > cooldownUtok2 && energie >= 30)
             {
@@ -606,23 +634,107 @@ namespace _2DFightingGame
             Pohyb(pozice);
 
             pozice = imgPostava.Margin;
-            //Pohyb katany s tělem
-            pozice.Bottom -= 100;
-            imgKatana.HorizontalAlignment = HorizontalAlignment.Left;
-            imgKatana.VerticalAlignment = VerticalAlignment.Bottom;
-            if (!smer)
+            aktualizujProjektily();
+        }
+    }
+
+    class Postava_3 : Postava
+    {
+        public Postava_3(Grid plocha, Image postava, bool strana)
+        {
+            cooldownUtok1Max = 600;
+            cooldownUtok2Max = 1200;
+
+            this.maxRychlost = 25;
+            this.zakladniRychlost = 25;
+
+            id = 0;
+            imgPostava = postava;
+            gridPlocha = plocha;
+
+            VytvorIndikatory();
+
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/00.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/0.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/1.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/2.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/3.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/4.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/5.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/6.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/7.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/8.png")));
+            animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/9.png")));
+
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/00.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/0.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/1.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/2.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/3.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/4.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/5.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/6.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/7.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/8.png")));
+            animace_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/9.png")));
+
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/attack/0.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/attack/1.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/attack/2.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/attack/3.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/attack/4.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/attack/5.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/attack/7.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/attack/8.png")));
+            animaceUtoceni1_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/attack/9.png")));
+
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/attack/0.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/attack/1.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/attack/2.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/attack/3.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/attack/4.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/attack/5.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/attack/7.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/attack/8.png")));
+            animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/attack/9.png")));
+
+            if (strana) imgPostava.Source = animace_left[animace_index];
+            else imgPostava.Source = animace_right[animace_index];
+        }
+
+        public override void setSkrceni(bool hodnota)
+        {
+            skrceni = hodnota;
+        }
+        public override void Tick()
+        {
+            checkBonusy();
+            AktualizujIndikatory();
+            Thickness pozice = imgPostava.Margin;
+            //Útok 1 - hráč 1
+            if (utok1 && DateTime.Now > cooldownUtok1 && energie >= 20)
             {
-                imgKatana.Source = katana_animace_left[katana_animace_index];
-                Panel.SetZIndex(imgKatana, 2);
-                pozice.Left -= 150;
+                tick_animace = 0;
+                utoceni1 = true;
+                energie -= 20;
+                MageStrela strela = new MageStrela(this, smer);
+                gridPlocha.Children.Add(strela.ReturnImage());
+                aktivni_projektily.Add(strela);
+                cooldownUtok1 = DateTime.Now.AddMilliseconds(cooldownUtok1Max);
             }
-            else
+
+            //Útok 2 - hráč 1
+            if (utok2 && DateTime.Now > cooldownUtok2 && energie >= 25)
             {
-                imgKatana.Source = katana_animace_right[katana_animace_index];
-                Panel.SetZIndex(imgKatana, 2);
-                pozice.Left -= 50;
+                energie -= 25;
+                TNT sw = new TNT(this);
+                gridPlocha.Children.Add(sw.ReturnImage());
+                aktivni_projektily.Add(sw);
+                cooldownUtok2 = DateTime.Now.AddMilliseconds(cooldownUtok2Max);
             }
-            imgKatana.Margin = pozice;
+
+            Pohyb(pozice);
+
             aktualizujProjektily();
         }
     }
