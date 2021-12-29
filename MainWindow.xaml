@@ -35,8 +35,8 @@
         <Grid x:Name="Plocha" Loaded="Plocha_Loaded">
             <Image x:Name="pozadiMapa" Panel.ZIndex="-2" Source="/imgs/maps/map1/background.png"></Image>
 
-            <Image x:Name="postava1" Width="120" Height="185" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="2"></Image>
-            <Image x:Name="postava2" Width="120" Height="185" Margin="1700,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="2"></Image>
+            <Image x:Name="postava1" Width="200" Height="185" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="2"></Image>
+            <Image x:Name="postava2" Width="200" Height="185" Margin="1700,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="2"></Image>
             <Rectangle x:Name="postava1round1" Panel.ZIndex="10" Fill="#FF57ECFF" Width="35" Height="35" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="674,0,0,942" Stroke="#FF0010FF" StrokeThickness="5"></Rectangle>
             <Rectangle x:Name="postava1round2" Panel.ZIndex="10" Fill="#FF57ECFF" Width="35" Height="35" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="674,0,0,978" Stroke="#FF0010FF" StrokeThickness="5"/>
             <Rectangle x:Name="postava2round1" Panel.ZIndex="10" Fill="#FF57ECFF" Width="35" Height="35" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="1211,0,0,942" Stroke="#FF0010FF" StrokeThickness="5"></Rectangle>

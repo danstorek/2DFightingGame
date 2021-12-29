@@ -26,7 +26,8 @@ namespace _2DFightingGame
         DispatcherTimer tmr = new DispatcherTimer();
         BitmapImage[] postavy = new BitmapImage[] {
             new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/nahled.png")),
-            new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/nahled.png"))
+            new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/nahled.png")),
+            new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/nahled.png"))
         };
         public VyberPostav2Hraci()
         {

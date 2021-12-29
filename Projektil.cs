@@ -26,7 +26,7 @@ namespace _2DFightingGame
         }
     }
 
-    class Fireball : Updatable
+    class Sip : Updatable
     {
         int rychlost;
         Image img = new Image();
@@ -35,7 +35,7 @@ namespace _2DFightingGame
         Postava vyvolavaci;
         Image souperImg;
 
-        public Fireball(Postava postava, bool smer)
+        public Sip(Postava postava, bool smer)
         {
             this.vyvolavaci = postava;
             this.postava = postava.getImg();
@@ -48,13 +48,13 @@ namespace _2DFightingGame
             if (smer)
             {
                 pozice.Left += 100;
-                pozice.Bottom += 75;
+                pozice.Bottom += 45;
                 img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/fireball.png"));
             }
             else
             {
                 pozice.Left -= 40;
-                pozice.Bottom += 75;
+                pozice.Bottom += 45;
                 img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/fireballleft.png"));
             }
             img.Width = 91;
@@ -82,8 +82,8 @@ namespace _2DFightingGame
             {
                 vyvolavaci.skore += 10;
                 vyvolavaci.uspesne += 1;
-                if(vyvolavaci.getSila()) souper.Poskozeni(20);
-                else souper.Poskozeni(10);
+                if(vyvolavaci.getSila()) souper.Poskozeni(24);
+                else souper.Poskozeni(12);
 
                 if (rychlost > 0)
                 {
@@ -95,6 +95,92 @@ namespace _2DFightingGame
                 }
                 Neaktivni();
             }
+        }
+
+        public override Image ReturnImage()
+        {
+            return img;
+        }
+    }
+
+    class MageStrela : Updatable
+    {
+        int rychlost;
+        Image img = new Image();
+        Image postava;
+        Postava souper;
+        Postava vyvolavaci;
+        Image souperImg;
+        int tick = 0;
+        bool smer;
+
+        public MageStrela(Postava postava, bool smer)
+        {
+            this.smer = smer;
+            this.vyvolavaci = postava;
+            this.postava = postava.getImg();
+            this.souper = Hitboxy.getSouper(postava);
+            this.souperImg = this.souper.getImg();
+
+            vyvolavaci.celkem += 1;
+        }
+
+        public override void Tick()
+        {
+            if (tick == 20)
+            {
+                Thickness pozice = this.postava.Margin;
+                if (smer)
+                {
+                    pozice.Left += 100;
+                    pozice.Bottom += 75;
+                }
+                else
+                {
+                    pozice.Left -= 40;
+                    pozice.Bottom += 75;
+                }
+                img.Width = 91;
+                img.Height = 91;
+                img.VerticalAlignment = VerticalAlignment.Bottom;
+                img.HorizontalAlignment = HorizontalAlignment.Left;
+                img.Margin = pozice;
+
+                if (smer) rychlost = 40;
+                else rychlost = -40;
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/mageshot.png"));
+            }
+            if (tick > 20)
+            {
+                Thickness pozice = img.Margin;
+                pozice.Left += rychlost;
+                img.Margin = pozice;
+
+                //Označení výstřelu mimo obraz jako neaktivní
+                if (pozice.Left < -100 || pozice.Left > 2100) Neaktivni();
+
+                //Kolize se soupeřem
+                Thickness poziceSouper = souperImg.Margin;
+                if (pozice.Left + (img.Width / 2) > poziceSouper.Left + (souperImg.Width / 2 - 40) && pozice.Left + (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom > poziceSouper.Bottom && pozice.Bottom < poziceSouper.Bottom + souperImg.Height - 20)
+                {
+                    vyvolavaci.skore += 20;
+                    vyvolavaci.uspesne += 1;
+                    if (vyvolavaci.getSila()) souper.Poskozeni(40);
+                    else souper.Poskozeni(20);
+
+                    if (rychlost > 0)
+                    {
+                        souper.Odrazeni(14);
+                    }
+                    else
+                    {
+                        souper.Odrazeni(-14);
+                    }
+                    Neaktivni();
+                }
+            }
+            else tick++;
+
         }
 
         public override Image ReturnImage()
@@ -197,8 +283,8 @@ namespace _2DFightingGame
             vyvolavaci.celkem += 1;
 
             pozice = postava.getImg().Margin;
-            img.Height = 150;
-            img.Width = 150;
+            img.Height = 200;
+            img.Width = 200;
             img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/1.png"));
             img.HorizontalAlignment = HorizontalAlignment.Left;
             img.VerticalAlignment = VerticalAlignment.Bottom;
@@ -305,10 +391,10 @@ namespace _2DFightingGame
             vyvolavaci.celkem += 1;
 
             Thickness poziceSouper = souperImg.Margin;
-            if (poziceX > poziceSouper.Left - 150 && poziceX < poziceSouper.Left + 150 && poziceY < poziceSouper.Bottom + 100 && poziceY > poziceSouper.Bottom - 300)
+            if (poziceX > poziceSouper.Left - 50 && poziceX < poziceSouper.Left+ 50 && poziceY < poziceSouper.Bottom + 100 && poziceY > poziceSouper.Bottom - 100)
             {
                 vyvolavaci.uspesne += 1;
-                vyvolavaci.skore += 10;
+                vyvolavaci.skore += 20;
                 if(vyvolavaci.getSila()) souper.Poskozeni(30);
                 else souper.Poskozeni(15);
                 if (vyvolavaci.getImg().Margin.Left < souper.getImg().Margin.Left) souper.Odrazeni(30);
