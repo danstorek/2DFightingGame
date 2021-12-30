@@ -75,6 +75,25 @@ namespace _2DFightingGame
         protected List<BitmapImage> animaceUtoceni1_left = new List<BitmapImage>();
         protected List<BitmapImage> animaceUtoceni1_right = new List<BitmapImage>();
 
+        protected List<BitmapImage> animaceUmirani_left = new List<BitmapImage>();
+        protected List<BitmapImage> animaceUmirani_right = new List<BitmapImage>();
+
+        //Animace umření po konci kola
+        public void Umirani(double tick)
+        {
+            int index = Convert.ToInt32(Convert.ToDouble(animaceUmirani_left.Count) / 40 * tick);
+            if(index < animaceUmirani_left.Count-1)
+            {
+                if (!smer) imgPostava.Source = animaceUmirani_left[index];
+                else imgPostava.Source = animaceUmirani_right[index];
+            }
+            else
+            {
+                if (!smer) imgPostava.Source = animaceUmirani_left[animaceUmirani_left.Count-1];
+                else imgPostava.Source = animaceUmirani_right[animaceUmirani_left.Count-1];
+            }
+        }
+
         //Statistiky
         public int uspesne = 0;
         public int celkem = 0;
@@ -478,6 +497,24 @@ namespace _2DFightingGame
             animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/attack/8.png")));
             animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/attack/9.png")));
 
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/die/0.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/die/1.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/die/2.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/die/3.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/die/4.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/die/5.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/die/7.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/die/8.png")));
+
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/die/0.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/die/1.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/die/2.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/die/3.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/die/4.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/die/5.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/die/7.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/right/die/8.png")));
+
             if (strana) imgPostava.Source = animace_left[animace_index];
             else imgPostava.Source = animace_right[animace_index];
         }
@@ -589,6 +626,26 @@ namespace _2DFightingGame
             animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/attack/7.png")));
             animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/attack/8.png")));
             animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/attack/9.png")));
+
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/die/0.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/die/1.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/die/2.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/die/3.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/die/4.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/die/5.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/die/7.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/die/8.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/die/9.png")));
+
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/die/0.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/die/1.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/die/2.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/die/3.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/die/4.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/die/5.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/die/7.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/die/8.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/right/die/9.png")));
         }
 
         public override void setSkrceni(bool hodnota)
@@ -697,6 +754,24 @@ namespace _2DFightingGame
             animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/attack/7.png")));
             animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/attack/8.png")));
             animaceUtoceni1_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/attack/9.png")));
+
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/die/0.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/die/1.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/die/2.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/die/3.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/die/4.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/die/5.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/die/7.png")));
+            animaceUmirani_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/die/8.png")));
+
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/die/0.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/die/1.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/die/2.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/die/3.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/die/4.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/die/5.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/die/7.png")));
+            animaceUmirani_right.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/right/die/8.png")));
 
             if (strana) imgPostava.Source = animace_left[animace_index];
             else imgPostava.Source = animace_right[animace_index];
