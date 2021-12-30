@@ -32,18 +32,18 @@
         </Style>
     </Window.Resources>
     <Grid x:Name="gridVyber" Background="#333333" Loaded="gridVyber_Loaded">
-        <Rectangle Width="4" Height="750" Fill="White"></Rectangle>
+        <Image Source="imgs/ui/character_select.jpg"/>
         <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="Výběr postav"></Label>
         <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="Výběr postav"></Label>
         <Label Content="←" Tag="hrac1vlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
-        <Label Content="→" Tag="hrac1vpravo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="775,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
-        <Label Content="←" Tag="hrac2vlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="967,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
+        <Label Content="→" Tag="hrac1vpravo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="622,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
+        <Label Content="←" Tag="hrac2vlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="1147,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
         <Label Content="→" Tag="hrac2vpravo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="1732,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
-        <Image x:Name="selectedHrac1" HorizontalAlignment="Left" Height="720" Margin="193,205,0,0" VerticalAlignment="Top" Width="582" MouseDown="selectedHrac1_MouseDown"/>
-        <Image x:Name="selectedHrac2" HorizontalAlignment="Left" Height="720" Margin="1150,205,0,0" VerticalAlignment="Top" Width="582" MouseDown="selectedHrac2_MouseDown"/>
-        <Label Name="lblReady1" Visibility="Hidden" Opacity="0" Content="READY" Width="582" FontSize="150" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="193,438,1145,410"/>
-        <Label Name="lblUzamceno1" Visibility="Hidden" Content="UZAMČENO" Width="582" FontSize="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="193,438,1145,410"/>
-        <Label Name="lblReady2" Visibility="Hidden" Opacity="0" Content="READY" Width="582" FontSize="150" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="1150,438,188,410"/>
+        <Image x:Name="selectedHrac1" HorizontalAlignment="Left" Height="575" Margin="188,200,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac1_MouseDown"/>
+        <Image x:Name="selectedHrac2" HorizontalAlignment="Left" Height="575" Margin="1328,205,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac2_MouseDown"/>
+        <Label Name="lblReady1" Visibility="Hidden" Opacity="0" Content="PŘIPRAVEN" FontSize="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="10,438,1120,410"/>
+        <Label Name="lblUzamceno1" Visibility="Hidden" Content="UZAMČENO" FontSize="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="10,438,1120,410"/>
+        <Label Name="lblReady2" Visibility="Hidden" Opacity="0" Content="PŘIPRAVEN" FontSize="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="1147,438,10,410"/>
         <TextBox x:Name="jmenoHrac2" TextWrapping="Wrap" Text="Hráč 2" Margin="967,780,-9,155" Background="#333333" FontSize="50" MaxLength="10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <TextBox x:Name="jmenoHrac1" TextWrapping="Wrap" Text="Hráč 1" Margin="0,780,968,155" Background="#333333" FontSize="50" MaxLength="10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <Button Style="{StaticResource MyButtonStyle}" Width="500" Height="160" Content="Zpět do hlavního menu" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="710,933,710,-13" Click="Navrat">
