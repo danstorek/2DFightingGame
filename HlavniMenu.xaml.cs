@@ -80,6 +80,11 @@ namespace _2DFightingGame
                         uspechy.Show();
                         System.Threading.Thread.Sleep(50);
                         break;
+                    case 4:
+                        Nastaveni nastaveni = new Nastaveni();
+                        nastaveni.Show();
+                        System.Threading.Thread.Sleep(50);
+                        break;
                 }
                 animacePrechod.Stop();
                 animaceTick.Stop();
@@ -121,6 +126,11 @@ namespace _2DFightingGame
             klik = true;
             vyber = 3;
         }
+        private void Nastaveni(object sender, RoutedEventArgs e)
+        {
+            klik = true;
+            vyber = 4;
+        }
 
         private void hlMenu_MouseMove(object sender, MouseEventArgs e)
         {
@@ -149,6 +159,15 @@ namespace _2DFightingGame
                 else if (mysY > 920 && mysY < 1080)
                 {
                     lbNapoveda.Content = "Ukončí hru";
+                    bdNapoveda.Visibility = Visibility.Visible;
+                }
+                else bdNapoveda.Visibility = Visibility.Hidden;
+            }
+            else if(mysX > 955 && mysX < 1160)
+            {
+                if (mysY > 844 && mysY < 1065)
+                {
+                    lbNapoveda.Content = "Nastavení hry";
                     bdNapoveda.Visibility = Visibility.Visible;
                 }
                 else bdNapoveda.Visibility = Visibility.Hidden;

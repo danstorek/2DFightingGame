@@ -45,6 +45,57 @@ namespace _2DFightingGame
             bonusCasovac = new Stopwatch();
             casKola = new Stopwatch();
 
+            //Popis kláves podle nastavení
+            Key tlacitko = Hitboxy.ukl.nastaveniKlaves[4];
+            if (tlacitko == Key.Up) tlacitko1.Content = "↑";
+            else if (tlacitko == Key.Down) tlacitko1.Content = "↓";
+            else if (tlacitko == Key.Left) tlacitko1.Content = "←";
+            else if (tlacitko == Key.Right) tlacitko1.Content = "→";
+            else tlacitko1.Content = tlacitko.ToString();
+
+            tlacitko = Hitboxy.ukl.nastaveniKlaves[5];
+            if (tlacitko == Key.Up) tlacitko2.Content = "↑";
+            else if (tlacitko == Key.Down) tlacitko2.Content = "↓";
+            else if (tlacitko == Key.Left) tlacitko2.Content = "←";
+            else if (tlacitko == Key.Right) tlacitko2.Content = "→";
+            else tlacitko2.Content = tlacitko.ToString();
+
+            tlacitko = Hitboxy.ukl.nastaveniKlaves[10];
+            if (tlacitko == Key.Up) tlacitko3.Content = "↑";
+            else if (tlacitko == Key.Down) tlacitko3.Content = "↓";
+            else if (tlacitko == Key.Left) tlacitko3.Content = "←";
+            else if (tlacitko == Key.Right) tlacitko3.Content = "→";
+            else tlacitko3.Content = tlacitko.ToString();
+
+            tlacitko = Hitboxy.ukl.nastaveniKlaves[11];
+            if (tlacitko == Key.Up) tlacitko4.Content = "↑";
+            else if (tlacitko == Key.Down) tlacitko4.Content = "↓";
+            else if (tlacitko == Key.Left) tlacitko4.Content = "←";
+            else if (tlacitko == Key.Right) tlacitko4.Content = "→";
+            else tlacitko4.Content = tlacitko.ToString();
+
+            for (int i = 0; i < ovladani1.Children.Count; i++)
+            {
+                if (ovladani1.Children[i] is Label lb && lb.Tag != null)
+                {
+                    tlacitko = Hitboxy.ukl.nastaveniKlaves[Convert.ToInt32((string)lb.Tag)];
+                    if (tlacitko == Key.Up) lb.Content = "↑";
+                    else if (tlacitko == Key.Down) lb.Content = "↓";
+                    else if (tlacitko == Key.Left) lb.Content = "←";
+                    else if (tlacitko == Key.Right) lb.Content = "→";
+                    else lb.Content = tlacitko.ToString();
+                }
+                if (ovladani2.Children[i] is Label lb1 && lb1.Tag != null)
+                {
+                    tlacitko = Hitboxy.ukl.nastaveniKlaves[Convert.ToInt32((string)lb1.Tag)];
+                    if (tlacitko == Key.Up) lb1.Content = "↑";
+                    else if (tlacitko == Key.Down) lb1.Content = "↓";
+                    else if (tlacitko == Key.Left) lb1.Content = "←";
+                    else if (tlacitko == Key.Right) lb1.Content = "→";
+                    else lb1.Content = tlacitko.ToString();
+                }
+            }
+
             //Přidat průběh achievementů
             if (Hitboxy.rezimHry)
             {
@@ -515,111 +566,84 @@ namespace _2DFightingGame
                 Plocha.Children.Remove(napoveda1);
                 Plocha.Children.Remove(napoveda2);
             }
-            switch (e.Key)
+
+            //Pozastavení hry
+            if (e.Key == Key.Escape)
             {
-                //Pozastavení hry
-                case Key.Escape:
-                    if (!pozastaveno && aktivni == 0)
-                    {
-                        casKola.Stop();
-                        pauseMenu.Visibility = Visibility.Visible;
-                        pozastaveno = true;
-                    }
-                    else if (pozastaveno && aktivni == 0)
-                    {
-                        casKola.Start();
-                        pauseMenu.Visibility = Visibility.Hidden;
-                        pozastaveno = false;
-                    }
-                    break;
-
-                //Hráč 1
-                case Key.Left:
-                    Hitboxy.hrac1.setVlevo(true);
-                    break;
-                case Key.Right:
-                    Hitboxy.hrac1.setVpravo(true);
-                    break;
-                case Key.Down:
-                    Hitboxy.hrac1.setSkrceni(true);
-                    break;
-                case Key.Up:
-                    Hitboxy.hrac1.setSkokTrigger(true);
-                    break;
-                case Key.N:
-                    Hitboxy.hrac1.setUtok1(true);
-                    break;
-                case Key.M:
-                    Hitboxy.hrac1.setUtok2(true);
-                    break;
-
-
-                //Hráč 2
-                case Key.A:
-                    if(!Hitboxy.rezimHry)Hitboxy.hrac2.setVlevo(true);
-                    break;
-                case Key.D:
-                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setVpravo(true);
-                    break;
-                case Key.W:
-                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setSkokTrigger(true);
-                    break;
-                case Key.S:
-                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setSkrceni(true);
-                    break;
-                case Key.Q:
-                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setUtok1(true);
-                    break;
-                case Key.E:
-                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setUtok2(true);
-                    break;
+                if (!pozastaveno && aktivni == 0)
+                {
+                    casKola.Stop();
+                    pauseMenu.Visibility = Visibility.Visible;
+                    pozastaveno = true;
+                }
+                else if (pozastaveno && aktivni == 0)
+                {
+                    casKola.Start();
+                    pauseMenu.Visibility = Visibility.Hidden;
+                    pozastaveno = false;
+                }
             }
+
+            //Hráč 1
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[2])
+                Hitboxy.hrac1.setVlevo(true);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[3])
+                Hitboxy.hrac1.setVpravo(true);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[1])
+                Hitboxy.hrac1.setSkrceni(true);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[0])
+                Hitboxy.hrac1.setSkokTrigger(true);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[4])
+                Hitboxy.hrac1.setUtok1(true);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[5])
+                Hitboxy.hrac1.setUtok2(true);
+
+
+            //Hráč 2
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[8])
+                Hitboxy.hrac2.setVlevo(true);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[9])
+                Hitboxy.hrac2.setVpravo(true);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[7])
+                Hitboxy.hrac2.setSkrceni(true);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[6])
+                Hitboxy.hrac2.setSkokTrigger(true);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[10])
+                Hitboxy.hrac2.setUtok1(true);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[11])
+                Hitboxy.hrac2.setUtok2(true);
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
-            {
-                //Hráč 1
-                case Key.Left:
-                    Hitboxy.hrac1.setVlevo(false);
-                    break;
-                case Key.Right:
-                    Hitboxy.hrac1.setVpravo(false);
-                    break;
-                case Key.Up:
-                    Hitboxy.hrac1.setSkokTrigger(false);
-                    break;
-                case Key.Down:
-                    Hitboxy.hrac1.setSkrceni(false);
-                    break;
-                case Key.N:
-                    Hitboxy.hrac1.setUtok1(false);
-                    break;
-                case Key.M:
-                    Hitboxy.hrac1.setUtok2(false);
-                    break;
+            //Hráč 1
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[2])
+                Hitboxy.hrac1.setVlevo(false);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[3])
+                Hitboxy.hrac1.setVpravo(false);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[1])
+                Hitboxy.hrac1.setSkrceni(false);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[0])
+                Hitboxy.hrac1.setSkokTrigger(false);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[4])
+                Hitboxy.hrac1.setUtok1(false);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[5])
+                Hitboxy.hrac1.setUtok2(false);
 
-                //Hráč 2
-                case Key.A:
-                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setVlevo(false);
-                    break;
-                case Key.D:
-                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setVpravo(false);
-                    break;
-                case Key.W:
-                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setSkokTrigger(false);
-                    break;
-                case Key.S:
-                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setSkrceni(false);
-                    break;
-                case Key.Q:
-                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setUtok1(false);
-                    break;
-                case Key.E:
-                    if (!Hitboxy.rezimHry) Hitboxy.hrac2.setUtok2(false);
-                    break;
-            }
+
+            //Hráč 2
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[8])
+                Hitboxy.hrac2.setVlevo(false);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[9])
+                Hitboxy.hrac2.setVpravo(false);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[7])
+                Hitboxy.hrac2.setSkrceni(false);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[6])
+                Hitboxy.hrac2.setSkokTrigger(false);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[10])
+                Hitboxy.hrac2.setUtok1(false);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[11])
+                Hitboxy.hrac2.setUtok2(false);
         }
 
         private void tlacMenu_Click(object sender, RoutedEventArgs e)
