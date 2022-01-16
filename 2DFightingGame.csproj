@@ -443,5 +443,20 @@
   <ItemGroup>
     <Resource Include="imgs\ui\character_select.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\protection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char2\menu_idle\0.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\1.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\2.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\3.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\4.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\5.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\6.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\7.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\8.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\9.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

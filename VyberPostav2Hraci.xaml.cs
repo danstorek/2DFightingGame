@@ -20,10 +20,13 @@ namespace _2DFightingGame
     /// </summary>
     public partial class VyberPostav2Hraci : Window
     {
+        bool klik = false;
+
         bool hrac1Ready = false;
         bool hrac2Ready = false;
         DateTime zahajeni = DateTime.Now;
         DispatcherTimer tmr = new DispatcherTimer();
+        DispatcherTimer animacePrechod = new DispatcherTimer();
         BitmapImage[] postavy = new BitmapImage[] {
             new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/nahled.png")),
             new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/nahled.png")),
@@ -32,6 +35,11 @@ namespace _2DFightingGame
         public VyberPostav2Hraci()
         {
             InitializeComponent();
+
+            //Animace přechodu
+            animacePrechod.Tick += AnimacePrechod_Tick;
+            animacePrechod.Interval = TimeSpan.FromMilliseconds(1000 / 90);
+            animacePrechod.Start();
 
             //Základní názvy postav ve hře pro jednoho hráče
             if (Hitboxy.rezimHry)
@@ -51,14 +59,11 @@ namespace _2DFightingGame
             selectedHrac2.Source = postavy[(int)selectedHrac2.Tag];
         }
 
-        private void Tmr_Tick(object sender, EventArgs e)
+        private void AnimacePrechod_Tick(object sender, EventArgs e)
         {
-            if ((int)selectedHrac1.Tag == 1 && Hitboxy.ukl.ZiskatPrubeh(0) < 1) lblUzamceno1.Visibility = Visibility.Visible;
-            else lblUzamceno1.Visibility = Visibility.Hidden;
-
-            if (hrac1Ready && lblReady1.Opacity < 1) lblReady1.Opacity += 0.05;
-            if (hrac2Ready && lblReady2.Opacity < 1) lblReady2.Opacity += 0.05;
-            if (hrac1Ready && hrac2Ready && zahajeni < DateTime.Now)
+            if (prechod2.Width > 1) prechod2.Width -= 120;
+            if ((lblReady1.Opacity >= 1 && lblReady2.Opacity >= 1) || klik && prechod1.Width < 1920) prechod1.Width += 120;
+            if(hrac1Ready && hrac2Ready && prechod1.Width >= 1920)
             {
                 Hitboxy.hrac1Jmeno = jmenoHrac1.Text;
                 Hitboxy.hrac2Jmeno = jmenoHrac2.Text;
@@ -67,11 +72,31 @@ namespace _2DFightingGame
                 Hitboxy.hrac2Postava = (int)selectedHrac2.Tag;
 
                 tmr.Stop();
+                animacePrechod.Stop();
                 VyberMapy vybermapy = new VyberMapy();
                 vybermapy.Show();
                 System.Threading.Thread.Sleep(50);
                 this.Close();
             }
+
+            if (klik && prechod1.Width >= 1920)
+            {
+                tmr.Stop();
+                animacePrechod.Stop();
+                HlavniMenu okno = new HlavniMenu();
+                okno.Show();
+                System.Threading.Thread.Sleep(50);
+                this.Close();
+            }
+        }
+
+        private void Tmr_Tick(object sender, EventArgs e)
+        {
+            if ((int)selectedHrac1.Tag == 1 && Hitboxy.ukl.ZiskatPrubeh(0) < 1 && Hitboxy.rezimHry) lblUzamceno1.Visibility = Visibility.Visible;
+            else lblUzamceno1.Visibility = Visibility.Hidden;
+
+            if (hrac1Ready && lblReady1.Opacity < 1) lblReady1.Opacity += 0.05;
+            if (hrac2Ready && lblReady2.Opacity < 1) lblReady2.Opacity += 0.05;
         }
 
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
@@ -130,7 +155,7 @@ namespace _2DFightingGame
 
         private void selectedHrac1_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!hrac1Ready && ((int)selectedHrac1.Tag != 1 || Hitboxy.ukl.ZiskatPrubeh(0)>=1))
+            if (!hrac1Ready && ((int)selectedHrac1.Tag != 1 || Hitboxy.ukl.ZiskatPrubeh(0)>=1) || !Hitboxy.rezimHry)
             {
                 jmenoHrac1.IsEnabled = false;
                 lblReady1.Visibility = Visibility.Visible;
@@ -160,10 +185,7 @@ namespace _2DFightingGame
 
         private void Navrat(object sender, RoutedEventArgs e)
         {
-            HlavniMenu okno = new HlavniMenu();
-            okno.Show();
-            System.Threading.Thread.Sleep(50);
-            this.Close();
+            klik = true;
         }
 
         private void gridVyber_Loaded(object sender, RoutedEventArgs e)

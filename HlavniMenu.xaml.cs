@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace _2DFightingGame
 {
@@ -19,9 +20,78 @@ namespace _2DFightingGame
     /// </summary>
     public partial class HlavniMenu : Window
     {
+        bool klik = false;
+        int vyber = -1;
+
+        List<BitmapImage> animacePostava = new List<BitmapImage>();
+        DispatcherTimer animaceTick = new DispatcherTimer();
+        int tick = 0;
+
+        DispatcherTimer animacePrechod = new DispatcherTimer();
         public HlavniMenu()
         {
             InitializeComponent();
+
+            //Animace přechodu
+            animacePrechod.Tick += AnimacePrechod_Tick;
+            animacePrechod.Interval = TimeSpan.FromMilliseconds(1000 / 90);
+
+            animaceTick.Tick += AnimaceTick_Tick;
+            animaceTick.Interval = TimeSpan.FromMilliseconds(100);
+
+            //Příprava obrázku pro animaci
+            animacePostava.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/menu_idle/0.png")));
+            animacePostava.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/menu_idle/1.png")));
+            animacePostava.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/menu_idle/2.png")));
+            animacePostava.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/menu_idle/3.png")));
+            animacePostava.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/menu_idle/4.png")));
+            animacePostava.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/menu_idle/5.png")));
+            animacePostava.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/menu_idle/7.png")));
+            animacePostava.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/menu_idle/8.png")));
+            animacePostava.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/menu_idle/9.png")));
+
+            animacePrechod.Start();
+            animaceTick.Start();
+        }
+
+        private void AnimacePrechod_Tick(object sender, EventArgs e)
+        {
+            if (prechod2.Width > 1) prechod2.Width -= 120;
+            if (klik && prechod1.Width < 1920) prechod1.Width += 120;
+            else if (klik)
+            {
+                VyberPostav2Hraci vyberPostav;
+                switch (vyber)
+                {
+                    case 1:
+                        Hitboxy.rezimHry = true;
+                        vyberPostav = new VyberPostav2Hraci();
+                        vyberPostav.Show();
+                        System.Threading.Thread.Sleep(50);
+                        break;
+                    case 2:
+                        Hitboxy.rezimHry = false;
+                        vyberPostav = new VyberPostav2Hraci();
+                        vyberPostav.Show();
+                        System.Threading.Thread.Sleep(50);
+                        break;
+                    case 3:
+                        Uspechy uspechy = new Uspechy();
+                        uspechy.Show();
+                        System.Threading.Thread.Sleep(50);
+                        break;
+                }
+                animacePrechod.Stop();
+                animaceTick.Stop();
+                this.Close();
+            }
+        }
+
+        private void AnimaceTick_Tick(object sender, EventArgs e)
+        {
+            menuCharacter.Source = animacePostava[tick];
+            tick++;
+            if (tick >= animacePostava.Count) tick = 0;
         }
 
         private void Ukoncit(object sender, RoutedEventArgs e)
@@ -31,20 +101,14 @@ namespace _2DFightingGame
 
         private void HraProJednohoHrace(object sender, RoutedEventArgs e)
         {
-            Hitboxy.rezimHry = true;
-            VyberPostav2Hraci vyberPostav = new VyberPostav2Hraci();
-            vyberPostav.Show();
-            System.Threading.Thread.Sleep(50);
-            this.Close();
+            klik = true;
+            vyber = 1;
         }
 
         private void HraProDvaHrace(object sender, RoutedEventArgs e)
         {
-            Hitboxy.rezimHry = false;
-            VyberPostav2Hraci vyberPostav = new VyberPostav2Hraci();
-            vyberPostav.Show();
-            System.Threading.Thread.Sleep(50);
-            this.Close();
+            klik = true;
+            vyber = 2;
         }
 
         private void hlMenu_Loaded(object sender, RoutedEventArgs e)
@@ -54,10 +118,8 @@ namespace _2DFightingGame
 
         private void UspechyZebricek(object sender, RoutedEventArgs e)
         {
-            Uspechy uspechy = new Uspechy();
-            uspechy.Show();
-            System.Threading.Thread.Sleep(50);
-            this.Close();
+            klik = true;
+            vyber = 3;
         }
 
         private void hlMenu_MouseMove(object sender, MouseEventArgs e)

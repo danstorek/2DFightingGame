@@ -47,12 +47,17 @@
                 <ImageBrush ImageSource="/imgs/tlacitko_menu.png" />
             </Button.Background>
         </Button>
-        <ScrollViewer Margin="967,165,10,165" >
+        <ScrollViewer Margin="967,235,10,165" >
             <Grid Name="gridZebricek"/>
         </ScrollViewer>
         <ScrollViewer Margin="12,165,965,165">
             <Grid Name="gridUspechy"/>
         </ScrollViewer>
+        <Label Content="Pozice" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontSize="50"  HorizontalAlignment="Left" Margin="970,165,0,0" VerticalAlignment="Top" Height="65" Width="183"/>
+        <Label Content="Jméno hráče" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="White" FontSize="50"  HorizontalAlignment="Left" Margin="1162,165,0,0" VerticalAlignment="Top" Height="65" Width="492"/>
+        <Label Content="Skóre" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontSize="50"  HorizontalAlignment="Left" Margin="1659,165,0,0" VerticalAlignment="Top" Height="65" Width="233"/>
+        <Rectangle Name="prechod1" Panel.ZIndex="11" Fill="Black" Width="0" HorizontalAlignment="Left"/>
+        <Rectangle Name="prechod2" Panel.ZIndex="11" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
     </Grid>
 
 </Window>

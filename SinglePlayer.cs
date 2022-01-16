@@ -73,8 +73,11 @@ namespace _2DFightingGame
                     if (poziceBot.Left < poziceHrac.Left)
                     {
                         Hitboxy.hrac2.setSmer(true);
-                        if (Hitboxy.hrac2.getId == 0)
+                        if (Hitboxy.hrac2.getId == 0 || Hitboxy.hrac2.getId == 2)
                         {
+                            Hitboxy.hrac2.setVlevo(false);
+                            Hitboxy.hrac2.setVpravo(false);
+
                             if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok2(true);
                             Hitboxy.hrac2.setUtok1(true);
                         }
@@ -93,8 +96,11 @@ namespace _2DFightingGame
                     else
                     {
                         Hitboxy.hrac2.setSmer(false);
-                        if (Hitboxy.hrac2.getId == 0)
+                        if (Hitboxy.hrac2.getId == 0 || Hitboxy.hrac2.getId == 2)
                         {
+                            Hitboxy.hrac2.setVlevo(false);
+                            Hitboxy.hrac2.setVpravo(false);
+
                             if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok2(true);
                             Hitboxy.hrac2.setUtok1(true);
                         }

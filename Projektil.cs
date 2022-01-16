@@ -34,10 +34,12 @@ namespace _2DFightingGame
         Postava souper;
         Postava vyvolavaci;
         Image souperImg;
+        bool smer;
 
-        public Sip(Postava postava, bool smer)
+        public Sip(Postava postava)
         {
             this.vyvolavaci = postava;
+            this.smer = vyvolavaci.getSmer();
             this.postava = postava.getImg();
             this.souper = Hitboxy.getSouper(postava);
             this.souperImg = this.souper.getImg();
@@ -78,7 +80,7 @@ namespace _2DFightingGame
 
             //Kolize se soupeřem
             Thickness poziceSouper = souperImg.Margin;
-            if (pozice.Left + (img.Width / 2) > poziceSouper.Left + (souperImg.Width / 2 - 40) && pozice.Left + (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom > poziceSouper.Bottom && pozice.Bottom < poziceSouper.Bottom + souperImg.Height - 20)
+            if (pozice.Left + (img.Width / 2) + 20 > poziceSouper.Left + (souperImg.Width / 2 - 40) && pozice.Left + (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom > poziceSouper.Bottom && pozice.Bottom < poziceSouper.Bottom + souperImg.Height - 20)
             {
                 vyvolavaci.skore += 10;
                 vyvolavaci.uspesne += 1;
@@ -114,9 +116,8 @@ namespace _2DFightingGame
         int tick = 0;
         bool smer;
 
-        public MageStrela(Postava postava, bool smer)
+        public MageStrela(Postava postava)
         {
-            this.smer = smer;
             this.vyvolavaci = postava;
             this.postava = postava.getImg();
             this.souper = Hitboxy.getSouper(postava);
@@ -129,6 +130,7 @@ namespace _2DFightingGame
         {
             if (tick == 20)
             {
+                this.smer = vyvolavaci.getSmer();
                 Thickness pozice = this.postava.Margin;
                 if (smer)
                 {
@@ -391,7 +393,7 @@ namespace _2DFightingGame
             vyvolavaci.celkem += 1;
 
             Thickness poziceSouper = souperImg.Margin;
-            if (poziceX > poziceSouper.Left - 50 && poziceX < poziceSouper.Left+ 50 && poziceY < poziceSouper.Bottom + 100 && poziceY > poziceSouper.Bottom - 100)
+            if (poziceX > poziceSouper.Left - 50 && poziceX < poziceSouper.Left + 50 && poziceY < poziceSouper.Bottom + 100 && poziceY > poziceSouper.Bottom - 100)
             {
                 vyvolavaci.uspesne += 1;
                 vyvolavaci.skore += 20;

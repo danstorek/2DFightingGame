@@ -56,7 +56,7 @@ namespace _2DFightingGame
                     break;
                 case 3:
                     nazev = "Rychlostřelec";
-                    popis = "Poraž soupeře v prvních 10 sekundách kola\nv režimu pro jednoho hráče.";
+                    popis = "Poraž soupeře v prvních 12 sekundách kola\nv režimu pro jednoho hráče.";
                     splneni = 1;
                     progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
