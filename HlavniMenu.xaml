@@ -57,8 +57,12 @@
                 <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
             </Button.Background>
         </Button>
+
+        <Image Name="menuCharacter" Width="454" Height="503" Margin="1238,418,228,159"/>
         <Border x:Name="bdNapoveda" Panel.ZIndex="10" Visibility="Hidden" Width="550" Height="150" CornerRadius="50" Background="#333333" Opacity="0.9" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Label Name="lbNapoveda" Content="TEST" Foreground="White" FontSize="30" FontFamily="Bahnschrift" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Border>
+        <Rectangle Name="prechod1" Panel.ZIndex="11" Fill="Black" Width="0" HorizontalAlignment="Left"/>
+        <Rectangle Name="prechod2" Panel.ZIndex="11" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
     </Grid>
 </Window>

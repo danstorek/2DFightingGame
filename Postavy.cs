@@ -61,6 +61,7 @@ namespace _2DFightingGame
         protected int poskozeniTimer = 0;
         protected int regenTimer = 0;
         protected DateTime zmrazen = DateTime.Now;
+        protected int redukcePoskozeni = 0;
 
         protected Stopwatch silaTimer = new Stopwatch();
         protected Stopwatch rychlostTimer = new Stopwatch();
@@ -203,6 +204,7 @@ namespace _2DFightingGame
 
             if (!getZmrazen())
             {
+                //Kontrola kolize
                 if (pohybX > 0)
                 {
                     if (pozice.Left + pohybX < 1800 && (pozice.Left + pohybX < Hitboxy.getSouper(this).getImg().Margin.Left - 100 || pozice.Left > Hitboxy.getSouper(this).getImg().Margin.Left || pozice.Bottom < Hitboxy.getSouper(this).getImg().Margin.Bottom - 50 || pozice.Bottom > Hitboxy.getSouper(this).getImg().Margin.Bottom + 50)) pozice.Left += pohybX;
@@ -211,6 +213,16 @@ namespace _2DFightingGame
                 {
                     if (pozice.Left + pohybX > -70 && (pozice.Left + pohybX + getImg().Width > Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width + 100 || pozice.Left + getImg().Width < Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width || pozice.Bottom < Hitboxy.getSouper(this).getImg().Margin.Bottom - 50 || pozice.Bottom > Hitboxy.getSouper(this).getImg().Margin.Bottom + 50)) pozice.Left += pohybX;
                 }
+            }
+
+            //Při kolizi
+            if(pozice.Left > Hitboxy.getSouper(this).getImg().Margin.Left - 100 && pozice.Left < Hitboxy.getSouper(this).getImg().Margin.Left && pozice.Bottom == Hitboxy.getSouper(this).getImg().Margin.Bottom)
+            {
+                pozice.Left -= 10;
+            }
+            if (pozice.Left + getImg().Width < Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width + 100 && pozice.Left + getImg().Width > Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width && pozice.Bottom == Hitboxy.getSouper(this).getImg().Margin.Bottom)
+            {
+                pozice.Left += 10;
             }
 
             //Skrčení
@@ -349,6 +361,8 @@ namespace _2DFightingGame
         //Poškození protivníkem
         public void Poskozeni(int rozdil)
         {
+            rozdil *= 100-redukcePoskozeni;
+            rozdil /= 100;
             hp -= rozdil;
             poskozeniTimer = 10;
         }
@@ -441,7 +455,7 @@ namespace _2DFightingGame
         bool zautoceno = false;
         public Postava_1(Grid plocha, Image postava, bool strana)
         {
-            cooldownUtok1Max = 450;
+            cooldownUtok1Max = 500;
             cooldownUtok2Max = 1200;
 
             this.maxRychlost = 20;
@@ -545,7 +559,7 @@ namespace _2DFightingGame
             }
             if (utoceni1 && tick_animace > 4 && !zautoceno)
             {
-                Sip sip = new Sip(this, smer);
+                Sip sip = new Sip(this);
                 gridPlocha.Children.Add(sip.ReturnImage());
                 aktivni_projektily.Add(sip);
                 zautoceno = true;
@@ -697,19 +711,31 @@ namespace _2DFightingGame
 
     class Postava_3 : Postava
     {
+        protected Image imgProtection = new Image();
+        Stopwatch tmrObrana = new Stopwatch();
         public Postava_3(Grid plocha, Image postava, bool strana)
         {
             cooldownUtok1Max = 600;
-            cooldownUtok2Max = 1200;
+            cooldownUtok2Max = 5000;
 
             this.maxRychlost = 25;
             this.zakladniRychlost = 25;
 
-            id = 0;
+            id = 2;
             imgPostava = postava;
             gridPlocha = plocha;
 
             VytvorIndikatory();
+
+            //Indikátor obrany
+            imgProtection.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/protection.png"));
+            imgProtection.Opacity = 0;
+            imgProtection.Width = 120;
+            imgProtection.Height = 185;
+            imgProtection.HorizontalAlignment = HorizontalAlignment.Left;
+            imgProtection.VerticalAlignment = VerticalAlignment.Bottom;
+            Panel.SetZIndex(imgProtection, 2);
+            gridPlocha.Children.Add(imgProtection);
 
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/00.png")));
             animace_left.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/0.png")));
@@ -784,7 +810,22 @@ namespace _2DFightingGame
         public override void Tick()
         {
             checkBonusy();
+
+            //Aktualizace indikátorů
             AktualizujIndikatory();
+            imgProtection.Margin = imgPostava.Margin;
+            if (tmrObrana.ElapsedMilliseconds > 2500) tmrObrana.Reset();
+            if(tmrObrana.IsRunning)
+            {
+                if (imgProtection.Opacity < 1) imgProtection.Opacity += 0.1;
+                redukcePoskozeni = 80;
+            }
+            else
+            {
+                if (imgProtection.Opacity > 0) imgProtection.Opacity -= 0.1;
+                redukcePoskozeni = 0;
+            }
+
             Thickness pozice = imgPostava.Margin;
             //Útok 1 - hráč 1
             if (utok1 && DateTime.Now > cooldownUtok1 && energie >= 20)
@@ -792,19 +833,17 @@ namespace _2DFightingGame
                 tick_animace = 0;
                 utoceni1 = true;
                 energie -= 20;
-                MageStrela strela = new MageStrela(this, smer);
+                MageStrela strela = new MageStrela(this);
                 gridPlocha.Children.Add(strela.ReturnImage());
                 aktivni_projektily.Add(strela);
                 cooldownUtok1 = DateTime.Now.AddMilliseconds(cooldownUtok1Max);
             }
 
             //Útok 2 - hráč 1
-            if (utok2 && DateTime.Now > cooldownUtok2 && energie >= 25)
+            if (utok2 && DateTime.Now > cooldownUtok2 && energie >= 50)
             {
-                energie -= 25;
-                TNT sw = new TNT(this);
-                gridPlocha.Children.Add(sw.ReturnImage());
-                aktivni_projektily.Add(sw);
+                tmrObrana.Start();
+                energie -= 50;
                 cooldownUtok2 = DateTime.Now.AddMilliseconds(cooldownUtok2Max);
             }
 

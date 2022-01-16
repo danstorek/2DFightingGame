@@ -42,7 +42,7 @@
         <Image x:Name="selectedHrac1" HorizontalAlignment="Left" Height="575" Margin="188,200,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac1_MouseDown"/>
         <Image x:Name="selectedHrac2" HorizontalAlignment="Left" Height="575" Margin="1328,205,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac2_MouseDown"/>
         <Label Name="lblReady1" Visibility="Hidden" Opacity="0" Content="PŘIPRAVEN" FontSize="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="10,438,1120,410"/>
-        <Label Name="lblUzamceno1" Visibility="Hidden" Content="UZAMČENO" FontSize="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="10,438,1120,410"/>
+        <Label Name="lblUzamceno1" Visibility="Hidden" Content="UZAMČENO" FontSize="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="188,438,1298,410"/>
         <Label Name="lblReady2" Visibility="Hidden" Opacity="0" Content="PŘIPRAVEN" FontSize="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="1147,438,10,410"/>
         <TextBox x:Name="jmenoHrac2" TextWrapping="Wrap" Text="Hráč 2" Margin="967,780,-9,155" Background="#333333" FontSize="50" MaxLength="10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <TextBox x:Name="jmenoHrac1" TextWrapping="Wrap" Text="Hráč 1" Margin="0,780,968,155" Background="#333333" FontSize="50" MaxLength="10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -51,6 +51,8 @@
                 <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
             </Button.Background>
         </Button>
-        <Label Name="botVarovani" Visibility="Hidden" Content="Pokud hráč nevybere botovi postavu jako první, tak si bot náhodně vybere sám." Foreground="White" FontSize="20" HorizontalAlignment="Left" Margin="971,159,0,0" VerticalAlignment="Top" Width="939"/>
+        <Label Name="botVarovani" Visibility="Hidden" Content="Pokud hráč nevybere botovi postavu jako první, tak si bot náhodně vybere sám." Foreground="White" FontSize="20" HorizontalAlignment="Center" Margin="971,159,0,0" VerticalAlignment="Top" Width="939"/>
+        <Rectangle Name="prechod1" Panel.ZIndex="11" Fill="Black" Width="0" HorizontalAlignment="Left"/>
+        <Rectangle Name="prechod2" Panel.ZIndex="11" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
     </Grid>
 </Window>

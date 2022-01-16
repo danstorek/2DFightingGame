@@ -104,10 +104,11 @@
                 </Grid>
             </Border>
         </Grid>
-        <Grid x:Name="gridVyhra" VerticalAlignment="Center" HorizontalAlignment="Center" Width="1100" Height="660" Opacity="0" Visibility="Hidden" Panel.ZIndex="999" Margin="410,290,410,130">
-            <Border Width="1200" Height="150" CornerRadius="200" Background="Red" Margin="0,-100,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
-                <Label Name="textVyhra" Content="Test" FontSize="100" FontFamily="Bahnschrift" FontWeight="Bold"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            </Border>
+        <Grid x:Name="gridVyhra" VerticalAlignment="Center" HorizontalAlignment="Center" Width="1100" Height="660" Opacity="0" Visibility="Hidden" Panel.ZIndex="998" Margin="410,290,410,130">
+            <Grid Width="1050" Height="200" Margin="0,-100,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <Image Source="/imgs/ui/text_back.png"/>
+                <Label Name="textVyhra" Content="Test" FontSize="90" FontFamily="Bahnschrift" FontWeight="Bold"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Grid>
             <Button Style="{StaticResource MyButtonStyle}" x:Name="tlacVyhra" Width="500" Height="160" Content="Přejít do hlavního menu" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="300,500,300,0" Click="tlacMenu_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
@@ -137,5 +138,7 @@
                 </Button.Background>
             </Button>
         </Grid>
+        <Rectangle Name="prechod1" Panel.ZIndex="999" Fill="Black" Width="0" HorizontalAlignment="Left"/>
+        <Rectangle Name="prechod2" Panel.ZIndex="999" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
     </Grid>
 </Window>

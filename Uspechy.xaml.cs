@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace _2DFightingGame
 {
@@ -19,9 +20,30 @@ namespace _2DFightingGame
     /// </summary>
     public partial class Uspechy : Window
     {
+        bool klik = false;
+        DispatcherTimer animacePrechod = new DispatcherTimer();
         public Uspechy()
         {
             InitializeComponent();
+
+            //Animace přechodu
+            animacePrechod.Tick += AnimacePrechod_Tick;
+            animacePrechod.Interval = TimeSpan.FromMilliseconds(1000 / 90);
+            animacePrechod.Start();
+        }
+        private void AnimacePrechod_Tick(object sender, EventArgs e)
+        {
+            if (prechod2.Width > 1) prechod2.Width -= 120;
+            if (klik && prechod1.Width < 1920) prechod1.Width += 120;
+
+            if (klik && prechod1.Width >= 1920)
+            {
+                animacePrechod.Stop();
+                HlavniMenu okno = new HlavniMenu();
+                okno.Show();
+                System.Threading.Thread.Sleep(50);
+                this.Close();
+            }
         }
         private void gridHlavni_Loaded(object sender, RoutedEventArgs e)
         {
@@ -36,10 +58,11 @@ namespace _2DFightingGame
                 //Umístění
                 Label tmp = new Label();
                 tmp.Content = aktualniPoradi.ToString() + ".";
-                tmp.Width = 60;
+                tmp.Width = 183;
                 tmp.Height = 90;
                 tmp.FontSize = 40;
                 tmp.Foreground = Brushes.White;
+                tmp.HorizontalContentAlignment = HorizontalAlignment.Center;
                 tmp.VerticalAlignment = VerticalAlignment.Top;
                 tmp.HorizontalAlignment = HorizontalAlignment.Left;
                 tmp.Margin = new Thickness(0, aktualniVyska, 0, 0);
@@ -47,24 +70,25 @@ namespace _2DFightingGame
                 //Jméno hráče
                 Label tmp1 = new Label();
                 tmp1.Content = i.Key;
-                tmp1.Width = 500;
+                tmp1.Width = 492;
                 tmp1.Height = 90;
                 tmp1.FontSize = 40;
                 tmp1.Foreground = Brushes.White;
                 tmp1.VerticalAlignment = VerticalAlignment.Top;
                 tmp1.HorizontalAlignment = HorizontalAlignment.Left;
-                tmp1.Margin = new Thickness(100, aktualniVyska, 0, 0);
+                tmp1.Margin = new Thickness(200, aktualniVyska, 0, 0);
 
                 //Skóre
                 Label tmp2 = new Label();
                 tmp2.Content = i.Value;
-                tmp2.Width = 200;
+                tmp2.Width = 233;
                 tmp2.Height = 90;
                 tmp2.FontSize = 40;
                 tmp2.Foreground = Brushes.White;
+                tmp2.HorizontalContentAlignment = HorizontalAlignment.Center;
                 tmp2.VerticalAlignment = VerticalAlignment.Top;
                 tmp2.HorizontalAlignment = HorizontalAlignment.Left;
-                tmp2.Margin = new Thickness(800, aktualniVyska, 0, 0);
+                tmp2.Margin = new Thickness(692, aktualniVyska, 0, 0);
 
                 gridZebricek.Children.Add(tmp);
                 gridZebricek.Children.Add(tmp1);
@@ -86,10 +110,7 @@ namespace _2DFightingGame
         }
         private void Navrat(object sender, RoutedEventArgs e)
         {
-            HlavniMenu okno = new HlavniMenu();
-            okno.Show();
-            System.Threading.Thread.Sleep(50);
-            this.Close();
+            klik = true;
         }
         private void VymazatZebricek(object sender, RoutedEventArgs e)
         {

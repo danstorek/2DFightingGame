@@ -20,9 +20,10 @@ namespace _2DFightingGame
     /// </summary>
     public partial class VyberMapy : Window
     {
+        bool klik = false;
         bool isMapaReady = false;
-        DateTime zahajeni = DateTime.Now;
         DispatcherTimer tmr = new DispatcherTimer();
+        DispatcherTimer animacePrechod = new DispatcherTimer();
         BitmapImage[] mapy = new BitmapImage[] {
             new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map2/background.png")),
             new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map3/background.png")),
@@ -37,12 +38,33 @@ namespace _2DFightingGame
 
             selectedMap.Tag = 0;
             selectedMap.Source = mapy[(int)selectedMap.Tag];
+
+            //Animace přechodu
+            animacePrechod.Tick += AnimacePrechod_Tick;
+            animacePrechod.Interval = TimeSpan.FromMilliseconds(1000 / 90);
+            animacePrechod.Start();
+        }
+
+        private void AnimacePrechod_Tick(object sender, EventArgs e)
+        {
+            if (prechod2.Width > 1) prechod2.Width -= 120;
+            if (mapReady.Opacity >= 1 || klik && prechod1.Width < 1920) prechod1.Width += 120;
+
+            if(klik && prechod1.Width >= 1920)
+            {
+                tmr.Stop();
+                animacePrechod.Stop();
+                HlavniMenu okno = new HlavniMenu();
+                okno.Show();
+                System.Threading.Thread.Sleep(50);
+                this.Close();
+            }
         }
 
         private void Tmr_Tick(object sender, EventArgs e)
         {
             if (isMapaReady && mapReady.Opacity < 1) mapReady.Opacity += 0.05;
-            if (isMapaReady && zahajeni < DateTime.Now)
+            if (isMapaReady && prechod1.Width >= 1920)
             {
                 Hitboxy.pozadiMapa = Mapy.getMapa((int)selectedMap.Tag);
                 tmr.Stop();
@@ -93,16 +115,13 @@ namespace _2DFightingGame
             {
                 mapReady.Visibility = Visibility.Visible;
                 isMapaReady = true;
-                zahajeni = DateTime.Now + TimeSpan.FromSeconds(2);
+
             }
         }
 
         private void Navrat(object sender, RoutedEventArgs e)
         {
-            HlavniMenu okno = new HlavniMenu();
-            okno.Show();
-            System.Threading.Thread.Sleep(50);
-            this.Close();
+            klik = true;
         }
 
         private void gridVyber_Loaded(object sender, RoutedEventArgs e)

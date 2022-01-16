@@ -19,11 +19,14 @@ namespace _2DFightingGame
 {
     public partial class MainWindow : Window
     {
+        bool klik = false;
+
         bool pozastaveno = false;
         DateTime dalsiKolo;
-        int aktivni = 0;
+        int aktivni = -1;
         bool napoveda = true;
         DispatcherTimer gameTick;
+        DispatcherTimer animacePrechod = new DispatcherTimer();
 
         int dalsiBonus;
         Stopwatch bonusCasovac;
@@ -32,6 +35,12 @@ namespace _2DFightingGame
         public MainWindow()
         {
             InitializeComponent();
+
+            //Animace přechodu
+            animacePrechod.Tick += AnimacePrechod_Tick;
+            animacePrechod.Interval = TimeSpan.FromMilliseconds(1000 / 90);
+            animacePrechod.Start();
+
             gameTick = new DispatcherTimer();
             bonusCasovac = new Stopwatch();
             casKola = new Stopwatch();
@@ -42,6 +51,20 @@ namespace _2DFightingGame
                 Hitboxy.ukl.PridatPrubeh(0, 1);
                 Hitboxy.ukl.PridatPrubeh(1, 1);
                 Hitboxy.ukl.PridatPrubeh(2, 1);
+            }
+        }
+        private void AnimacePrechod_Tick(object sender, EventArgs e)
+        {
+            if (prechod2.Width > 1) prechod2.Width -= 120;
+            if (klik && prechod1.Width < 1920) prechod1.Width += 120;
+            if (klik && prechod1.Width >= 1920)
+            {
+                animacePrechod.Stop();
+                gameTick.Stop();
+                HlavniMenu okno = new HlavniMenu();
+                okno.Show();
+                System.Threading.Thread.Sleep(50);
+                this.Close();
             }
         }
 
@@ -98,277 +121,329 @@ namespace _2DFightingGame
             gameTick.Interval = TimeSpan.FromMilliseconds(1000 / 60);
             gameTick.Tick += GameTick_Tick;
             gameTick.Start();
+
+            AktualizaceHracu();
         }
 
         private void GameTick_Tick(object sender, EventArgs e)
         {
-            if (!pozastaveno)
+            if (casKola.ElapsedMilliseconds > 2500)
             {
-                if (aktivni < 60)
+                if(casKola.ElapsedMilliseconds<3000)
                 {
-                    //Vypnutí ovládání po skončení kola
-                    if (aktivni > 0)
-                    {
-                        Hitboxy.hrac1.setVlevo(false);
-                        Hitboxy.hrac1.setVpravo(false);
-                        Hitboxy.hrac1.setSkrceni(false);
-                        Hitboxy.hrac1.setSkokTrigger(false);
-                        Hitboxy.hrac1.setUtok1(false);
-                        Hitboxy.hrac1.setUtok2(false);
-
-                        Hitboxy.hrac2.setVlevo(false);
-                        Hitboxy.hrac2.setVpravo(false);
-                        Hitboxy.hrac2.setSkrceni(false);
-                        Hitboxy.hrac2.setSkokTrigger(false);
-                        Hitboxy.hrac2.setUtok1(false);
-                        Hitboxy.hrac2.setUtok2(false);
-                    }
-                    //Pohyb bota ve hře pro jednoho hráče
-                    else if (!napoveda && Hitboxy.rezimHry) SinglePlayer.AI();
-
-                    //Spawn bonusů
-                    if (bonusCasovac.ElapsedMilliseconds > dalsiBonus)
-                    {
-                        switch (Hitboxy.rnd.Next(1, 4))
-                        {
-                            case 1: Hitboxy.bonusy.Add(new HP()); Plocha.Children.Add(Hitboxy.bonusy[Hitboxy.bonusy.Count - 1].getIkona()); break;
-                            case 2: Hitboxy.bonusy.Add(new Sila()); Plocha.Children.Add(Hitboxy.bonusy[Hitboxy.bonusy.Count - 1].getIkona()); break;
-                            case 3: Hitboxy.bonusy.Add(new Rychlost()); Plocha.Children.Add(Hitboxy.bonusy[Hitboxy.bonusy.Count - 1].getIkona()); break;
-                        }
-                        bonusCasovac.Restart();
-                        dalsiBonus = Hitboxy.rnd.Next(7500, 15000);
-                    }
-
-                    //Obnovení bonusů
-                    foreach (Bonus i in Hitboxy.bonusy)
-                    {
-                        if (!i.sebrano) i.Sebrani();
-                        else Plocha.Children.Remove(i.getIkona());
-                    }
-
-
-                    //Obnovení ukazovače hráčů
-                    Thickness hrac1Pozice = Hitboxy.hrac1.getImg().Margin;
-                    Thickness hrac2Pozice = Hitboxy.hrac2.getImg().Margin;
-                    hrac1Pozice.Bottom += Hitboxy.hrac1.getImg().Height + 20;
-                    hrac2Pozice.Bottom += Hitboxy.hrac2.getImg().Height + 20;
-                    hrac1Ukazatel.Margin = hrac1Pozice;
-                    hrac2Ukazatel.Margin = hrac2Pozice;
-                    hrac1Pozice.Bottom -= 50;
-                    hrac2Pozice.Bottom -= 50;
-                    hrac1Ukazatel1.Margin = hrac1Pozice;
-                    hrac2Ukazatel1.Margin = hrac2Pozice;
-                    if (Hitboxy.hrac1.getSila()) postava1Bonus1.Opacity = 1;
-                    else postava1Bonus1.Opacity = 0;
-                    if (Hitboxy.hrac1.getRychlost()) postava1Bonus2.Opacity = 1;
-                    else postava1Bonus2.Opacity = 0;
-                    if (Hitboxy.hrac2.getSila()) postava2Bonus1.Opacity = 1;
-                    else postava2Bonus1.Opacity = 0;
-                    if (Hitboxy.hrac2.getRychlost()) postava2Bonus2.Opacity = 1;
-                    else postava2Bonus2.Opacity = 0;
-
-                    Hitboxy.hrac1.Tick();
-                    Hitboxy.hrac2.Tick();
-
-                    //Obnovení cooldownů
-                    postava1Utok1.Width = Hitboxy.hrac1.getCooldown()[0];
-                    postava1Utok2.Width = Hitboxy.hrac1.getCooldown()[1];
-                    postava2Utok1.Width = Hitboxy.hrac2.getCooldown()[0];
-                    postava2Utok2.Width = Hitboxy.hrac2.getCooldown()[1];
-
-                    //Obnovení healthbarů
-                    double hp1 = Hitboxy.hrac1.getHP() * 6.59;
-                    double hp2 = Hitboxy.hrac2.getHP() * 6.59;
-                    if (hp1 < 0) hp1 = 0;
-                    if (hp2 < 0) hp2 = 0;
-                    health1.Width = hp1;
-                    health2.Width = hp2;
-
-                    //Automatické doplnění energie
-                    Hitboxy.hrac1.setEnergie(Hitboxy.hrac1.getEnergie() + 0.5);
-                    Hitboxy.hrac2.setEnergie(Hitboxy.hrac2.getEnergie() + 0.5);
-                    if (Hitboxy.hrac1.getEnergie() > 100) Hitboxy.hrac1.setEnergie(100);
-                    if (Hitboxy.hrac2.getEnergie() > 100) Hitboxy.hrac2.setEnergie(100);
-
-                    //Obnovení barů na energii
-                    double en1 = Hitboxy.hrac1.getEnergie() * 3.2;
-                    double en2 = Hitboxy.hrac2.getEnergie() * 3.2;
-                    if (en1 < 0) en1 = 0;
-                    if (en2 < 0) en2 = 0;
-                    energie1.Width = en1;
-                    energie2.Width = en2;
-
-                    //Konec kola
-                    if (aktivni == 0)
-                    {
-                        //Remíza
-                        if (Hitboxy.hrac1.getHP() <= 0 && Hitboxy.hrac2.getHP() <= 0)
-                        {
-                            textVyhra.Content = "Remíza";
-                            aktivni += 1;
-                            gridVyhra.Visibility = Visibility.Visible;
-                        }
-                        //Výhra 2. hráče
-                        else if (Hitboxy.hrac1.getHP() <= 0)
-                        {
-                            Hitboxy.kola[Hitboxy.aktivniKolo] = 2;
-                            Hitboxy.aktivniKolo++;
-                            if (Vyhodnotit() == 0)
-                            {
-                                postava2round1.Fill = postava2round1.Stroke;
-
-                                dalsiKolo = DateTime.Now + TimeSpan.FromMilliseconds(3000);
-                                textVyhra.Content = Hitboxy.hrac2.getJmeno() + " vyhrál kolo";
-                            }
-                            else
-                            {
-                                postava2round2.Fill = postava2round2.Stroke;
-
-                                Statistika();
-                                textVyhra.Content = Hitboxy.hrac2.getJmeno() + " vyhrál zápas";
-                                tlacVyhra.IsEnabled = true;
-                                tlacVyhra.Opacity = 1;
-                                vyhraHrac1.Opacity = 1;
-                                vyhraHrac1Neuspesne.Opacity = 1;
-                                vyhraHrac1Skore.Opacity = 1;
-                                vyhraHrac1Uspesne.Opacity = 1;
-                                vyhraHrac1Uspesnost.Opacity = 1;
-                                vyhraHrac2.Opacity = 1;
-                                vyhraHrac2Neuspesne.Opacity = 1;
-                                vyhraHrac2Skore.Opacity = 1;
-                                vyhraHrac2Uspesne.Opacity = 1;
-                                vyhraHrac2Uspesnost.Opacity = 1;
-                            }
-                            aktivni += 1;
-                            gridVyhra.Visibility = Visibility.Visible;
-                        }
-                        //Výhra 1. hráče
-                        else if (Hitboxy.hrac2.getHP() <= 0)
-                        {
-                            Hitboxy.kola[Hitboxy.aktivniKolo] = 1;
-                            Hitboxy.aktivniKolo++;
-                            if (Vyhodnotit() == 0)
-                            {
-                                postava1round1.Fill = postava1round1.Stroke;
-
-                                dalsiKolo = DateTime.Now + TimeSpan.FromMilliseconds(3000);
-                                textVyhra.Content = Hitboxy.hrac1.getJmeno() + " vyhrál kolo";
-                            }
-                            else
-                            {
-                                postava1round2.Fill = postava1round2.Stroke;
-
-                                Statistika();
-                                textVyhra.Content = Hitboxy.hrac1.getJmeno() + " vyhrál zápas";
-                                tlacVyhra.IsEnabled = true;
-                                tlacVyhra.Opacity = 1;
-                                vyhraHrac1.Opacity = 1;
-                                vyhraHrac1Neuspesne.Opacity = 1;
-                                vyhraHrac1Skore.Opacity = 1;
-                                vyhraHrac1Uspesne.Opacity = 1;
-                                vyhraHrac1Uspesnost.Opacity = 1;
-                                vyhraHrac2.Opacity = 1;
-                                vyhraHrac2Neuspesne.Opacity = 1;
-                                vyhraHrac2Skore.Opacity = 1;
-                                vyhraHrac2Uspesne.Opacity = 1;
-                                vyhraHrac2Uspesnost.Opacity = 1;
-                            }
-
-                            aktivni += 1;
-                            gridVyhra.Visibility = Visibility.Visible;
-                        }
-                    }
-                    else aktivni++;
+                    gridVyhra.Opacity = 0;
+                    gridVyhra.Visibility = Visibility.Hidden;
                 }
-
-                if (aktivni > 1)
+                if (!pozastaveno)
                 {
-                    if (Hitboxy.hrac1.getHP() <= 0)
+                    if (aktivni < 60)
                     {
-                        Hitboxy.hrac1.Umirani(aktivni);
-                    }
-                    if (Hitboxy.hrac2.getHP() <= 0)
-                    {
-                        Hitboxy.hrac2.Umirani(aktivni);
-                    }
-
-                    if (Plocha.Opacity > 0.5)
-                    {
-                        Plocha.Opacity -= 0.05;
-                    }
-                    if (gridVyhra.Opacity < 1)
-                    {
-                        gridVyhra.Opacity += 0.1;
-                    }
-                    if (Vyhodnotit() == 0)
-                    {
-                        vyhraHrac1.Opacity = 0;
-                        vyhraHrac1Neuspesne.Opacity = 0;
-                        vyhraHrac1Skore.Opacity = 0;
-                        vyhraHrac1Uspesne.Opacity = 0;
-                        vyhraHrac1Uspesnost.Opacity = 0;
-                        vyhraHrac2.Opacity = 0;
-                        vyhraHrac2Neuspesne.Opacity = 0;
-                        vyhraHrac2Skore.Opacity = 0;
-                        vyhraHrac2Uspesne.Opacity = 0;
-                        vyhraHrac2Uspesnost.Opacity = 0;
-                        tlacVyhra.IsEnabled = false;
-                        tlacVyhra.Opacity = 0;
-                        //Achievement
-                        if (Hitboxy.rezimHry && Hitboxy.hrac1.getHP()>0 && casKola.ElapsedMilliseconds <= 15000) Hitboxy.ukl.PridatPrubeh(3,1);
-
-                        if (dalsiKolo < DateTime.Now)
+                        //Vypnutí ovládání po skončení kola
+                        if (aktivni > 0)
                         {
-                            aktivni = 0;
-                            //Další kolo
-                            dalsiBonus = Hitboxy.rnd.Next(7500, 15000);
-                            bonusCasovac.Restart();
-                            Hitboxy.hrac1.clearBonusy();
-                            Hitboxy.hrac2.clearBonusy();
+                            Hitboxy.hrac1.setVlevo(false);
+                            Hitboxy.hrac1.setVpravo(false);
+                            Hitboxy.hrac1.setSkrceni(false);
+                            Hitboxy.hrac1.setSkokTrigger(false);
+                            Hitboxy.hrac1.setUtok1(false);
+                            Hitboxy.hrac1.setUtok2(false);
 
-                            foreach (Bonus i in Hitboxy.bonusy)
+                            Hitboxy.hrac2.setVlevo(false);
+                            Hitboxy.hrac2.setVpravo(false);
+                            Hitboxy.hrac2.setSkrceni(false);
+                            Hitboxy.hrac2.setSkokTrigger(false);
+                            Hitboxy.hrac2.setUtok1(false);
+                            Hitboxy.hrac2.setUtok2(false);
+                        }
+                        //Pohyb bota ve hře pro jednoho hráče
+                        else if (aktivni == 0 && !napoveda && Hitboxy.rezimHry) SinglePlayer.AI();
+
+                        //Spawn bonusů
+                        if (bonusCasovac.ElapsedMilliseconds > dalsiBonus)
+                        {
+                            switch (Hitboxy.rnd.Next(1, 4))
                             {
-                                if (!i.sebrano)
+                                case 1: Hitboxy.bonusy.Add(new HP()); Plocha.Children.Add(Hitboxy.bonusy[Hitboxy.bonusy.Count - 1].getIkona()); break;
+                                case 2: Hitboxy.bonusy.Add(new Sila()); Plocha.Children.Add(Hitboxy.bonusy[Hitboxy.bonusy.Count - 1].getIkona()); break;
+                                case 3: Hitboxy.bonusy.Add(new Rychlost()); Plocha.Children.Add(Hitboxy.bonusy[Hitboxy.bonusy.Count - 1].getIkona()); break;
+                            }
+                            bonusCasovac.Restart();
+                            dalsiBonus = Hitboxy.rnd.Next(7500, 15000);
+                        }
+
+                        //Obnovení bonusů
+                        foreach (Bonus i in Hitboxy.bonusy)
+                        {
+                            if (!i.sebrano) i.Sebrani();
+                            else Plocha.Children.Remove(i.getIkona());
+                        }
+
+                        AktualizaceHracu();
+
+                        //Obnovení cooldownů
+                        postava1Utok1.Width = Hitboxy.hrac1.getCooldown()[0];
+                        postava1Utok2.Width = Hitboxy.hrac1.getCooldown()[1];
+                        postava2Utok1.Width = Hitboxy.hrac2.getCooldown()[0];
+                        postava2Utok2.Width = Hitboxy.hrac2.getCooldown()[1];
+
+                        //Obnovení healthbarů
+                        double hp1 = Hitboxy.hrac1.getHP() * 6.59;
+                        double hp2 = Hitboxy.hrac2.getHP() * 6.59;
+                        if (hp1 < 0) hp1 = 0;
+                        if (hp2 < 0) hp2 = 0;
+                        health1.Width = hp1;
+                        health2.Width = hp2;
+
+                        //Automatické doplnění energie
+                        Hitboxy.hrac1.setEnergie(Hitboxy.hrac1.getEnergie() + 0.5);
+                        Hitboxy.hrac2.setEnergie(Hitboxy.hrac2.getEnergie() + 0.5);
+                        if (Hitboxy.hrac1.getEnergie() > 100) Hitboxy.hrac1.setEnergie(100);
+                        if (Hitboxy.hrac2.getEnergie() > 100) Hitboxy.hrac2.setEnergie(100);
+
+                        //Obnovení barů na energii
+                        double en1 = Hitboxy.hrac1.getEnergie() * 3.2;
+                        double en2 = Hitboxy.hrac2.getEnergie() * 3.2;
+                        if (en1 < 0) en1 = 0;
+                        if (en2 < 0) en2 = 0;
+                        energie1.Width = en1;
+                        energie2.Width = en2;
+
+                        //Konec kola
+                        if (aktivni == 0)
+                        {
+                            //Remíza
+                            if (Hitboxy.hrac1.getHP() <= 0 && Hitboxy.hrac2.getHP() <= 0)
+                            {
+                                textVyhra.Content = "Remíza";
+                                aktivni += 1;
+                                gridVyhra.Visibility = Visibility.Visible;
+                            }
+                            //Výhra 2. hráče
+                            else if (Hitboxy.hrac1.getHP() <= 0)
+                            {
+                                Hitboxy.kola[Hitboxy.aktivniKolo] = 2;
+                                Hitboxy.aktivniKolo++;
+                                if (Vyhodnotit() == 0)
                                 {
-                                    i.sebrano = true;
-                                    Plocha.Children.Remove(i.getIkona());
+                                    postava2round1.Fill = postava2round1.Stroke;
+
+                                    dalsiKolo = DateTime.Now + TimeSpan.FromMilliseconds(5000);
+                                    textVyhra.Content = Hitboxy.hrac2.getJmeno() + " vyhrál kolo";
+                                }
+                                else
+                                {
+                                    postava2round2.Fill = postava2round2.Stroke;
+
+                                    Statistika();
+                                    textVyhra.Content = Hitboxy.hrac2.getJmeno() + " vyhrál zápas";
+                                    tlacVyhra.IsEnabled = true;
+                                    tlacVyhra.Opacity = 1;
+                                    vyhraHrac1.Opacity = 1;
+                                    vyhraHrac1Neuspesne.Opacity = 1;
+                                    vyhraHrac1Skore.Opacity = 1;
+                                    vyhraHrac1Uspesne.Opacity = 1;
+                                    vyhraHrac1Uspesnost.Opacity = 1;
+                                    vyhraHrac2.Opacity = 1;
+                                    vyhraHrac2Neuspesne.Opacity = 1;
+                                    vyhraHrac2Skore.Opacity = 1;
+                                    vyhraHrac2Uspesne.Opacity = 1;
+                                    vyhraHrac2Uspesnost.Opacity = 1;
+                                }
+                                aktivni += 1;
+                                gridVyhra.Visibility = Visibility.Visible;
+                            }
+                            //Výhra 1. hráče
+                            else if (Hitboxy.hrac2.getHP() <= 0)
+                            {
+                                Hitboxy.kola[Hitboxy.aktivniKolo] = 1;
+                                Hitboxy.aktivniKolo++;
+                                if (Vyhodnotit() == 0)
+                                {
+                                    postava1round1.Fill = postava1round1.Stroke;
+
+                                    dalsiKolo = DateTime.Now + TimeSpan.FromMilliseconds(5000);
+                                    textVyhra.Content = Hitboxy.hrac1.getJmeno() + " vyhrál kolo";
+                                }
+                                else
+                                {
+                                    postava1round2.Fill = postava1round2.Stroke;
+
+                                    Statistika();
+                                    textVyhra.Content = Hitboxy.hrac1.getJmeno() + " vyhrál zápas";
+
+                                    KonecHry(true);
                                 }
 
+                                aktivni += 1;
+                                gridVyhra.Visibility = Visibility.Visible;
+                            }
+                        }
+                        else aktivni++;
+                    }
+
+                    if (aktivni > 1)
+                    {
+                        if (Hitboxy.hrac1.getHP() <= 0)
+                        {
+                            Hitboxy.hrac1.Umirani(aktivni);
+                        }
+                        if (Hitboxy.hrac2.getHP() <= 0)
+                        {
+                            Hitboxy.hrac2.Umirani(aktivni);
+                        }
+
+                        if (Plocha.Opacity > 0.5)
+                        {
+                            Plocha.Opacity -= 0.05;
+                        }
+                        if (gridVyhra.Opacity < 1)
+                        {
+                            gridVyhra.Opacity += 0.1;
+                        }
+                        if (Vyhodnotit() == 0)
+                        {
+                            KonecHry(false);
+                            //Achievement
+                            if (Hitboxy.rezimHry && Hitboxy.hrac1.getHP() > 0 && casKola.ElapsedMilliseconds <= 15000) Hitboxy.ukl.PridatPrubeh(3, 1);
+
+                            if (dalsiKolo < DateTime.Now)
+                            {
+                                aktivni = 0;
+                                //Další kolo
+                                dalsiBonus = Hitboxy.rnd.Next(7500, 15000);
+                                bonusCasovac.Restart();
+                                Hitboxy.hrac1.clearBonusy();
+                                Hitboxy.hrac2.clearBonusy();
+
+                                foreach (Bonus i in Hitboxy.bonusy)
+                                {
+                                    if (!i.sebrano)
+                                    {
+                                        i.sebrano = true;
+                                        Plocha.Children.Remove(i.getIkona());
+                                    }
+
+                                }
+
+                                Hitboxy.hrac1.smazatProjektily();
+                                Hitboxy.hrac2.smazatProjektily();
+
+                                Hitboxy.hrac1.getImg().Margin = new Thickness(0, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
+                                Hitboxy.hrac2.getImg().Margin = new Thickness(1700, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
+
+                                Hitboxy.hrac1.setHP(100);
+                                Hitboxy.hrac2.setHP(100);
+
+                                Hitboxy.hrac1.setEnergie(100);
+                                Hitboxy.hrac2.setEnergie(100);
+
+                                gridVyhra.Opacity = 0;
+                                gridVyhra.Visibility = Visibility.Hidden;
+                                Plocha.Opacity = 1;
+                            }
+                            else if (dalsiKolo - TimeSpan.FromMilliseconds(500) < DateTime.Now)
+                            {
+                                textVyhra.Content = "1";
+                            }
+                            else if (dalsiKolo - TimeSpan.FromMilliseconds(1000) < DateTime.Now)
+                            {
+                                textVyhra.Content = "2";
+                            }
+                            else if (dalsiKolo - TimeSpan.FromMilliseconds(1500) < DateTime.Now)
+                            {
+                                textVyhra.Content = "3";
+                            }
+                            else if (dalsiKolo - TimeSpan.FromMilliseconds(2500) < DateTime.Now)
+                            {
+                                textVyhra.Content = String.Format("{0}. kolo", Hitboxy.aktivniKolo + 1);
                             }
 
-                            Hitboxy.hrac1.smazatProjektily();
-                            Hitboxy.hrac2.smazatProjektily();
-
-                            Hitboxy.hrac1.getImg().Margin = new Thickness(0, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
-                            Hitboxy.hrac2.getImg().Margin = new Thickness(1700, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
-
-                            Hitboxy.hrac1.setHP(100);
-                            Hitboxy.hrac2.setHP(100);
-
-                            Hitboxy.hrac1.setEnergie(100);
-                            Hitboxy.hrac2.setEnergie(100);
-
-                            gridVyhra.Opacity = 0;
-                            gridVyhra.Visibility = Visibility.Hidden;
-                            Plocha.Opacity = 1;
                         }
-                        else if (dalsiKolo - TimeSpan.FromMilliseconds(500) < DateTime.Now)
-                        {
-                            textVyhra.Content = "1";
-                        }                        
-                        else if (dalsiKolo - TimeSpan.FromMilliseconds(1000) < DateTime.Now)
-                        {
-                            textVyhra.Content = "2";
-                        }                        
-                        else if (dalsiKolo - TimeSpan.FromMilliseconds(1500) < DateTime.Now)
-                        {
-                            textVyhra.Content = "3";
-                        }
-
                     }
                 }
+
+                else if (pozastaveno && bonusCasovac.IsRunning) bonusCasovac.Stop();
             }
-            else if (pozastaveno && bonusCasovac.IsRunning) bonusCasovac.Stop();
+            else if (casKola.ElapsedMilliseconds > 2000)
+            {
+                textVyhra.Content = "1";
+            }
+            else if (casKola.ElapsedMilliseconds > 1500)
+            {
+                textVyhra.Content = "2";
+            }
+            else if (casKola.ElapsedMilliseconds > 1000)
+            {
+                textVyhra.Content = "3";
+            }
+            else if(casKola.ElapsedMilliseconds > 1)
+            {
+                KonecHry(false);
+
+                gridVyhra.Opacity = 1;
+                gridVyhra.Visibility = Visibility.Visible;
+                textVyhra.Content = String.Format("{0}. kolo", Hitboxy.aktivniKolo + 1);
+            }
+        }
+
+        private void AktualizaceHracu()
+        {
+            //Obnovení ukazovače hráčů
+            Thickness hrac1Pozice = Hitboxy.hrac1.getImg().Margin;
+            Thickness hrac2Pozice = Hitboxy.hrac2.getImg().Margin;
+            hrac1Pozice.Bottom += Hitboxy.hrac1.getImg().Height + 20;
+            hrac2Pozice.Bottom += Hitboxy.hrac2.getImg().Height + 20;
+            hrac1Ukazatel.Margin = hrac1Pozice;
+            hrac2Ukazatel.Margin = hrac2Pozice;
+            hrac1Pozice.Bottom -= 50;
+            hrac2Pozice.Bottom -= 50;
+            hrac1Ukazatel1.Margin = hrac1Pozice;
+            hrac2Ukazatel1.Margin = hrac2Pozice;
+            if (Hitboxy.hrac1.getSila()) postava1Bonus1.Opacity = 1;
+            else postava1Bonus1.Opacity = 0;
+            if (Hitboxy.hrac1.getRychlost()) postava1Bonus2.Opacity = 1;
+            else postava1Bonus2.Opacity = 0;
+            if (Hitboxy.hrac2.getSila()) postava2Bonus1.Opacity = 1;
+            else postava2Bonus1.Opacity = 0;
+            if (Hitboxy.hrac2.getRychlost()) postava2Bonus2.Opacity = 1;
+            else postava2Bonus2.Opacity = 0;
+
+            Hitboxy.hrac1.Tick();
+            Hitboxy.hrac2.Tick();
+        }
+
+        private void KonecHry(bool hodnota)
+        {
+            if (!hodnota)
+            {
+                vyhraHrac1.Opacity = 0;
+                vyhraHrac1Neuspesne.Opacity = 0;
+                vyhraHrac1Skore.Opacity = 0;
+                vyhraHrac1Uspesne.Opacity = 0;
+                vyhraHrac1Uspesnost.Opacity = 0;
+                vyhraHrac2.Opacity = 0;
+                vyhraHrac2Neuspesne.Opacity = 0;
+                vyhraHrac2Skore.Opacity = 0;
+                vyhraHrac2Uspesne.Opacity = 0;
+                vyhraHrac2Uspesnost.Opacity = 0;
+                tlacVyhra.IsEnabled = false;
+                tlacVyhra.Opacity = 0;
+            }
+            else
+            {
+                tlacVyhra.IsEnabled = true;
+                tlacVyhra.Opacity = 1;
+                vyhraHrac1.Opacity = 1;
+                vyhraHrac1Neuspesne.Opacity = 1;
+                vyhraHrac1Skore.Opacity = 1;
+                vyhraHrac1Uspesne.Opacity = 1;
+                vyhraHrac1Uspesnost.Opacity = 1;
+                vyhraHrac2.Opacity = 1;
+                vyhraHrac2Neuspesne.Opacity = 1;
+                vyhraHrac2Skore.Opacity = 1;
+                vyhraHrac2Uspesne.Opacity = 1;
+                vyhraHrac2Uspesnost.Opacity = 1;
+            }
         }
 
         void Statistika()
@@ -549,11 +624,7 @@ namespace _2DFightingGame
 
         private void tlacMenu_Click(object sender, RoutedEventArgs e)
         {
-            gameTick.Stop();
-            HlavniMenu okno = new HlavniMenu();
-            okno.Show();
-            System.Threading.Thread.Sleep(50);
-            this.Close();
+            klik = true;
         }
 
         private void tlacPokracovat_Click(object sender, RoutedEventArgs e)
@@ -564,11 +635,7 @@ namespace _2DFightingGame
 
         private void tlacUkoncit_Click(object sender, RoutedEventArgs e)
         {
-            gameTick.Stop();
-            HlavniMenu okno = new HlavniMenu();
-            okno.Show();
-            System.Threading.Thread.Sleep(50);
-            this.Close();
+            klik = true;
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
