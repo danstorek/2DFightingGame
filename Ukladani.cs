@@ -4,11 +4,20 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace _2DFightingGame
 {
     class Ukladani
     {
+        public List<Key> nastaveniKlaves = new List<Key>()
+        {
+            Key.Up,Key.Down,Key.Left,Key.Right,
+            Key.N,Key.M,
+            Key.W,Key.S,Key.A,Key.D,
+            Key.Q,Key.E
+        };
+
         List<String> soubor;
 
         public Ukladani()
@@ -18,11 +27,18 @@ namespace _2DFightingGame
                 File.WriteAllLines("profil.sav", new string[]{ "start", "0", "0;0;0;0;0" });
             }
             soubor = File.ReadAllLines("profil.sav").ToList();
+
+            //Načtení nastavení kláves ze souboru
+            if (File.Exists("inputs.sav"))
+            {
+                nastaveniKlaves = ReadFromBinaryFile<List<Key>>("inputs.sav");
+            }
         }
 
-        void Ulozit()
+        public void Ulozit()
         {
             File.WriteAllLines("profil.sav",soubor);
+            WriteToBinaryFile("inputs.sav", nastaveniKlaves);
         }
 
         public int ZiskatPrubeh(int id) {
@@ -69,6 +85,23 @@ namespace _2DFightingGame
             soubor[0] = "start";
             soubor[1] = "0";
             Ulozit();
+        }
+
+        void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false)
+        {
+            using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create))
+            {
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                binaryFormatter.Serialize(stream, objectToWrite);
+            }
+        }
+        T ReadFromBinaryFile<T>(string filePath)
+        {
+            using (Stream stream = File.Open(filePath, FileMode.Open))
+            {
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                return (T)binaryFormatter.Deserialize(stream);
+            }
         }
     }
 }

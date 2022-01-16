@@ -64,6 +64,9 @@
       <DependentUpon>HlavniMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mapy.cs" />
+    <Compile Include="Nastaveni.xaml.cs">
+      <DependentUpon>Nastaveni.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SinglePlayer.cs" />
     <Compile Include="Ukladani.cs" />
     <Compile Include="Uspechy.xaml.cs">
@@ -92,6 +95,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Nastaveni.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Uspechy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -457,6 +464,9 @@
     <Resource Include="imgs\chars\char2\menu_idle\7.png" />
     <Resource Include="imgs\chars\char2\menu_idle\8.png" />
     <Resource Include="imgs\chars\char2\menu_idle\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\ui\settings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

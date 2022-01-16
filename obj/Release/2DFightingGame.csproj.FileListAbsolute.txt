@@ -21,3 +21,5 @@ D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.csproj.C
 D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.exe
 D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.pdb
 D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\2DFightingGame.csproj.AssemblyReference.cache
+D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\Nastaveni.g.cs
+D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Release\Nastaveni.baml
