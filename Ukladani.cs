@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml.Serialization;
 
 namespace _2DFightingGame
 {
@@ -18,27 +19,27 @@ namespace _2DFightingGame
             Key.Q,Key.E
         };
 
-        List<String> soubor;
+        List<String> soubor = new List<string> { "start", "0", "0;0;0;0;0" };
 
         public Ukladani()
         {
-            if (!File.Exists("profil.sav"))
+            //Načtení achievementů ze souboru
+            if (File.Exists("profil.xml"))
             {
-                File.WriteAllLines("profil.sav", new string[]{ "start", "0", "0;0;0;0;0" });
+                soubor = ReadFromXML<List<String>>("profil.xml");
             }
-            soubor = File.ReadAllLines("profil.sav").ToList();
 
             //Načtení nastavení kláves ze souboru
-            if (File.Exists("inputs.sav"))
+            if (File.Exists("inputs.xml"))
             {
-                nastaveniKlaves = ReadFromBinaryFile<List<Key>>("inputs.sav");
+                nastaveniKlaves = ReadFromXML<List<Key>>("inputs.xml");
             }
         }
 
         public void Ulozit()
         {
-            File.WriteAllLines("profil.sav",soubor);
-            WriteToBinaryFile("inputs.sav", nastaveniKlaves);
+            WriteToXML("profil.xml", soubor);
+            WriteToXML("inputs.xml", nastaveniKlaves);
         }
 
         public int ZiskatPrubeh(int id) {
@@ -87,20 +88,34 @@ namespace _2DFightingGame
             Ulozit();
         }
 
-        void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false)
+        void WriteToXML<T>(string filePath, T objectToWrite, bool append = false)
         {
-            using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create))
+            TextWriter writer = null;
+            try
             {
-                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                binaryFormatter.Serialize(stream, objectToWrite);
+                var serializer = new XmlSerializer(typeof(T));
+                writer = new StreamWriter(filePath, append);
+                serializer.Serialize(writer, objectToWrite);
+            }
+            finally
+            {
+                if (writer != null)
+                    writer.Close();
             }
         }
-        T ReadFromBinaryFile<T>(string filePath)
+        T ReadFromXML<T>(string filePath)
         {
-            using (Stream stream = File.Open(filePath, FileMode.Open))
+            TextReader reader = null;
+            try
             {
-                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                return (T)binaryFormatter.Deserialize(stream);
+                var serializer = new XmlSerializer(typeof(T));
+                reader = new StreamReader(filePath);
+                return (T)serializer.Deserialize(reader);
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
             }
         }
     }
