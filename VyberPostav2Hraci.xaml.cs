@@ -167,7 +167,7 @@ namespace _2DFightingGame
                     selectedHrac2.Source = postavy[(int)selectedHrac2.Tag];
                     hrac2Ready = true;
                 }
-                if (hrac1Ready && hrac2Ready) zahajeni = DateTime.Now + TimeSpan.FromSeconds(2);
+                //if (hrac1Ready && hrac2Ready) zahajeni = DateTime.Now + TimeSpan.FromSeconds(2);
             }
         }
 
