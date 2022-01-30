@@ -140,6 +140,7 @@ namespace _2DFightingGame
                 case 0: Hitboxy.hrac1 = new Postava_1(Plocha, postava1, false); break;
                 case 1: Hitboxy.hrac1 = new Postava_2(Plocha, postava1, false); break;
                 case 2: Hitboxy.hrac1 = new Postava_3(Plocha, postava1, false); break;
+                case 3: Hitboxy.hrac1 = new Postava_4(Plocha, postava1, false); break;
             }
 
             switch (Hitboxy.hrac2Postava)
@@ -147,6 +148,7 @@ namespace _2DFightingGame
                 case 0: Hitboxy.hrac2 = new Postava_1(Plocha, postava2, false); break;
                 case 1: Hitboxy.hrac2 = new Postava_2(Plocha, postava2, false); break;
                 case 2: Hitboxy.hrac2 = new Postava_3(Plocha, postava2, false); break;
+                case 3: Hitboxy.hrac2 = new Postava_4(Plocha, postava2, false); break;
             }
 
             Hitboxy.hrac1.getImg().Margin = new Thickness(0, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
@@ -207,7 +209,7 @@ namespace _2DFightingGame
                             Hitboxy.hrac2.setUtok2(false);
                         }
                         //Pohyb bota ve hře pro jednoho hráče
-                        else if (aktivni == 0 && !napoveda && Hitboxy.rezimHry) SinglePlayer.AI();
+                        else if (aktivni == 0 && !napoveda && Hitboxy.rezimHry && casKola.ElapsedMilliseconds > 3200) SinglePlayer.AI();
 
                         //Spawn bonusů
                         if (bonusCasovac.ElapsedMilliseconds > dalsiBonus)
@@ -585,65 +587,69 @@ namespace _2DFightingGame
             }
 
             //Hráč 1
-            if (e.Key == Hitboxy.ukl.nastaveniKlaves[2])
-                Hitboxy.hrac1.setVlevo(true);
-            if (e.Key == Hitboxy.ukl.nastaveniKlaves[3])
-                Hitboxy.hrac1.setVpravo(true);
+            if (!Hitboxy.hrac1.zamknoutOvladani)
+            {
+                if (e.Key == Hitboxy.ukl.nastaveniKlaves[2])
+                    Hitboxy.hrac1.setVlevo(true);
+                if (e.Key == Hitboxy.ukl.nastaveniKlaves[3])
+                    Hitboxy.hrac1.setVpravo(true);
+                if (e.Key == Hitboxy.ukl.nastaveniKlaves[4])
+                    Hitboxy.hrac1.setUtok1(true);
+                if (e.Key == Hitboxy.ukl.nastaveniKlaves[5])
+                    Hitboxy.hrac1.setUtok2(true);
+            }
             if (e.Key == Hitboxy.ukl.nastaveniKlaves[1])
                 Hitboxy.hrac1.setSkrceni(true);
             if (e.Key == Hitboxy.ukl.nastaveniKlaves[0])
                 Hitboxy.hrac1.setSkokTrigger(true);
-            if (e.Key == Hitboxy.ukl.nastaveniKlaves[4])
-                Hitboxy.hrac1.setUtok1(true);
-            if (e.Key == Hitboxy.ukl.nastaveniKlaves[5])
-                Hitboxy.hrac1.setUtok2(true);
-
 
             //Hráč 2
-            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[8])
-                Hitboxy.hrac2.setVlevo(true);
-            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[9])
-                Hitboxy.hrac2.setVpravo(true);
+            if (!Hitboxy.hrac2.zamknoutOvladani)
+            {
+                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[8])
+                    Hitboxy.hrac2.setVlevo(true);
+                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[9])
+                    Hitboxy.hrac2.setVpravo(true);
+                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[10])
+                    Hitboxy.hrac2.setUtok1(true);
+                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[11])
+                    Hitboxy.hrac2.setUtok2(true);
+            }
             if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[7])
                 Hitboxy.hrac2.setSkrceni(true);
             if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[6])
                 Hitboxy.hrac2.setSkokTrigger(true);
-            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[10])
-                Hitboxy.hrac2.setUtok1(true);
-            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[11])
-                Hitboxy.hrac2.setUtok2(true);
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
             //Hráč 1
-            if (e.Key == Hitboxy.ukl.nastaveniKlaves[2])
-                Hitboxy.hrac1.setVlevo(false);
-            if (e.Key == Hitboxy.ukl.nastaveniKlaves[3])
-                Hitboxy.hrac1.setVpravo(false);
-            if (e.Key == Hitboxy.ukl.nastaveniKlaves[1])
-                Hitboxy.hrac1.setSkrceni(false);
-            if (e.Key == Hitboxy.ukl.nastaveniKlaves[0])
-                Hitboxy.hrac1.setSkokTrigger(false);
-            if (e.Key == Hitboxy.ukl.nastaveniKlaves[4])
-                Hitboxy.hrac1.setUtok1(false);
-            if (e.Key == Hitboxy.ukl.nastaveniKlaves[5])
-                Hitboxy.hrac1.setUtok2(false);
-
+                if (e.Key == Hitboxy.ukl.nastaveniKlaves[2])
+                    Hitboxy.hrac1.setVlevo(false);
+                if (e.Key == Hitboxy.ukl.nastaveniKlaves[3])
+                    Hitboxy.hrac1.setVpravo(false);
+                if (e.Key == Hitboxy.ukl.nastaveniKlaves[1])
+                    Hitboxy.hrac1.setSkrceni(false);
+                if (e.Key == Hitboxy.ukl.nastaveniKlaves[0])
+                    Hitboxy.hrac1.setSkokTrigger(false);
+                if (e.Key == Hitboxy.ukl.nastaveniKlaves[4])
+                    Hitboxy.hrac1.setUtok1(false);
+                if (e.Key == Hitboxy.ukl.nastaveniKlaves[5])
+                    Hitboxy.hrac1.setUtok2(false);
 
             //Hráč 2
-            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[8])
-                Hitboxy.hrac2.setVlevo(false);
-            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[9])
-                Hitboxy.hrac2.setVpravo(false);
-            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[7])
-                Hitboxy.hrac2.setSkrceni(false);
-            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[6])
-                Hitboxy.hrac2.setSkokTrigger(false);
-            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[10])
-                Hitboxy.hrac2.setUtok1(false);
-            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[11])
-                Hitboxy.hrac2.setUtok2(false);
+                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[8])
+                    Hitboxy.hrac2.setVlevo(false);
+                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[9])
+                    Hitboxy.hrac2.setVpravo(false);
+                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[7])
+                    Hitboxy.hrac2.setSkrceni(false);
+                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[6])
+                    Hitboxy.hrac2.setSkokTrigger(false);
+                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[10])
+                    Hitboxy.hrac2.setUtok1(false);
+                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[11])
+                    Hitboxy.hrac2.setUtok2(false);
         }
 
         private void tlacMenu_Click(object sender, RoutedEventArgs e)

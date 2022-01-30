@@ -23,3 +23,4 @@ D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\2DFightingGame.exe
 D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\2DFightingGame.pdb
 D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\Nastaveni.g.cs
 D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\Nastaveni.baml
+D:\mat_projekt\2DFightingGame\2DFightingGame\obj\Debug\2DFightingGame.csproj.SuggestedBindingRedirects.cache
