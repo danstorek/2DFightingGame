@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <string>start;Hráč;Hráč 1;Hráč 2;Hráč 1;Hráč 2;Hráč;Hráč;Hráč</string>
-  <string>0;250;35;5;80;0;55;180;130</string>
+  <string>start;Hráč;Hráč 1;Hráč 2;Hráč 1;Hráč 2;Hráč;Hráč;Hráč;Hráč 1;Hráč 2;Hráč 1;Hráč 2;Hráč 1;Hráč 2</string>
+  <string>0;250;35;5;80;0;55;180;130;5;0;60;0;20;0</string>
   <string>19;19;19;0;0</string>
 </ArrayOfString>
