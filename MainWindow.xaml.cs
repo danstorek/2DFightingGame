@@ -141,6 +141,7 @@ namespace _2DFightingGame
                 case 1: Hitboxy.hrac1 = new Postava_2(Plocha, postava1, false); break;
                 case 2: Hitboxy.hrac1 = new Postava_3(Plocha, postava1, false); break;
                 case 3: Hitboxy.hrac1 = new Postava_4(Plocha, postava1, false); break;
+                case 4: Hitboxy.hrac1 = new Postava_5(Plocha, postava1, false); break;
             }
 
             switch (Hitboxy.hrac2Postava)
@@ -149,6 +150,7 @@ namespace _2DFightingGame
                 case 1: Hitboxy.hrac2 = new Postava_2(Plocha, postava2, false); break;
                 case 2: Hitboxy.hrac2 = new Postava_3(Plocha, postava2, false); break;
                 case 3: Hitboxy.hrac2 = new Postava_4(Plocha, postava2, false); break;
+                case 4: Hitboxy.hrac2 = new Postava_5(Plocha, postava2, false); break;
             }
 
             Hitboxy.hrac1.getImg().Margin = new Thickness(0, 0, 0, Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 100);
