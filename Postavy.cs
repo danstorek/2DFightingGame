@@ -1237,45 +1237,12 @@ namespace _2DFightingGame
             }
             if (utok2 && DateTime.Now > cooldownUtok2 && energie >= 30)
             {
-                pohybSchopnost = true;
-                zamknoutOvladani = true;
-                utok2Timer.Restart();
+                Hook hook = new Hook(this);
+                gridPlocha.Children.Add(hook.ReturnImage());
+                gridPlocha.Children.Add(hook.getCara());
+                aktivni_projektily.Add(hook);
                 energie -= 30;
                 cooldownUtok2 = DateTime.Now.AddMilliseconds(cooldownUtok2Max);
-            }
-            if (utok2Timer.IsRunning)
-            {
-                maxRychlost = 65;
-                bool kolize = false;
-                if (smer && getImg().Margin.Left < Hitboxy.getSouper(this).getImg().Margin.Left)
-                {
-                    pohybX = 65;
-                    if (Hitboxy.getSouper(this).getImg().Margin.Left - this.getImg().Margin.Left < 200 && Math.Abs(Hitboxy.getSouper(this).getImg().Margin.Bottom - this.getImg().Margin.Bottom) < 70)
-                    {
-                        kolize = true;
-                    }
-                }
-                else if (!smer && getImg().Margin.Left > Hitboxy.getSouper(this).getImg().Margin.Left)
-                {
-                    pohybX = -65;
-                    if (Hitboxy.getSouper(this).getImg().Margin.Left - this.getImg().Margin.Left > -200 && Math.Abs(Hitboxy.getSouper(this).getImg().Margin.Bottom - this.getImg().Margin.Bottom) < 70)
-                    {
-                        kolize = true;
-                    }
-                }
-                if (utok2Timer.ElapsedMilliseconds > 400 || kolize)
-                {
-                    if (kolize)
-                    {
-                        pohybX = 0;
-                        Hitboxy.getSouper(this).Poskozeni(30);
-                        if (smer) Hitboxy.getSouper(this).Odrazeni(50);
-                        else Hitboxy.getSouper(this).Odrazeni(-50);
-                    }
-                    pohybSchopnost = false;
-                    zamknoutOvladani = false;
-                    utok2Timer.Reset();
-                }
             }
 
             Pohyb(pozice);

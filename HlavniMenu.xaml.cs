@@ -20,6 +20,7 @@ namespace _2DFightingGame
     /// </summary>
     public partial class HlavniMenu : Window
     {
+        bool klikSingle = false;
         bool klik = false;
         int vyber = -1;
 
@@ -61,12 +62,19 @@ namespace _2DFightingGame
             else if (klik)
             {
                 VyberPostav2Hraci vyberPostav;
+                VyberPostavVez vyberPostavVez;
                 switch (vyber)
                 {
                     case 1:
                         Hitboxy.rezimHry = true;
                         vyberPostav = new VyberPostav2Hraci();
                         vyberPostav.Show();
+                        System.Threading.Thread.Sleep(50);
+                        break;
+                    case 5:
+                        Hitboxy.rezimHry = true;
+                        vyberPostavVez = new VyberPostavVez();
+                        vyberPostavVez.Show();
                         System.Threading.Thread.Sleep(50);
                         break;
                     case 2:
@@ -90,6 +98,70 @@ namespace _2DFightingGame
                 animaceTick.Stop();
                 this.Close();
             }
+
+            if (klikSingle)
+            {
+                btnSingle.Visibility = Visibility.Hidden;
+                btnLocal.Visibility = Visibility.Hidden;
+                btnExit.Visibility = Visibility.Hidden;
+                btnUspechy.Visibility = Visibility.Hidden;
+
+                btnArcade.Visibility = Visibility.Visible;
+                btnBack.Visibility = Visibility.Visible;
+                btnQuick.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnSingle.Visibility = Visibility.Visible;
+                btnLocal.Visibility = Visibility.Visible;
+                btnExit.Visibility = Visibility.Visible;
+                btnUspechy.Visibility = Visibility.Visible;
+
+                btnArcade.Visibility = Visibility.Hidden;
+                btnBack.Visibility= Visibility.Hidden;
+                btnQuick.Visibility= Visibility.Hidden;
+            }
+
+            if (klikSingle && btnSingle.Opacity > 0)
+            {
+                btnSingle.Opacity -= 0.1;
+                btnLocal.Opacity -= 0.1;
+                btnExit.Opacity -= 0.1;
+                btnUspechy.Opacity -= 0.1;
+
+                btnArcade.Opacity += 0.1;
+                btnBack.Opacity += 0.1;
+                btnQuick.Opacity += 0.1;
+
+                btnSingle.Margin = new Thickness(btnSingle.Margin.Left, btnSingle.Margin.Top, btnSingle.Margin.Right, btnSingle.Margin.Bottom - 5);
+                btnLocal.Margin = new Thickness(btnLocal.Margin.Left, btnLocal.Margin.Top, btnLocal.Margin.Right, btnLocal.Margin.Bottom - 5);
+                btnExit.Margin = new Thickness(btnExit.Margin.Left, btnExit.Margin.Top, btnExit.Margin.Right, btnExit.Margin.Bottom - 5);
+                btnUspechy.Margin = new Thickness(btnUspechy.Margin.Left, btnUspechy.Margin.Top, btnUspechy.Margin.Right, btnUspechy.Margin.Bottom - 5);
+
+                btnArcade.Margin = new Thickness(btnArcade.Margin.Left, btnArcade.Margin.Top, btnArcade.Margin.Right, btnArcade.Margin.Bottom + 5);
+                btnBack.Margin = new Thickness(btnBack.Margin.Left, btnBack.Margin.Top, btnBack.Margin.Right, btnBack.Margin.Bottom + 5);
+                btnQuick.Margin = new Thickness(btnQuick.Margin.Left, btnQuick.Margin.Top, btnQuick.Margin.Right, btnQuick.Margin.Bottom + 5);
+            }
+            else if(!klikSingle && btnSingle.Opacity < 1)
+            {
+                btnSingle.Opacity += 0.1;
+                btnLocal.Opacity += 0.1;
+                btnExit.Opacity += 0.1;
+                btnUspechy.Opacity += 0.1;
+
+                btnArcade.Opacity -= 0.1;
+                btnBack.Opacity -= 0.1;
+                btnQuick.Opacity -= 0.1;
+
+                btnSingle.Margin = new Thickness(btnSingle.Margin.Left, btnSingle.Margin.Top, btnSingle.Margin.Right, btnSingle.Margin.Bottom + 5);
+                btnLocal.Margin = new Thickness(btnLocal.Margin.Left, btnLocal.Margin.Top, btnLocal.Margin.Right, btnLocal.Margin.Bottom + 5);
+                btnExit.Margin = new Thickness(btnExit.Margin.Left, btnExit.Margin.Top, btnExit.Margin.Right, btnExit.Margin.Bottom + 5);
+                btnUspechy.Margin = new Thickness(btnUspechy.Margin.Left, btnUspechy.Margin.Top, btnUspechy.Margin.Right, btnUspechy.Margin.Bottom + 5);
+
+                btnArcade.Margin = new Thickness(btnArcade.Margin.Left, btnArcade.Margin.Top, btnArcade.Margin.Right, btnArcade.Margin.Bottom - 5);
+                btnBack.Margin = new Thickness(btnBack.Margin.Left, btnBack.Margin.Top, btnBack.Margin.Right, btnBack.Margin.Bottom - 5);
+                btnQuick.Margin = new Thickness(btnQuick.Margin.Left, btnQuick.Margin.Top, btnQuick.Margin.Right, btnQuick.Margin.Bottom - 5);
+            }
         }
 
         private void AnimaceTick_Tick(object sender, EventArgs e)
@@ -106,8 +178,7 @@ namespace _2DFightingGame
 
         private void HraProJednohoHrace(object sender, RoutedEventArgs e)
         {
-            klik = true;
-            vyber = 1;
+            klikSingle = true;
         }
 
         private void HraProDvaHrace(object sender, RoutedEventArgs e)
@@ -135,44 +206,66 @@ namespace _2DFightingGame
         private void hlMenu_MouseMove(object sender, MouseEventArgs e)
         {
             double mysX = e.GetPosition(this).X;
-            double mysY = e.GetPosition(this).Y;
+            double mysY = 1080 - e.GetPosition(this).Y;
 
-            bdNapoveda.Margin = new Thickness(mysX + 10, mysY - 160, 0, 0);
+            bdNapoveda.Margin = new Thickness(e.GetPosition(this).X + 10, e.GetPosition(this).Y - 160, 0, 0);
 
-            if (mysX > 350 && mysX < 840)
+            if (mysX > btnNastaveni.Margin.Left && mysX < btnNastaveni.Margin.Left + btnNastaveni.Width && mysY > btnNastaveni.Margin.Bottom && mysY < btnNastaveni.Margin.Bottom + btnNastaveni.Height)
             {
-                if (mysY > 418 && mysY < 578)
+                lbNapoveda.Content = "Nastavení hry";
+                bdNapoveda.Visibility = Visibility.Visible;
+            }
+            else if (!klikSingle)
+            {
+                if (mysX > btnSingle.Margin.Left && mysX < btnSingle.Margin.Left + btnSingle.Width && mysY > btnSingle.Margin.Bottom && mysY < btnSingle.Margin.Bottom + btnSingle.Height)
                 {
                     lbNapoveda.Content = "Spustí hru pro jednoho hráče, můžeš\nhrát pouze s odemčenými postavami";
                     bdNapoveda.Visibility = Visibility.Visible;
                 }
-                else if (mysY > 583 && mysY < 743)
+                else if (mysX > btnLocal.Margin.Left && mysX < btnLocal.Margin.Left + btnLocal.Width && mysY > btnLocal.Margin.Bottom && mysY < btnLocal.Margin.Bottom + btnLocal.Height)
                 {
                     lbNapoveda.Content = "Spustí hru pro dva hráče, můžeš\nhrát s jakoukoliv postavou";
                     bdNapoveda.Visibility = Visibility.Visible;
                 }
-                else if (mysY > 748 && mysY < 908)
+                else if (mysX > btnUspechy.Margin.Left && mysX < btnUspechy.Margin.Left + btnUspechy.Width && mysY > btnUspechy.Margin.Bottom && mysY < btnUspechy.Margin.Bottom + btnUspechy.Height)
                 {
                     lbNapoveda.Content = "Zobrazí ti odemknuté úspěchy a\nžebříček tvých nejlepší výsledků";
                     bdNapoveda.Visibility = Visibility.Visible;
                 }
-                else if (mysY > 920 && mysY < 1080)
-                {
-                    lbNapoveda.Content = "Ukončí hru";
-                    bdNapoveda.Visibility = Visibility.Visible;
-                }
                 else bdNapoveda.Visibility = Visibility.Hidden;
             }
-            else if(mysX > 955 && mysX < 1160)
+            else if (klikSingle)
             {
-                if (mysY > 844 && mysY < 1065)
+                if (mysX > btnQuick.Margin.Left && mysX < btnQuick.Margin.Left + btnQuick.Width && mysY > btnQuick.Margin.Bottom && mysY < btnQuick.Margin.Bottom + btnQuick.Height)
                 {
-                    lbNapoveda.Content = "Nastavení hry";
+                    lbNapoveda.Content = "Jeden zápas, ve kterém si vebereš,\nproti komu budeš bojovat";
+                    bdNapoveda.Visibility = Visibility.Visible;
+                }
+                else if (mysX > btnArcade.Margin.Left && mysX < btnArcade.Margin.Left + btnArcade.Width && mysY > btnArcade.Margin.Bottom && mysY < btnArcade.Margin.Bottom + btnArcade.Height)
+                {
+                    lbNapoveda.Content = "Mód, ve kterém musíte projít\ncelou věží a dostat se až k bossovi";
                     bdNapoveda.Visibility = Visibility.Visible;
                 }
                 else bdNapoveda.Visibility = Visibility.Hidden;
             }
             else bdNapoveda.Visibility = Visibility.Hidden;
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            klikSingle = false;
+        }
+
+        private void HraPruchodVezi(object sender, RoutedEventArgs e)
+        {
+            klik = true;
+            vyber = 5;
+        }
+
+        private void HraRychla(object sender, RoutedEventArgs e)
+        {
+            klik = true;
+            vyber = 1;
         }
     }
 }

@@ -27,6 +27,7 @@ namespace _2DFightingGame
         //true - Hra pro jednoho hráče
         //false - Hra pro dva hráče
         public static bool rezimHry = false;
+        public static int vez = -1;
 
         public static int aktivniKolo = 0;
         public static int[] kola = new int[3] { 0, 0, 0 };
