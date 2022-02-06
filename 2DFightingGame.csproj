@@ -78,6 +78,9 @@
     <Compile Include="VyberPostav2Hraci.xaml.cs">
       <DependentUpon>VyberPostav2Hraci.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VyberPostavVez.xaml.cs">
+      <DependentUpon>VyberPostavVez.xaml</DependentUpon>
+    </Compile>
     <Page Include="HlavniMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -108,6 +111,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="VyberPostav2Hraci.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VyberPostavVez.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -190,9 +197,6 @@
     <Resource Include="imgs\chars\char2\right\2.png" />
     <Resource Include="imgs\chars\char2\right\3.png" />
     <Resource Include="imgs\chars\char2\right\4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="audio\strela.wav" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imgs\attacks\tornado.png" />
@@ -583,12 +587,6 @@
     <Resource Include="imgs\chars\char5\left\7.png" />
     <Resource Include="imgs\chars\char5\left\8.png" />
     <Resource Include="imgs\chars\char5\left\9.png" />
-    <Resource Include="imgs\chars\char5\left\attack2\0.png" />
-    <Resource Include="imgs\chars\char5\left\attack2\1.png" />
-    <Resource Include="imgs\chars\char5\left\attack2\2.png" />
-    <Resource Include="imgs\chars\char5\left\attack2\3.png" />
-    <Resource Include="imgs\chars\char5\left\attack2\4.png" />
-    <Resource Include="imgs\chars\char5\left\attack2\5.png" />
     <Resource Include="imgs\chars\char5\left\attack\0.png" />
     <Resource Include="imgs\chars\char5\left\attack\1.png" />
     <Resource Include="imgs\chars\char5\left\attack\10.png" />
@@ -636,12 +634,6 @@
     <Resource Include="imgs\chars\char5\right\7.png" />
     <Resource Include="imgs\chars\char5\right\8.png" />
     <Resource Include="imgs\chars\char5\right\9.png" />
-    <Resource Include="imgs\chars\char5\right\attack2\0.png" />
-    <Resource Include="imgs\chars\char5\right\attack2\1.png" />
-    <Resource Include="imgs\chars\char5\right\attack2\2.png" />
-    <Resource Include="imgs\chars\char5\right\attack2\3.png" />
-    <Resource Include="imgs\chars\char5\right\attack2\4.png" />
-    <Resource Include="imgs\chars\char5\right\attack2\5.png" />
     <Resource Include="imgs\chars\char5\right\attack\0.png" />
     <Resource Include="imgs\chars\char5\right\attack\1.png" />
     <Resource Include="imgs\chars\char5\right\attack\10.png" />
@@ -673,6 +665,12 @@
   <ItemGroup>
     <Resource Include="imgs\chars\char4\left\rage.png" />
     <Resource Include="imgs\chars\char4\right\rage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char5\hook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char5\hookleft.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

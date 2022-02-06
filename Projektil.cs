@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace _2DFightingGame
 {
@@ -96,6 +98,112 @@ namespace _2DFightingGame
                     souper.Odrazeni(-20);
                 }
                 Neaktivni();
+            }
+        }
+
+        public override Image ReturnImage()
+        {
+            return img;
+        }
+    }
+
+    class Hook : Updatable
+    {
+        int rychlost;
+        Image img = new Image();
+        Image postava;
+        Postava souper;
+        Postava vyvolavaci;
+        Image souperImg;
+        bool smer;
+
+        Line cara;
+
+        public Hook(Postava postava)
+        {
+            this.vyvolavaci = postava;
+            this.smer = vyvolavaci.getSmer();
+            this.postava = postava.getImg();
+            this.souper = Hitboxy.getSouper(postava);
+            this.souperImg = this.souper.getImg();
+
+            vyvolavaci.celkem += 1;
+
+            cara = new Line();
+            cara.StrokeThickness = 7;
+            cara.Stroke = Brushes.Black;
+
+            Thickness pozice = this.postava.Margin;
+            if (smer)
+            {
+                pozice.Left += 100;
+                pozice.Bottom += 45;
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char5/hook.png"));
+            }
+            else
+            {
+                pozice.Left -= 40;
+                pozice.Bottom += 45;
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char5/hookleft.png"));
+            }
+            img.Width = 140;
+            img.Height = 140;
+            img.VerticalAlignment = VerticalAlignment.Bottom;
+            img.HorizontalAlignment = HorizontalAlignment.Left;
+            img.Margin = pozice;
+
+            if (smer) rychlost = 60;
+            else rychlost = -60;
+        }
+
+        public Line getCara()
+        {
+            return cara;
+        }
+
+        public override void Tick()
+        {
+            if (vyvolavaci.getSmer()) cara.X1 = postava.Margin.Left + 50;
+            else cara.X1 = postava.Margin.Left + 100;
+
+
+            cara.Y1 = 1080 - postava.Margin.Bottom - 100;
+
+            if(rychlost > 0) cara.X2 = ReturnImage().Margin.Left + 90;
+            else cara.X2 = ReturnImage().Margin.Left+40;
+
+            cara.Y2 = 1080 - ReturnImage().Margin.Bottom - 40;
+
+            Thickness pozice = img.Margin;
+            pozice.Left += rychlost;
+            img.Margin = pozice;
+
+            //Označení výstřelu mimo obraz jako neaktivní
+            if (pozice.Left < -100 || pozice.Left > 2100)
+            {
+                Neaktivni();
+                cara.Visibility = Visibility.Hidden;
+            }
+
+            //Kolize se soupeřem
+            Thickness poziceSouper = souperImg.Margin;
+            if (pozice.Left + (img.Width / 2) + 20 > poziceSouper.Left + (souperImg.Width / 2 - 40) && pozice.Left + (img.Width / 2) < poziceSouper.Left + (souperImg.Width / 2 + 40) && pozice.Bottom > poziceSouper.Bottom && pozice.Bottom < poziceSouper.Bottom + souperImg.Height - 20)
+            {
+                vyvolavaci.skore += 10;
+                vyvolavaci.uspesne += 1;
+                if (vyvolavaci.getSila()) souper.Poskozeni(10);
+                else souper.Poskozeni(5);
+
+                if (rychlost > 0)
+                {
+                    souper.Odrazeni(-60);
+                }
+                else
+                {
+                    souper.Odrazeni(60);
+                }
+                Neaktivni();
+                cara.Visibility = Visibility.Hidden;
             }
         }
 
