@@ -32,7 +32,7 @@
         </Style>
     </Window.Resources>
     <Grid Loaded="Grid_Loaded">
-        <Grid x:Name="Plocha" Loaded="Plocha_Loaded">
+        <Grid x:Name="Plocha" Loaded="Plocha_Loaded" Width="1920" Height="1080" VerticalAlignment="Top" Margin="0,0,0,0">
             <Image x:Name="pozadiMapa" Panel.ZIndex="-2" Source="/imgs/maps/map1/background.png"></Image>
 
             <Image x:Name="postava1" Width="200" Height="185" Margin="0,0,0,211" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="2"></Image>
@@ -104,12 +104,22 @@
                 </Grid>
             </Border>
         </Grid>
+        <Grid x:Name="plochaVez" Width="1920" Height="1080" VerticalAlignment="Top" Margin="0,-1080,0,0">
+            <Image x:Name="pozadiMapaVez" Panel.ZIndex="-2" Source="/imgs/maps/map1/background.png"></Image>
+            <Image x:Name="postava1Vez" Width="200" Height="185" Margin="0,0,0,179" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="2"></Image>
+            <Image x:Name="postava2Vez" Width="200" Height="185" Margin="1700,0,0,179" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="2"></Image>
+        </Grid>
         <Grid x:Name="gridVyhra" VerticalAlignment="Center" HorizontalAlignment="Center" Width="1100" Height="660" Opacity="0" Visibility="Hidden" Panel.ZIndex="998" Margin="410,290,410,130">
             <Grid Width="1050" Height="200" Margin="0,-100,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
                 <Image Source="/imgs/ui/text_back.png"/>
                 <Label Name="textVyhra" Content="Test" FontSize="90" FontFamily="Bahnschrift" FontWeight="Bold"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Grid>
             <Button Style="{StaticResource MyButtonStyle}" x:Name="tlacVyhra" Width="500" Height="160" Content="Přejít do hlavního menu" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="300,500,300,0" Click="tlacMenu_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
+                </Button.Background>
+            </Button>
+            <Button Style="{StaticResource MyButtonStyle}" x:Name="tlacVyhraVez" Width="500" Height="160" Content="Přejít do dalšího patra" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="300,500,300,0" Click="tlacVyhraVez_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
                 </Button.Background>

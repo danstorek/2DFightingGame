@@ -672,5 +672,14 @@
   <ItemGroup>
     <Resource Include="imgs\chars\char5\hookleft.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\maps\map4\background.png" />
+    <Resource Include="imgs\maps\map4\platform1.png" />
+    <Resource Include="imgs\maps\map5\background.png" />
+    <Resource Include="imgs\maps\map5\platform1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\crown.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

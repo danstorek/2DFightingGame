@@ -72,7 +72,7 @@ namespace _2DFightingGame
 
                 Hitboxy.hrac1Postava = (int)selectedHrac1.Tag;
                 Hitboxy.hrac2Postava = (int)selectedHrac2.Tag;
-
+                Hitboxy.vez = -1;
                 tmr.Stop();
                 animacePrechod.Stop();
                 VyberMapy vybermapy = new VyberMapy();

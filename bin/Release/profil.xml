@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <string>start;Hráč;Hráč 1;Hráč 2;Hráč 1;Hráč 2;Hráč;Hráč;Hráč</string>
-  <string>0;165;280;0;285;0;190;385;80</string>
-  <string>123;123;123;148;0</string>
+  <string>start;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč 1;Hráč 2;Hráč 1;Hráč 2;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč 1;Hráč 2;Hráč 1;Hráč 2;Hráč 1;Hráč 2;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč;Hráč</string>
+  <string>0;290;125;80;20;145;0;180;60;120;45;100;20;45;65;100;20;0;40;40;40;0;0;0;25;0;45;0;60;20;0;0;0;0;30;0;35;0;125;130;20;20;40;30;30;30;20;20;30;30;20;30;45;30;40;20;30;30;30;30;25;30;30;20;20;30;30;30;30;40;100;20;40;20;30;30;30;30;20;40;60;20;20</string>
+  <string>266;266;266;14015;11</string>
 </ArrayOfString>

@@ -101,6 +101,16 @@ namespace _2DFightingGame
                             //Vyhnutí se mezery mezi platformami
                             if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
                         }
+                        if (Hitboxy.hrac2.getId == 4)
+                        {
+                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
+                            else Hitboxy.hrac2.setUtok2(true);
+                            Hitboxy.hrac2.setVpravo(true);
+                            Hitboxy.hrac2.setVlevo(false);
+
+                            //Vyhnutí se mezery mezi platformami
+                            if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
+                        }
                     }
                     else
                     {
@@ -132,6 +142,16 @@ namespace _2DFightingGame
 
                             //Vyhnutí se mezery mezi platformami
                             if (aktualniPlatforma != null && poziceBot.Left < aktualniPlatforma.Margin.Left + 150) Hitboxy.hrac2.setSkokTrigger(true);
+                        }
+                        if (Hitboxy.hrac2.getId == 4)
+                        {
+                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
+                            else Hitboxy.hrac2.setUtok2(true);
+                            Hitboxy.hrac2.setVpravo(false);
+                            Hitboxy.hrac2.setVlevo(true);
+
+                            //Vyhnutí se mezery mezi platformami
+                            if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
                         }
                     }
                     pohybX = 0;

@@ -33,6 +33,9 @@
     </Window.Resources>
     <Grid>
         <Image Source="imgs/hlavni_menu.png"/>
+        
+        <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="Nastavení" Margin="0,72,0,0"></Label>
+        <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="Nastavení" Margin="0,72,0,0"></Label>
 
         <Border Panel.ZIndex="9" Name="napoveda1" Width="600" Height="700" HorizontalAlignment="Left" Margin="200,190,0,190" CornerRadius="20" BorderThickness="2" BorderBrush="Black" Background="White" Opacity="0.7">
             <Grid x:Name="ovladani1">
