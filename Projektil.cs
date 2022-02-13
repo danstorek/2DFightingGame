@@ -223,6 +223,8 @@ namespace _2DFightingGame
         Image souperImg;
         int tick = 0;
         bool smer;
+        bool typ = false;
+        int y = 0;
 
         public MageStrela(Postava postava)
         {
@@ -234,12 +236,42 @@ namespace _2DFightingGame
             vyvolavaci.celkem += 1;
         }
 
+        public MageStrela(bool strana, int y)
+        {
+            typ = true;
+            this.y = y;
+            if (strana)
+            {
+                smer = true;
+
+            }
+            else
+            {
+                smer = false;
+            }
+            this.vyvolavaci = Hitboxy.hrac2;
+            this.postava = vyvolavaci.getImg();
+            this.souper = Hitboxy.getSouper(vyvolavaci);
+            this.souperImg = this.souper.getImg();
+
+            vyvolavaci.celkem += 1;
+        }
+
         public override void Tick()
         {
             if (tick == 20)
             {
                 this.smer = vyvolavaci.getSmer();
-                Thickness pozice = this.postava.Margin;
+                Thickness pozice;
+                if (!typ) pozice = this.postava.Margin;
+                else if (smer)
+                {
+                    pozice = new Thickness(0,0,0,y);
+                }
+                else
+                {
+                    pozice = new Thickness(1920, 0, 0, y);
+                }
                 if (smer)
                 {
                     pozice.Left += 100;
@@ -374,8 +406,6 @@ namespace _2DFightingGame
 
     class TNT : Updatable
     {
-        Thickness pozice;
-
         Postava vyvolavaci;
         Image img = new Image();
         List<BitmapImage> animace = new List<BitmapImage>();
@@ -392,13 +422,27 @@ namespace _2DFightingGame
 
             vyvolavaci.celkem += 1;
 
-            pozice = postava.getImg().Margin;
             img.Height = 200;
             img.Width = 200;
             img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/1.png"));
             img.HorizontalAlignment = HorizontalAlignment.Left;
             img.VerticalAlignment = VerticalAlignment.Bottom;
-            img.Margin = new Thickness(pozice.Left, pozice.Top, pozice.Right, pozice.Bottom);
+            img.Margin = new Thickness(vyvolavaci.getImg().Margin.Left, vyvolavaci.getImg().Margin.Top, vyvolavaci.getImg().Margin.Right, vyvolavaci.getImg().Margin.Bottom);
+
+            animace.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/1.png")));
+            animace.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/10.png")));
+            animace.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/20.png")));
+            animace.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/30.png")));
+            animace.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/40.png")));
+        }
+        public TNT(int x)
+        {
+            img.Height = 200;
+            img.Width = 200;
+            img.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/1.png"));
+            img.HorizontalAlignment = HorizontalAlignment.Left;
+            img.VerticalAlignment = VerticalAlignment.Bottom;
+            img.Margin = new Thickness(x, 0, 0, 1080);
 
             animace.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/1.png")));
             animace.Add(new BitmapImage(new Uri("pack://application:,,,/imgs/attacks/tnt/10.png")));
@@ -434,30 +478,30 @@ namespace _2DFightingGame
                     case 45: img.Source = animace[3]; break;
                     case 60:
                         img.Source = animace[4];
-                        if (pozice.Left > postava1Pozice.Left - 350 && pozice.Left < postava1Pozice.Left + 350 && poziceTNT.Bottom- 200 < postava1Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava1Pozice.Bottom + Hitboxy.hrac1.getImg().Height)
+                        if (poziceTNT.Left > postava1Pozice.Left - 350 && poziceTNT.Left < postava1Pozice.Left + 350 && poziceTNT.Bottom- 200 < postava1Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava1Pozice.Bottom + Hitboxy.hrac1.getImg().Height)
                         {
-                            if(Hitboxy.hrac1 != vyvolavaci)
+                            if(vyvolavaci != null && Hitboxy.hrac1 != vyvolavaci)
                             {
                                 vyvolavaci.skore += 15;
                                 vyvolavaci.uspesne += 1;
                             }
 
-                            if(vyvolavaci.getSila()) Hitboxy.hrac1.Poskozeni(40);
+                            if(vyvolavaci != null && vyvolavaci.getSila()) Hitboxy.hrac1.Poskozeni(40);
                             else Hitboxy.hrac1.Poskozeni(20);
-                            if (pozice.Left + 200 > postava1Pozice.Left + 120) Hitboxy.hrac1.Odrazeni(-45);
+                            if (poziceTNT.Left + 200 > postava1Pozice.Left + 120) Hitboxy.hrac1.Odrazeni(-45);
                             else Hitboxy.hrac1.Odrazeni(45);
                         }
-                        if (pozice.Left > postava2Pozice.Left - 350 && pozice.Left < postava2Pozice.Left + 350 && poziceTNT.Bottom - 200 < postava2Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava2Pozice.Bottom + Hitboxy.hrac2.getImg().Height)
+                        if (poziceTNT.Left > postava2Pozice.Left - 350 && poziceTNT.Left < postava2Pozice.Left + 350 && poziceTNT.Bottom - 200 < postava2Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava2Pozice.Bottom + Hitboxy.hrac2.getImg().Height)
                         {
-                            if (Hitboxy.hrac2 != vyvolavaci)
+                            if (vyvolavaci != null && Hitboxy.hrac2 != vyvolavaci)
                             {
                                 vyvolavaci.skore += 15;
                                 vyvolavaci.uspesne += 1;
                             }
 
-                            if (vyvolavaci.getSila()) Hitboxy.hrac2.Poskozeni(40);
+                            if (vyvolavaci != null && vyvolavaci.getSila()) Hitboxy.hrac2.Poskozeni(40);
                             else Hitboxy.hrac2.Poskozeni(20);
-                            if (pozice.Left + 200 > postava2Pozice.Left + 120) Hitboxy.hrac2.Odrazeni(-45);
+                            if (poziceTNT.Left + 200 > postava2Pozice.Left + 120) Hitboxy.hrac2.Odrazeni(-45);
                             else Hitboxy.hrac2.Odrazeni(45);
                         }
                         break;

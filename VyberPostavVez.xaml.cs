@@ -63,12 +63,19 @@ namespace _2DFightingGame
             }
             else if(hrac1Ready && prechod1.Width >= 1920)
             {
+                Hitboxy.vezMapy[0] = 1;
+                Hitboxy.vezMapy[1] = 4;
+                Hitboxy.vezMapy[2] = 0;
+                Hitboxy.vezMapy[3] = 2;
+                Hitboxy.vezMapy[4] = 3;
+
+
                 Hitboxy.hrac1Jmeno = "Hráč";
                 Hitboxy.hrac2Jmeno = "Bot";
                 Hitboxy.hrac1Postava = (int)selectedHrac1.Tag;
-
+                Hitboxy.vez = 0;
                 animacePrechod.Stop();
-                Hitboxy.pozadiMapa = Mapy.getMapa(0);
+                Hitboxy.pozadiMapa = Mapy.getMapa(Hitboxy.vezMapy[Hitboxy.vez]);
                 Hitboxy.aktivniKolo = 0;
                 Hitboxy.kola = new int[3] { 0, 0, 0 };
                 MainWindow hra = new MainWindow();

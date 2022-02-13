@@ -20,7 +20,7 @@ namespace _2DFightingGame
     public partial class MainWindow : Window
     {
         bool klik = false;
-
+        bool pruchodDoVeze = false;
         bool pozastaveno = false;
         DateTime dalsiKolo;
         int aktivni = -1;
@@ -32,6 +32,10 @@ namespace _2DFightingGame
         Stopwatch bonusCasovac;
 
         Stopwatch casKola;
+        Stopwatch vezBossTimer;
+
+        Queue<Key> cheaty = new Queue<Key>();
+        bool cheatZapnut = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -44,6 +48,8 @@ namespace _2DFightingGame
             gameTick = new DispatcherTimer();
             bonusCasovac = new Stopwatch();
             casKola = new Stopwatch();
+            vezBossTimer = new Stopwatch();
+            vezBossTimer.Start();
 
             //Popis kláves podle nastavení
             Key tlacitko = Hitboxy.ukl.nastaveniKlaves[4];
@@ -135,6 +141,27 @@ namespace _2DFightingGame
                 Plocha.Children.Add(i);
             }
 
+            //Věž
+            if (Hitboxy.vez != -1 && Hitboxy.vez <= 3)
+            {
+                pozadiMapaVez.Source = Mapy.getMapaVez(Hitboxy.vezMapy[Hitboxy.vez + 1]);
+                foreach (Image i in Hitboxy.platformyVez)
+                {
+                    i.Stretch = Stretch.Fill;
+                    i.VerticalAlignment = VerticalAlignment.Bottom;
+                    i.HorizontalAlignment = HorizontalAlignment.Left;
+                    plochaVez.Children.Add(i);
+                }
+            }
+
+            if (Hitboxy.vez == 4)
+            {
+                postava1round2.Visibility = Visibility.Hidden;
+                postava2round2.Visibility = Visibility.Hidden;
+                postava1round1.Visibility = Visibility.Hidden;
+                postava2round1.Visibility = Visibility.Hidden;
+            }
+
             switch (Hitboxy.hrac1Postava)
             {
                 case 0: Hitboxy.hrac1 = new Postava_1(Plocha, postava1, false); break;
@@ -142,6 +169,24 @@ namespace _2DFightingGame
                 case 2: Hitboxy.hrac1 = new Postava_3(Plocha, postava1, false); break;
                 case 3: Hitboxy.hrac1 = new Postava_4(Plocha, postava1, false); break;
                 case 4: Hitboxy.hrac1 = new Postava_5(Plocha, postava1, false); break;
+            }
+
+            if (Hitboxy.vez >= 0)
+            {
+                if (Hitboxy.vez > 0) prechod2.Width = 0;
+                switch (Hitboxy.vezMapy[Hitboxy.vez])
+                {
+                    case 0:
+                        Hitboxy.hrac2Postava = 1; break;
+                    case 1:
+                        Hitboxy.hrac2Postava = 0; break;
+                    case 2:
+                        Hitboxy.hrac2Postava = 3; break;
+                    case 3:
+                        Hitboxy.hrac2Postava = 4; break;
+                    case 4:
+                        Hitboxy.hrac2Postava = 2; break;
+                }
             }
 
             switch (Hitboxy.hrac2Postava)
@@ -182,9 +227,38 @@ namespace _2DFightingGame
 
         private void GameTick_Tick(object sender, EventArgs e)
         {
-            if (casKola.ElapsedMilliseconds > 2500)
+            if (pruchodDoVeze)
             {
-                if(casKola.ElapsedMilliseconds<3000)
+                Plocha.Opacity = 1;
+                gridVyhra.Opacity = 0;
+                if (plochaVez.Margin.Top < 0)
+                {
+                    Thickness tmp;
+                    tmp = plochaVez.Margin;
+                    tmp.Top += 30;
+                    plochaVez.Margin = tmp;
+
+                    tmp = Plocha.Margin;
+                    tmp.Top += 30;
+                    Plocha.Margin = tmp;
+                }
+                else
+                {
+                    Hitboxy.vez++;
+                    animacePrechod.Stop();
+                    gameTick.Stop();
+                    Hitboxy.pozadiMapa = Mapy.getMapa(Hitboxy.vezMapy[Hitboxy.vez]);
+                    Hitboxy.aktivniKolo = 0;
+                    Hitboxy.kola = new int[3] { 0, 0, 0 };
+                    MainWindow hra = new MainWindow();
+                    hra.Show();
+                    System.Threading.Thread.Sleep(50);
+                    this.Close();
+                }
+            }
+            else if (casKola.ElapsedMilliseconds > 2500)
+            {
+                if (casKola.ElapsedMilliseconds < 3000)
                 {
                     gridVyhra.Opacity = 0;
                     gridVyhra.Visibility = Visibility.Hidden;
@@ -193,6 +267,16 @@ namespace _2DFightingGame
                 {
                     if (aktivni < 60)
                     {
+                        //Cheat na poškození
+                        if (cheatZapnut)
+                        {
+                            Hitboxy.hrac2.redukcePoskozeni = -5000;
+                            Hitboxy.hrac1.setHP(100);
+                            Hitboxy.hrac1.pohybSchopnost = true;
+                            Hitboxy.hrac1.maxRychlost = 50;
+                            Hitboxy.hrac1.setEnergie(100);
+                        }
+
                         //Vypnutí ovládání po skončení kola
                         if (aktivni > 0)
                         {
@@ -210,8 +294,50 @@ namespace _2DFightingGame
                             Hitboxy.hrac2.setUtok1(false);
                             Hitboxy.hrac2.setUtok2(false);
                         }
+
                         //Pohyb bota ve hře pro jednoho hráče
-                        else if (aktivni == 0 && !napoveda && Hitboxy.rezimHry && casKola.ElapsedMilliseconds > 3200) SinglePlayer.AI();
+                        else if (aktivni == 0 && !napoveda && Hitboxy.rezimHry && casKola.ElapsedMilliseconds > 3200)
+                        {
+                            SinglePlayer.AI();
+                            if (Hitboxy.vez == 4)
+                            {
+                                if (casKola.ElapsedMilliseconds < 10000)
+                                {
+                                    if (vezBossTimer.ElapsedMilliseconds > 1000)
+                                    {
+                                        TNT t = new TNT(Hitboxy.rnd.Next(0, 1920));
+                                        Plocha.Children.Add(t.ReturnImage());
+                                        Hitboxy.hrac2.aktivni_projektily.Add(t);
+                                        vezBossTimer.Restart();
+                                    }
+                                }
+                                else if (casKola.ElapsedMilliseconds < 20000)
+                                {
+                                    if (vezBossTimer.ElapsedMilliseconds > 500)
+                                    {
+                                        MageStrela t = new MageStrela(false, Hitboxy.rnd.Next(100, 600));
+                                        Plocha.Children.Add(t.ReturnImage());
+                                        Hitboxy.hrac2.aktivni_projektily.Add(t);
+                                        vezBossTimer.Restart();
+                                    }
+                                }
+                                else
+                                {
+                                    if (vezBossTimer.ElapsedMilliseconds > 1000)
+                                    {
+                                        TNT t = new TNT(Hitboxy.rnd.Next(0, 1920));
+                                        Plocha.Children.Add(t.ReturnImage());
+                                        Hitboxy.hrac2.aktivni_projektily.Add(t);
+
+                                        MageStrela n = new MageStrela(false, Hitboxy.rnd.Next(100, 600));
+                                        Plocha.Children.Add(n.ReturnImage());
+                                        Hitboxy.hrac2.aktivni_projektily.Add(n);
+                                        vezBossTimer.Restart();
+                                    }
+                                }
+                            }
+
+                        }
 
                         //Spawn bonusů
                         if (bonusCasovac.ElapsedMilliseconds > dalsiBonus)
@@ -291,18 +417,28 @@ namespace _2DFightingGame
 
                                     Statistika();
                                     textVyhra.Content = Hitboxy.hrac2.getJmeno() + " vyhrál zápas";
-                                    tlacVyhra.IsEnabled = true;
-                                    tlacVyhra.Opacity = 1;
-                                    vyhraHrac1.Opacity = 1;
-                                    vyhraHrac1Neuspesne.Opacity = 1;
-                                    vyhraHrac1Skore.Opacity = 1;
-                                    vyhraHrac1Uspesne.Opacity = 1;
-                                    vyhraHrac1Uspesnost.Opacity = 1;
-                                    vyhraHrac2.Opacity = 1;
-                                    vyhraHrac2Neuspesne.Opacity = 1;
-                                    vyhraHrac2Skore.Opacity = 1;
-                                    vyhraHrac2Uspesne.Opacity = 1;
-                                    vyhraHrac2Uspesnost.Opacity = 1;
+
+                                    KonecHry(true);
+                                    if (Hitboxy.hrac1.getHP() <= 0 || Hitboxy.vez == -1)
+                                    {
+                                        tlacVyhraVez.IsEnabled = false;
+                                        tlacVyhraVez.Opacity = 0;
+                                        tlacVyhraVez.Visibility = Visibility.Hidden;
+
+                                        tlacVyhra.IsEnabled = true;
+                                        tlacVyhra.Opacity = 1;
+                                        tlacVyhra.Visibility = Visibility.Visible;
+                                    }
+                                    else
+                                    {
+                                        tlacVyhra.IsEnabled = false;
+                                        tlacVyhra.Opacity = 0;
+                                        tlacVyhra.Visibility = Visibility.Hidden;
+
+                                        tlacVyhraVez.IsEnabled = true;
+                                        tlacVyhraVez.Opacity = 1;
+                                        tlacVyhraVez.Visibility = Visibility.Visible;
+                                    }
                                 }
                                 aktivni += 1;
                                 gridVyhra.Visibility = Visibility.Visible;
@@ -327,6 +463,26 @@ namespace _2DFightingGame
                                     textVyhra.Content = Hitboxy.hrac1.getJmeno() + " vyhrál zápas";
 
                                     KonecHry(true);
+                                    if (Hitboxy.hrac1.getHP() <= 0 || Hitboxy.vez == -1)
+                                    {
+                                        tlacVyhraVez.IsEnabled = false;
+                                        tlacVyhraVez.Opacity = 0;
+                                        tlacVyhraVez.Visibility = Visibility.Hidden;
+
+                                        tlacVyhra.IsEnabled = true;
+                                        tlacVyhra.Opacity = 1;
+                                        tlacVyhra.Visibility = Visibility.Visible;
+                                    }
+                                    else
+                                    {
+                                        tlacVyhra.IsEnabled = false;
+                                        tlacVyhra.Opacity = 0;
+                                        tlacVyhra.Visibility = Visibility.Hidden;
+
+                                        tlacVyhraVez.IsEnabled = true;
+                                        tlacVyhraVez.Opacity = 1;
+                                        tlacVyhraVez.Visibility = Visibility.Visible;
+                                    }
                                 }
 
                                 aktivni += 1;
@@ -431,7 +587,7 @@ namespace _2DFightingGame
             {
                 textVyhra.Content = "3";
             }
-            else if(casKola.ElapsedMilliseconds > 1)
+            else if (casKola.ElapsedMilliseconds > 1)
             {
                 KonecHry(false);
 
@@ -482,12 +638,14 @@ namespace _2DFightingGame
                 vyhraHrac2Uspesne.Opacity = 0;
                 vyhraHrac2Uspesnost.Opacity = 0;
                 tlacVyhra.IsEnabled = false;
+                tlacVyhraVez.IsEnabled = false;
                 tlacVyhra.Opacity = 0;
+                tlacVyhraVez.Opacity = 0;
+                tlacVyhra.Visibility = Visibility.Hidden;
+                tlacVyhraVez.Visibility = Visibility.Hidden;
             }
             else
             {
-                tlacVyhra.IsEnabled = true;
-                tlacVyhra.Opacity = 1;
                 vyhraHrac1.Opacity = 1;
                 vyhraHrac1Neuspesne.Opacity = 1;
                 vyhraHrac1Skore.Opacity = 1;
@@ -504,23 +662,23 @@ namespace _2DFightingGame
         void Statistika()
         {
             //Achievementy
-            if (Hitboxy.rezimHry && Hitboxy.hrac1.getHP()>0 && casKola.ElapsedMilliseconds <= 15000) Hitboxy.ukl.PridatPrubeh(3, 1);
-            if (Hitboxy.rezimHry && (Hitboxy.hrac1.uspesne * 100 / Hitboxy.hrac1.celkem) >= 75) Hitboxy.ukl.PridatPrubeh(4, 1);
+            if (Hitboxy.rezimHry && Hitboxy.hrac1.getHP() > 0 && casKola.ElapsedMilliseconds <= 15000) Hitboxy.ukl.PridatPrubeh(3, 1);
+            if (Hitboxy.rezimHry && Hitboxy.hrac1.celkem > 0 && (Hitboxy.hrac1.uspesne * 100 / Hitboxy.hrac1.celkem) >= 75) Hitboxy.ukl.PridatPrubeh(4, 1);
 
             //Uložení do žebříčku
             Hitboxy.ukl.PridatSkore(Hitboxy.hrac1.getJmeno(), Hitboxy.hrac1.skore);
-            if(!Hitboxy.rezimHry)Hitboxy.ukl.PridatSkore(Hitboxy.hrac2.getJmeno(), Hitboxy.hrac2.skore);
+            if (!Hitboxy.rezimHry) Hitboxy.ukl.PridatSkore(Hitboxy.hrac2.getJmeno(), Hitboxy.hrac2.skore);
 
             vyhraHrac1.Content = Hitboxy.hrac1Jmeno;
             vyhraHrac2.Content = Hitboxy.hrac2Jmeno;
-            vyhraHrac1Neuspesne.Content = "Neúspěšné útoky: "+(Hitboxy.hrac1.celkem - Hitboxy.hrac1.uspesne);
-            vyhraHrac1Uspesne.Content = "Úspěšné útoky: "+Hitboxy.hrac1.uspesne;
-            vyhraHrac1Skore.Content = "Skóre: "+Hitboxy.hrac1.skore;
-            if(Hitboxy.hrac1.celkem != 0) vyhraHrac1Uspesnost.Content = "Úspěšnost: "+(Hitboxy.hrac1.uspesne * 100 / Hitboxy.hrac1.celkem)+"%";
+            vyhraHrac1Neuspesne.Content = "Neúspěšné útoky: " + (Hitboxy.hrac1.celkem - Hitboxy.hrac1.uspesne);
+            vyhraHrac1Uspesne.Content = "Úspěšné útoky: " + Hitboxy.hrac1.uspesne;
+            vyhraHrac1Skore.Content = "Skóre: " + Hitboxy.hrac1.skore;
+            if (Hitboxy.hrac1.celkem != 0) vyhraHrac1Uspesnost.Content = "Úspěšnost: " + (Hitboxy.hrac1.uspesne * 100 / Hitboxy.hrac1.celkem) + "%";
             else vyhraHrac1Uspesnost.Content = "Úspěšnost: 0%";
-            vyhraHrac2Neuspesne.Content = "Neúspěšné útoky: "+(Hitboxy.hrac2.celkem - Hitboxy.hrac2.uspesne);
-            vyhraHrac2Uspesne.Content = "Úspěšné útoky: "+Hitboxy.hrac2.uspesne;
-            vyhraHrac2Skore.Content = "Skóre: "+Hitboxy.hrac2.skore;
+            vyhraHrac2Neuspesne.Content = "Neúspěšné útoky: " + (Hitboxy.hrac2.celkem - Hitboxy.hrac2.uspesne);
+            vyhraHrac2Uspesne.Content = "Úspěšné útoky: " + Hitboxy.hrac2.uspesne;
+            vyhraHrac2Skore.Content = "Skóre: " + Hitboxy.hrac2.skore;
             if (Hitboxy.hrac2.celkem != 0) vyhraHrac2Uspesnost.Content = "Úspěšnost: " + (Hitboxy.hrac2.uspesne * 100 / Hitboxy.hrac2.celkem) + "%";
             else vyhraHrac2Uspesnost.Content = "Úspěšnost: 0%";
         }
@@ -528,6 +686,10 @@ namespace _2DFightingGame
         //Vyhodnocení dosavadního výsledku zápasu
         int Vyhodnotit()
         {
+            if(Hitboxy.vez == 4)
+            {
+                return Hitboxy.kola[0];
+            }
             if (Hitboxy.aktivniKolo == 2)
             {
                 if (Hitboxy.kola[0] == 1 && Hitboxy.kola[1] == 1)
@@ -562,6 +724,22 @@ namespace _2DFightingGame
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            if (!cheatZapnut)
+            {
+                string tmp = "";
+                cheaty.Enqueue(e.Key);
+                if (cheaty.Count > 5) cheaty.Dequeue();
+                if (cheaty.Count == 5)
+                    foreach (Key k in cheaty)
+                    {
+                        tmp += k.ToString();
+                    }
+                if (tmp == "SVALY")
+                {
+                    cheatZapnut = true;
+                }
+            }
+
             if (napoveda)
             {
                 casKola.Start();
@@ -626,32 +804,32 @@ namespace _2DFightingGame
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
             //Hráč 1
-                if (e.Key == Hitboxy.ukl.nastaveniKlaves[2])
-                    Hitboxy.hrac1.setVlevo(false);
-                if (e.Key == Hitboxy.ukl.nastaveniKlaves[3])
-                    Hitboxy.hrac1.setVpravo(false);
-                if (e.Key == Hitboxy.ukl.nastaveniKlaves[1])
-                    Hitboxy.hrac1.setSkrceni(false);
-                if (e.Key == Hitboxy.ukl.nastaveniKlaves[0])
-                    Hitboxy.hrac1.setSkokTrigger(false);
-                if (e.Key == Hitboxy.ukl.nastaveniKlaves[4])
-                    Hitboxy.hrac1.setUtok1(false);
-                if (e.Key == Hitboxy.ukl.nastaveniKlaves[5])
-                    Hitboxy.hrac1.setUtok2(false);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[2])
+                Hitboxy.hrac1.setVlevo(false);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[3])
+                Hitboxy.hrac1.setVpravo(false);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[1])
+                Hitboxy.hrac1.setSkrceni(false);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[0])
+                Hitboxy.hrac1.setSkokTrigger(false);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[4])
+                Hitboxy.hrac1.setUtok1(false);
+            if (e.Key == Hitboxy.ukl.nastaveniKlaves[5])
+                Hitboxy.hrac1.setUtok2(false);
 
             //Hráč 2
-                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[8])
-                    Hitboxy.hrac2.setVlevo(false);
-                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[9])
-                    Hitboxy.hrac2.setVpravo(false);
-                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[7])
-                    Hitboxy.hrac2.setSkrceni(false);
-                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[6])
-                    Hitboxy.hrac2.setSkokTrigger(false);
-                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[10])
-                    Hitboxy.hrac2.setUtok1(false);
-                if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[11])
-                    Hitboxy.hrac2.setUtok2(false);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[8])
+                Hitboxy.hrac2.setVlevo(false);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[9])
+                Hitboxy.hrac2.setVpravo(false);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[7])
+                Hitboxy.hrac2.setSkrceni(false);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[6])
+                Hitboxy.hrac2.setSkokTrigger(false);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[10])
+                Hitboxy.hrac2.setUtok1(false);
+            if (!Hitboxy.rezimHry && e.Key == Hitboxy.ukl.nastaveniKlaves[11])
+                Hitboxy.hrac2.setUtok2(false);
         }
 
         private void tlacMenu_Click(object sender, RoutedEventArgs e)
@@ -673,6 +851,11 @@ namespace _2DFightingGame
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             Hitboxy.zmenitScale((Grid)sender);
+        }
+
+        private void tlacVyhraVez_Click(object sender, RoutedEventArgs e)
+        {
+            pruchodDoVeze = true;
         }
     }
 }

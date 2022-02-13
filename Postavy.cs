@@ -23,7 +23,7 @@ namespace _2DFightingGame
 
         protected string jmeno;
 
-        protected List<Updatable> aktivni_projektily = new List<Updatable>();
+        public List<Updatable> aktivni_projektily = new List<Updatable>();
         public void smazatProjektily()
         {
             foreach (Updatable i in aktivni_projektily)
@@ -56,7 +56,7 @@ namespace _2DFightingGame
         protected bool utok1 = false;
         protected bool utok2 = false;
         protected int zakladniRychlost = 30;
-        protected int maxRychlost = 30;
+        public int maxRychlost = 30;
         protected DateTime cooldownUtok1 = DateTime.Now;
         protected DateTime cooldownUtok2 = DateTime.Now;
         protected int cooldownUtok1Max;
@@ -64,7 +64,7 @@ namespace _2DFightingGame
         protected int poskozeniTimer = 0;
         protected int regenTimer = 0;
         protected DateTime zmrazen = DateTime.Now;
-        protected int redukcePoskozeni = 0;
+        public int redukcePoskozeni = 0;
 
         protected Stopwatch silaTimer = new Stopwatch();
         protected Stopwatch rychlostTimer = new Stopwatch();
@@ -76,13 +76,18 @@ namespace _2DFightingGame
         protected int animace_index = 0;
         protected double tick_animace = 0;
         protected bool utoceni1 = false;
-        protected bool pohybSchopnost = false;
+        public bool pohybSchopnost = false;
         public bool zamknoutOvladani = false;
         protected List<BitmapImage> animaceUtoceni1_left = new List<BitmapImage>();
         protected List<BitmapImage> animaceUtoceni1_right = new List<BitmapImage>();
 
         protected List<BitmapImage> animaceUmirani_left = new List<BitmapImage>();
         protected List<BitmapImage> animaceUmirani_right = new List<BitmapImage>();
+
+        public void vymazCooldown()
+        {
+            cooldownUtok2 = DateTime.Now;
+        }
 
         //Animace umření po konci kola
         public void Umirani(double tick)
