@@ -45,6 +45,7 @@
         <Label Content="←" Tag="hrac1vlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="577,249,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
         <Label Content="→" Tag="hrac1vpravo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="1189,249,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
         <Image x:Name="selectedHrac1" HorizontalAlignment="Left" Height="575" Margin="755,284,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac1_MouseDown"/>
+        <Label Name="lblUzamceno1" Visibility="Hidden" Content="UZAMČENO" FontSize="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="755,513,731,335"/>
         <Rectangle Name="prechod2" Panel.ZIndex="11" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
     </Grid>
 </Window>

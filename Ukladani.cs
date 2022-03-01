@@ -19,7 +19,7 @@ namespace _2DFightingGame
             Key.Q,Key.E
         };
 
-        List<String> soubor = new List<string> { "start", "0", "0;0;0;0;0" };
+        List<String> soubor = new List<string> { "start", "0", "0;0;0;0;0;0;0" };
 
         public Ukladani()
         {
@@ -49,7 +49,7 @@ namespace _2DFightingGame
         public void PridatPrubeh(int id, int rozdil)
         {
             String[] tmpAchievementy = soubor[2].Split(';');
-            tmpAchievementy[id] = (Convert.ToInt32(tmpAchievementy[id]) + rozdil).ToString();
+            if(Convert.ToInt32(tmpAchievementy[id]) < Achievementy.getSplneni(id)) tmpAchievementy[id] = (Convert.ToInt32(tmpAchievementy[id]) + rozdil).ToString();
             string tmpString = "";
             for(int i = 0; i<tmpAchievementy.Length; i++)
             {

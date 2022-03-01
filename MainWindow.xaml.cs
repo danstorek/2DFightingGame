@@ -109,6 +109,10 @@ namespace _2DFightingGame
                 Hitboxy.ukl.PridatPrubeh(1, 1);
                 Hitboxy.ukl.PridatPrubeh(2, 1);
             }
+            if(Hitboxy.vez != -1)
+            {
+                Hitboxy.ukl.PridatPrubeh(5, 1);
+            }
         }
         private void AnimacePrechod_Tick(object sender, EventArgs e)
         {
@@ -116,10 +120,19 @@ namespace _2DFightingGame
             if (klik && prechod1.Width < 1920) prechod1.Width += 120;
             if (klik && prechod1.Width >= 1920)
             {
+                if (Hitboxy.vez == 4) Hitboxy.vez++;
                 animacePrechod.Stop();
                 gameTick.Stop();
-                HlavniMenu okno = new HlavniMenu();
-                okno.Show();
+                if(Hitboxy.vez < 0)
+                {
+                    HlavniMenu okno = new HlavniMenu();
+                    okno.Show();
+                }
+                else
+                {
+                    VezStatistika okno = new VezStatistika();
+                    okno.Show();
+                }
                 System.Threading.Thread.Sleep(50);
                 this.Close();
             }
@@ -419,7 +432,7 @@ namespace _2DFightingGame
                                     textVyhra.Content = Hitboxy.hrac2.getJmeno() + " vyhrál zápas";
 
                                     KonecHry(true);
-                                    if (Hitboxy.hrac1.getHP() <= 0 || Hitboxy.vez == -1)
+                                    if (Hitboxy.hrac1.getHP() <= 0 || Hitboxy.vez == -1 || Hitboxy.vez == 4)
                                     {
                                         tlacVyhraVez.IsEnabled = false;
                                         tlacVyhraVez.Opacity = 0;
@@ -463,7 +476,7 @@ namespace _2DFightingGame
                                     textVyhra.Content = Hitboxy.hrac1.getJmeno() + " vyhrál zápas";
 
                                     KonecHry(true);
-                                    if (Hitboxy.hrac1.getHP() <= 0 || Hitboxy.vez == -1)
+                                    if (Hitboxy.hrac1.getHP() <= 0 || Hitboxy.vez == -1 || Hitboxy.vez == 4)
                                     {
                                         tlacVyhraVez.IsEnabled = false;
                                         tlacVyhraVez.Opacity = 0;
@@ -668,6 +681,12 @@ namespace _2DFightingGame
             //Uložení do žebříčku
             Hitboxy.ukl.PridatSkore(Hitboxy.hrac1.getJmeno(), Hitboxy.hrac1.skore);
             if (!Hitboxy.rezimHry) Hitboxy.ukl.PridatSkore(Hitboxy.hrac2.getJmeno(), Hitboxy.hrac2.skore);
+
+            //Věž
+            if(Hitboxy.vez != -1)
+            {
+                Hitboxy.skoreCelkem = Hitboxy.hrac1.skore;
+            }
 
             vyhraHrac1.Content = Hitboxy.hrac1Jmeno;
             vyhraHrac2.Content = Hitboxy.hrac2Jmeno;

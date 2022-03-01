@@ -35,6 +35,9 @@ namespace _2DFightingGame
         public static int vez = -1;
         public static int[] vezMapy = new int[] {0,0,0,0,0};
 
+        public static int obdrzeneCelkem = 0;
+        public static int skoreCelkem = 0;
+
         public static string hrac1Jmeno;
         public static string hrac2Jmeno;
 

@@ -378,6 +378,12 @@ namespace _2DFightingGame
             rozdil /= 100;
             hp -= rozdil;
             poskozeniTimer = 10;
+
+            //Vez
+            if(this == Hitboxy.hrac1 && Hitboxy.vez != -1)
+            {
+                Hitboxy.obdrzeneCelkem += rozdil;
+            }
         }
 
         //Regenerace HP
