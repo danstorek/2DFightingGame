@@ -10,6 +10,8 @@ namespace _2DFightingGame
 {
     abstract class Bonus
     {
+        public int id;
+        public int platforma;
         protected Image ikona;
         public abstract void Sebrani();
         public bool sebrano = false;
@@ -22,7 +24,8 @@ namespace _2DFightingGame
     {
         public HP()
         {
-            int platforma = Hitboxy.rnd.Next(0, Hitboxy.platformy.Count - 1);
+            id = 0;
+            platforma = Hitboxy.rnd.Next(0, Hitboxy.platformy.Count - 1);
             double cast = Hitboxy.rnd.Next(Convert.ToInt32(Hitboxy.platformy[platforma].Margin.Left), Convert.ToInt32(Hitboxy.platformy[platforma].Margin.Left + Hitboxy.platformy[platforma].Width)-100);
 
             ikona = new Image();
@@ -51,7 +54,8 @@ namespace _2DFightingGame
     {
         public Sila()
         {
-            int platforma = Hitboxy.rnd.Next(0, Hitboxy.platformy.Count - 1);
+            id = 1;
+            platforma = Hitboxy.rnd.Next(0, Hitboxy.platformy.Count - 1);
             double cast = Hitboxy.rnd.Next(Convert.ToInt32(Hitboxy.platformy[platforma].Margin.Left), Convert.ToInt32(Hitboxy.platformy[platforma].Margin.Left + Hitboxy.platformy[platforma].Width) - 100);
 
             ikona = new Image();
@@ -80,7 +84,8 @@ namespace _2DFightingGame
     {
         public Rychlost()
         {
-            int platforma = Hitboxy.rnd.Next(0, Hitboxy.platformy.Count - 1);
+            id = 2;
+            platforma = Hitboxy.rnd.Next(0, Hitboxy.platformy.Count - 1);
             double cast = Hitboxy.rnd.Next(Convert.ToInt32(Hitboxy.platformy[platforma].Margin.Left), Convert.ToInt32(Hitboxy.platformy[platforma].Margin.Left + Hitboxy.platformy[platforma].Width) - 100);
 
             ikona = new Image();

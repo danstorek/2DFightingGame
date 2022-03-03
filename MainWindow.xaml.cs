@@ -355,6 +355,7 @@ namespace _2DFightingGame
                         //Spawn bonusů
                         if (bonusCasovac.ElapsedMilliseconds > dalsiBonus)
                         {
+                            //Hitboxy.rnd.Next(1, 4)
                             switch (Hitboxy.rnd.Next(1, 4))
                             {
                                 case 1: Hitboxy.bonusy.Add(new HP()); Plocha.Children.Add(Hitboxy.bonusy[Hitboxy.bonusy.Count - 1].getIkona()); break;
@@ -366,11 +367,20 @@ namespace _2DFightingGame
                         }
 
                         //Obnovení bonusů
+                        List<Bonus> tmp = new List<Bonus>();
                         foreach (Bonus i in Hitboxy.bonusy)
                         {
-                            if (!i.sebrano) i.Sebrani();
-                            else Plocha.Children.Remove(i.getIkona());
+                            if (!i.sebrano)
+                            {
+                                i.Sebrani();
+                                tmp.Add(i);
+                            }
+                            else
+                            {
+                                Plocha.Children.Remove(i.getIkona());
+                            }
                         }
+                        Hitboxy.bonusy = tmp;
 
                         AktualizaceHracu();
 
@@ -545,8 +555,8 @@ namespace _2DFightingGame
                                     {
                                         i.sebrano = true;
                                         Plocha.Children.Remove(i.getIkona());
-                                    }
 
+                                    }
                                 }
 
                                 Hitboxy.hrac1.smazatProjektily();
@@ -743,20 +753,21 @@ namespace _2DFightingGame
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!cheatZapnut)
-            {
-                string tmp = "";
-                cheaty.Enqueue(e.Key);
-                if (cheaty.Count > 5) cheaty.Dequeue();
-                if (cheaty.Count == 5)
-                    foreach (Key k in cheaty)
-                    {
-                        tmp += k.ToString();
-                    }
-                if (tmp == "SVALY")
+            string tmp = "";
+            cheaty.Enqueue(e.Key);
+            if (cheaty.Count > 5) cheaty.Dequeue();
+            if (cheaty.Count == 5)
+                foreach (Key k in cheaty)
                 {
-                    cheatZapnut = true;
+                    tmp += k.ToString();
                 }
+            if (tmp == "SVALY")
+            {
+                cheatZapnut = true;
+            }
+            else if (tmp == "NAHIT")
+            {
+                Hitboxy.hrac2.setHP(5);
             }
 
             if (napoveda)

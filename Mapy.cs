@@ -47,9 +47,9 @@ namespace _2DFightingGame
                 case 1:
                     Hitboxy.platformy.Add(new Image());
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map3/platform2.png"));
-                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 1200;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 1500;
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 54;
-                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(360, 0, 0, 530);
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(210, 0, 0, 530);
 
                     Hitboxy.platformy.Add(new Image());
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map3/platform1.png"));
@@ -175,6 +175,12 @@ namespace _2DFightingGame
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 751;
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 54;
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(1169, 0, 0, 106);
+                    
+                    Hitboxy.platformy.Add(new Image());
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map5/platform1.png"));
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Width = 751;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Height = 54;
+                    Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin = new Thickness(500, 0, 0, 106);
 
                     Hitboxy.platformy.Add(new Image());
                     Hitboxy.platformy[Hitboxy.platformy.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map5/platform1.png"));
@@ -242,9 +248,9 @@ namespace _2DFightingGame
 
                     Hitboxy.platformyVez.Add(new Image());
                     Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map3/platform1.png"));
-                    Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Width = 430;
+                    Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Width = 530;
                     Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Height = 54;
-                    Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Margin = new Thickness(743, 0, 0, 340);
+                    Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Margin = new Thickness(693, 0, 0, 340);
 
                     Hitboxy.platformyVez.Add(new Image());
                     Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map3/platform1.png"));
@@ -358,6 +364,12 @@ namespace _2DFightingGame
                     Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Width = 751;
                     Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Height = 54;
                     Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Margin = new Thickness(1169, 0, 0, 106);
+
+                    Hitboxy.platformyVez.Add(new Image());
+                    Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map5/platform1.png"));
+                    Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Width = 751;
+                    Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Height = 54;
+                    Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Margin = new Thickness(500, 0, 0, 106);
 
                     Hitboxy.platformyVez.Add(new Image());
                     Hitboxy.platformyVez[Hitboxy.platformyVez.Count - 1].Source = new BitmapImage(new Uri("pack://application:,,,/imgs/maps/map5/platform1.png"));
