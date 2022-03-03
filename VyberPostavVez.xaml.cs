@@ -29,7 +29,6 @@ namespace _2DFightingGame
             new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/nahled.png")),
             new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/nahled.png")),
             new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char4/nahled.png")),
-            new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char5/nahled.png"))
         };
         public VyberPostavVez()
         {
@@ -61,15 +60,17 @@ namespace _2DFightingGame
                 System.Threading.Thread.Sleep(50);
                 this.Close();
             }
-            else if(hrac1Ready && prechod1.Width >= 1920)
+            else if (hrac1Ready && prechod1.Width >= 1920)
             {
+
                 Hitboxy.vezMapy[0] = 1;
                 Hitboxy.vezMapy[1] = 4;
                 Hitboxy.vezMapy[2] = 0;
                 Hitboxy.vezMapy[3] = 2;
                 Hitboxy.vezMapy[4] = 3;
 
-
+                Hitboxy.obdrzeneCelkem = 0;
+                Hitboxy.skoreCelkem = 0;
                 Hitboxy.hrac1Jmeno = "Hráč";
                 Hitboxy.hrac2Jmeno = "Bot";
                 Hitboxy.hrac1Postava = (int)selectedHrac1.Tag;
@@ -83,6 +84,11 @@ namespace _2DFightingGame
                 System.Threading.Thread.Sleep(50);
                 this.Close();
             }
+
+            if (Hitboxy.rezimHry && (int)selectedHrac1.Tag == 1 && Hitboxy.ukl.ZiskatPrubeh(0) < Achievementy.getSplneni(0)) lblUzamceno1.Visibility = Visibility.Visible;
+            else if (Hitboxy.rezimHry && (int)selectedHrac1.Tag == 2 && Hitboxy.ukl.ZiskatPrubeh(5) < Achievementy.getSplneni(5)) lblUzamceno1.Visibility = Visibility.Visible;
+            else if (Hitboxy.rezimHry && (int)selectedHrac1.Tag == 3 && Hitboxy.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) lblUzamceno1.Visibility = Visibility.Visible;
+            else lblUzamceno1.Visibility = Visibility.Hidden;
         }
 
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
@@ -118,6 +124,9 @@ namespace _2DFightingGame
         }
         private void selectedHrac1_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if ((int)selectedHrac1.Tag == 1 && Hitboxy.ukl.ZiskatPrubeh(0) < Achievementy.getSplneni(0)) return;
+            if ((int)selectedHrac1.Tag == 2 && Hitboxy.ukl.ZiskatPrubeh(5) < Achievementy.getSplneni(5)) return;
+            if ((int)selectedHrac1.Tag == 3 && Hitboxy.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) return;
             hrac1Ready = true;
         }
     }

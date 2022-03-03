@@ -11,6 +11,20 @@ namespace _2DFightingGame
 {
     static class Achievementy
     {
+        public static int getSplneni(int id)
+        {
+            switch (id)
+            {
+                case 0: return 1;
+                case 1: return 10;
+                case 2: return 50;
+                case 3: return 1;
+                case 4: return 1;
+                case 5: return 1;
+                case 6: return 1;
+                default: return 0;
+            }
+        }
         public static Grid achievementUkazatel(int id)
         {
             Grid plocha = new Grid();
@@ -21,7 +35,7 @@ namespace _2DFightingGame
 
             string nazev = "";
             string popis = "";
-            int splneni = 0;
+            int splneni = getSplneni(id);
             int progressNyni = 0;
 
             Image obrazek = new Image();
@@ -35,36 +49,43 @@ namespace _2DFightingGame
             {
                 case 0:
                     nazev = "Začátečník";
-                    popis = "Odehraj 1 zápas v režimu pro jednoho hráče.\nOdemkne novou postavu: Ninja";
-                    splneni = 1;
+                    popis = "Odehraj 1 zápas v režimu pro jednoho hráče.\nOdemkne novou postavu: Válečník";
                     progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
                 case 1:
                     nazev = "Amatér";
                     popis = "Odehraj 10 zápasů v režimu pro jednoho hráče.";
-                    splneni = 10;
                     progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
                 case 2:
                     nazev = "Profesionál";
                     popis = "Odehraj 50 zápasů v režimu pro jednoho hráče.";
-                    splneni = 50;
                     progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
                 case 3:
                     nazev = "Rychlostřelec";
                     popis = "Poraž soupeře v prvních 12 sekundách kola\nv režimu pro jednoho hráče.";
-                    splneni = 1;
                     progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
                 case 4:
                     nazev = "Ostrostřelec";
                     popis = "Vyhraj zápas s úspěšností střel větší než 75%\nv režimu pro jednoho hráče.";
-                    splneni = 1;
+                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
+                    obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
+                    break;
+                case 5:
+                    nazev = "Co je to za věž?";
+                    popis = "Vyzkoušej si zahrát režim \"průchod věží.\"\nOdemkne novou postavu: Kouzelník";
+                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
+                    obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
+                    break;
+                case 6:
+                    nazev = "Krásný pohled ze shora";
+                    popis = "Projdi celou věž a poraž bosse.\nOdemkne novou postavu: Minotaur";
                     progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
@@ -97,7 +118,7 @@ namespace _2DFightingGame
             if (progressNyni > splneni) progressNyni = splneni;
 
             Label lbSplneni = new Label();
-            lbSplneni.Content = String.Format("Splněno: {0}/{1} ({2}%)",progressNyni, splneni, progressNyni*100/splneni);
+            lbSplneni.Content = String.Format("Splněno: {0}/{1} ({2}%)", progressNyni, splneni, progressNyni * 100 / splneni);
             lbSplneni.FontSize = 20;
             if (progressNyni >= splneni) lbSplneni.Foreground = Brushes.LimeGreen;
             else lbSplneni.Foreground = Brushes.Red;

@@ -65,8 +65,38 @@ namespace _2DFightingGame
                 }
             }
 
+            //Sbíraní HP při nízkém počtu životů
+            Bonus hp = null;
+            foreach (Bonus i in Hitboxy.bonusy)
+            {
+                if (i.id == 0)
+                {
+                    hp = i;
+                }
+            }
+            if (hp != null && aktualniPlatforma != null && Hitboxy.hrac2.getHP() <= 40)
+            {
+                //Platforma nad botem
+                if (Hitboxy.platformy[hp.platforma].Margin.Bottom > aktualniPlatforma.Margin.Bottom && platformaNad != null)
+                {
+                    Hitboxy.hrac2.setSkokTrigger(true);
+                }
+
+                //Platforma pod botem
+                else if (Hitboxy.platformy[hp.platforma].Margin.Bottom < aktualniPlatforma.Margin.Bottom && platformaPod != null)
+                {
+                    Hitboxy.hrac2.setSkrceni(true);
+                }
+
+                //Pohyb na stejné úrovni
+                else
+                {
+                    pohybX = Convert.ToInt32(hp.getIkona().Margin.Left+(hp.getIkona().Width/2));
+                }
+            }
+
             //Střelba po soupeři
-            if (Hitboxy.rnd.Next(1, 11) >= 3)
+            else if (Hitboxy.rnd.Next(1, 11) >= 3)
             {
                 if (poziceBot.Bottom > poziceHrac.Bottom - 10 && poziceBot.Bottom < poziceHrac.Bottom + 30)
                 {
@@ -91,7 +121,7 @@ namespace _2DFightingGame
                             //Vyhnutí se mezery mezi platformami
                             if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
                         }
-                        if(Hitboxy.hrac2.getId == 3)
+                        if (Hitboxy.hrac2.getId == 3)
                         {
                             if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
                             Hitboxy.hrac2.setUtok2(true);
@@ -133,7 +163,7 @@ namespace _2DFightingGame
                             //Vyhnutí se mezery mezi platformami
                             if (aktualniPlatforma != null && poziceBot.Left < aktualniPlatforma.Margin.Left + 150) Hitboxy.hrac2.setSkokTrigger(true);
                         }
-                        if(Hitboxy.hrac2.getId == 3)
+                        if (Hitboxy.hrac2.getId == 3)
                         {
                             if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
                             Hitboxy.hrac2.setUtok2(true);
@@ -151,7 +181,7 @@ namespace _2DFightingGame
                             Hitboxy.hrac2.setVlevo(true);
 
                             //Vyhnutí se mezery mezi platformami
-                            if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
+                            if (aktualniPlatforma != null && poziceBot.Left < aktualniPlatforma.Margin.Left + 150) Hitboxy.hrac2.setSkokTrigger(true);
                         }
                     }
                     pohybX = 0;
@@ -160,7 +190,7 @@ namespace _2DFightingGame
             }
 
             //Výskok na platformu
-            else if (!Hitboxy.hrac2.zamknoutOvladani && cooldownPlatformy.ElapsedMilliseconds > 1500 && platformaNad != null && Hitboxy.rnd.Next(1, 11) >= 4)
+            else if (!Hitboxy.hrac2.zamknoutOvladani && (hp == null || Hitboxy.hrac2.getHP() > 40) && cooldownPlatformy.ElapsedMilliseconds > 1500 && platformaNad != null && Hitboxy.rnd.Next(1, 11) >= 4)
             {
                 pohybX = 0;
                 Hitboxy.hrac2.setSkokTrigger(true);
@@ -168,7 +198,7 @@ namespace _2DFightingGame
             }
 
             //Seskok z platformy
-            else if (!Hitboxy.hrac2.zamknoutOvladani && cooldownPlatformy.ElapsedMilliseconds > 1500 && platformaPod != null && Hitboxy.rnd.Next(1, 11) >= 4)
+            else if (!Hitboxy.hrac2.zamknoutOvladani && (hp == null || Hitboxy.hrac2.getHP() > 40) && cooldownPlatformy.ElapsedMilliseconds > 1500 && platformaPod != null && Hitboxy.rnd.Next(1, 11) >= 4)
             {
                 pohybX = 0;
                 Hitboxy.hrac2.setSkrceni(true);
@@ -176,7 +206,7 @@ namespace _2DFightingGame
             }
 
             //Pohyb
-            if (!Hitboxy.hrac2.zamknoutOvladani && pohybX == 0 && cooldownStrela.ElapsedMilliseconds > 200)
+            if (!Hitboxy.hrac2.zamknoutOvladani && (hp == null || Hitboxy.hrac2.getHP() > 40) && pohybX == 0 && cooldownStrela.ElapsedMilliseconds > 200)
             {
                 Hitboxy.hrac2.setVlevo(false);
                 Hitboxy.hrac2.setVpravo(false);
@@ -184,16 +214,22 @@ namespace _2DFightingGame
             }
             else if (!Hitboxy.hrac2.zamknoutOvladani && pohybX != 0)
             {
-                if (Math.Abs(poziceBot.Left - pohybX) < 150) pohybX = 0;
+                if (Math.Abs(poziceBot.Left - pohybX) < 10) pohybX = 0;
                 else if (poziceBot.Left < pohybX)
                 {
                     Hitboxy.hrac2.setVpravo(true);
                     Hitboxy.hrac2.setVlevo(false);
+
+                    //Vyhnutí se mezery mezi platformami
+                    if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
                 }
                 else if (poziceBot.Left > pohybX)
                 {
                     Hitboxy.hrac2.setVlevo(true);
                     Hitboxy.hrac2.setVpravo(false);
+
+                    //Vyhnutí se mezery mezi platformami
+                    if (aktualniPlatforma != null && poziceBot.Left < aktualniPlatforma.Margin.Left + 150) Hitboxy.hrac2.setSkokTrigger(true);
                 }
             }
         }

@@ -25,14 +25,12 @@ namespace _2DFightingGame
         bool hrac1Ready = false;
         bool hrac2Ready = false;
         DateTime zahajeni = DateTime.Now;
-        DispatcherTimer tmr = new DispatcherTimer();
         DispatcherTimer animacePrechod = new DispatcherTimer();
         BitmapImage[] postavy = new BitmapImage[] {
             new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/nahled.png")),
             new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/nahled.png")),
             new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/nahled.png")),
             new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char4/nahled.png")),
-            new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char5/nahled.png"))
         };
         public VyberPostav2Hraci()
         {
@@ -51,10 +49,6 @@ namespace _2DFightingGame
                 botVarovani.Visibility = Visibility.Visible;
             }
 
-            tmr.Interval = TimeSpan.FromMilliseconds(1000 / 60);
-            tmr.Tick += Tmr_Tick;
-            tmr.Start();
-
             selectedHrac1.Tag = 0;
             selectedHrac2.Tag = 0;
             selectedHrac1.Source = postavy[(int)selectedHrac1.Tag];
@@ -65,7 +59,7 @@ namespace _2DFightingGame
         {
             if (prechod2.Width > 1) prechod2.Width -= 120;
             if ((lblReady1.Opacity >= 1 && lblReady2.Opacity >= 1) || klik && prechod1.Width < 1920) prechod1.Width += 120;
-            if(hrac1Ready && hrac2Ready && prechod1.Width >= 1920)
+            if (hrac1Ready && hrac2Ready && prechod1.Width >= 1920)
             {
                 Hitboxy.hrac1Jmeno = jmenoHrac1.Text;
                 Hitboxy.hrac2Jmeno = jmenoHrac2.Text;
@@ -73,7 +67,6 @@ namespace _2DFightingGame
                 Hitboxy.hrac1Postava = (int)selectedHrac1.Tag;
                 Hitboxy.hrac2Postava = (int)selectedHrac2.Tag;
                 Hitboxy.vez = -1;
-                tmr.Stop();
                 animacePrechod.Stop();
                 VyberMapy vybermapy = new VyberMapy();
                 vybermapy.Show();
@@ -83,18 +76,16 @@ namespace _2DFightingGame
 
             if (klik && prechod1.Width >= 1920)
             {
-                tmr.Stop();
                 animacePrechod.Stop();
                 HlavniMenu okno = new HlavniMenu();
                 okno.Show();
                 System.Threading.Thread.Sleep(50);
                 this.Close();
             }
-        }
 
-        private void Tmr_Tick(object sender, EventArgs e)
-        {
-            if ((int)selectedHrac1.Tag == 1 && Hitboxy.ukl.ZiskatPrubeh(0) < 1 && Hitboxy.rezimHry) lblUzamceno1.Visibility = Visibility.Visible;
+            if (Hitboxy.rezimHry && (int)selectedHrac1.Tag == 1 && Hitboxy.ukl.ZiskatPrubeh(0) < Achievementy.getSplneni(0)) lblUzamceno1.Visibility = Visibility.Visible;
+            else if (Hitboxy.rezimHry && (int)selectedHrac1.Tag == 2 && Hitboxy.ukl.ZiskatPrubeh(5) < Achievementy.getSplneni(5)) lblUzamceno1.Visibility = Visibility.Visible;
+            else if (Hitboxy.rezimHry && (int)selectedHrac1.Tag == 3 && Hitboxy.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) lblUzamceno1.Visibility = Visibility.Visible;
             else lblUzamceno1.Visibility = Visibility.Hidden;
 
             if (hrac1Ready && lblReady1.Opacity < 1) lblReady1.Opacity += 0.05;
@@ -157,8 +148,15 @@ namespace _2DFightingGame
 
         private void selectedHrac1_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!hrac1Ready && ((int)selectedHrac1.Tag != 1 || Hitboxy.ukl.ZiskatPrubeh(0)>=1) || !Hitboxy.rezimHry)
+            if (!hrac1Ready)
             {
+                if (Hitboxy.rezimHry)
+                {
+                    if ((int)selectedHrac1.Tag == 1 && Hitboxy.ukl.ZiskatPrubeh(0) < Achievementy.getSplneni(0)) return;
+                    if ((int)selectedHrac1.Tag == 2 && Hitboxy.ukl.ZiskatPrubeh(5) < Achievementy.getSplneni(5)) return;
+                    if ((int)selectedHrac1.Tag == 3 && Hitboxy.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) return;
+                }
+
                 jmenoHrac1.IsEnabled = false;
                 lblReady1.Visibility = Visibility.Visible;
                 hrac1Ready = true;

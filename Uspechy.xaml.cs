@@ -100,7 +100,7 @@ namespace _2DFightingGame
 
             aktualniVyska = 0;
             //Načtení achievementů
-            for(int i = 0; i<=4; i++)
+            for(int i = 0; i<=6; i++)
             {
                 Grid tmp = Achievementy.achievementUkazatel(i);
                 tmp.Margin = new Thickness(50, aktualniVyska, 0, 0);

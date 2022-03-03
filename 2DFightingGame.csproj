@@ -72,6 +72,9 @@
     <Compile Include="Uspechy.xaml.cs">
       <DependentUpon>Uspechy.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VezStatistika.xaml.cs">
+      <DependentUpon>VezStatistika.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VyberMapy.xaml.cs">
       <DependentUpon>VyberMapy.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Uspechy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VezStatistika.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -680,6 +687,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imgs\chars\crown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\achievements\5.png" />
+    <Resource Include="imgs\achievements\6.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
