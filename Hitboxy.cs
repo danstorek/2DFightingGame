@@ -92,11 +92,11 @@ namespace _2DFightingGame
         public static int MuzePadat(TNT tnt)
         {
             int tmp = 0;
-            Thickness pozice = tnt.getImg().Margin;
+            Thickness pozice = tnt.ReturnImage().Margin;
             if (pozice.Bottom <= Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom+54) return Convert.ToInt32(Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 54);
             foreach (Image platforma in platformy)
             {
-                if (pozice.Left + (tnt.getImg().Height / 2) > platforma.Margin.Left && pozice.Left < platforma.Margin.Left + platforma.Width)
+                if (pozice.Left + (tnt.ReturnImage().Height / 2) > platforma.Margin.Left && pozice.Left < platforma.Margin.Left + platforma.Width)
                 {
                     if (pozice.Bottom > platforma.Margin.Bottom + platforma.Height + 25)
                     {
