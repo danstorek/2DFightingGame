@@ -65,15 +65,15 @@ namespace _2DFightingGame
                 }
             }
 
-            //Sbíraní HP při nízkém počtu životů
+            //Hledání bonusů
             Bonus hp = null;
-            foreach (Bonus i in Hitboxy.bonusy)
-            {
-                if (i.id == 0)
-                {
-                    hp = i;
-                }
-            }
+            Bonus bonus = null;
+            IEnumerable<Bonus> hp_IEnum = Hitboxy.bonusy.Where(x => x.id == 0);
+            IEnumerable<Bonus> bonus_IEnum = Hitboxy.bonusy.Where(x => x.id != 0);
+            if (hp_IEnum.Count() > 0) hp = hp_IEnum.First();
+            if (bonus_IEnum.Count() > 0) bonus = bonus_IEnum.First();
+
+            //Sbírání HP při nízkém počtu
             if (hp != null && aktualniPlatforma != null && Hitboxy.hrac2.getHP() <= 40)
             {
                 //Platforma nad botem
@@ -92,6 +92,53 @@ namespace _2DFightingGame
                 else
                 {
                     pohybX = Convert.ToInt32(hp.getIkona().Margin.Left+(hp.getIkona().Width/2));
+                }
+            }
+
+            //Vyhýbání se TNT
+            TNT tnt = null;
+            IEnumerable<Updatable> tnt_IENum = Hitboxy.hrac1.aktivni_projektily.Where(x => x.GetType() == typeof(TNT) && x.getAktivni());
+            if (tnt_IENum.Count() > 0) tnt = (TNT)tnt_IENum.First();
+            if (tnt == null)
+            {
+                tnt_IENum = Hitboxy.hrac2.aktivni_projektily.Where(x => x.GetType() == typeof(TNT) && x.getAktivni());
+                if (tnt_IENum.Count() > 0) tnt = (TNT)tnt_IENum.First();
+            }
+            if (tnt != null)
+            {
+                if (Math.Abs(tnt.ReturnImage().Margin.Left - Hitboxy.hrac2.getImg().Margin.Left) < 600)
+                {
+                    if (tnt.ReturnImage().Margin.Left > Hitboxy.hrac2.getImg().Margin.Left)
+                    {
+                        pohybX = 200;
+                    }
+                    else
+                    {
+                        pohybX = 1720;
+                    }
+                }
+                else pohybX = 0;
+            }
+
+            //Sbírání bonusů
+            else if(bonus != null && aktualniPlatforma != null)
+            {
+                //Platforma nad botem
+                if (Hitboxy.platformy[bonus.platforma].Margin.Bottom > aktualniPlatforma.Margin.Bottom && platformaNad != null)
+                {
+                    Hitboxy.hrac2.setSkokTrigger(true);
+                }
+
+                //Platforma pod botem
+                else if (Hitboxy.platformy[bonus.platforma].Margin.Bottom < aktualniPlatforma.Margin.Bottom && platformaPod != null)
+                {
+                    Hitboxy.hrac2.setSkrceni(true);
+                }
+
+                //Pohyb na stejné úrovni
+                else
+                {
+                    pohybX = Convert.ToInt32(bonus.getIkona().Margin.Left + (bonus.getIkona().Width / 2));
                 }
             }
 
@@ -190,7 +237,7 @@ namespace _2DFightingGame
             }
 
             //Výskok na platformu
-            else if (!Hitboxy.hrac2.zamknoutOvladani && (hp == null || Hitboxy.hrac2.getHP() > 40) && cooldownPlatformy.ElapsedMilliseconds > 1500 && platformaNad != null && Hitboxy.rnd.Next(1, 11) >= 4)
+            else if (!Hitboxy.hrac2.zamknoutOvladani && (hp == null || Hitboxy.hrac2.getHP() > 40) && cooldownPlatformy.ElapsedMilliseconds > 1500 && platformaNad != null && Hitboxy.rnd.Next(1, 11) >= 5)
             {
                 pohybX = 0;
                 Hitboxy.hrac2.setSkokTrigger(true);
@@ -198,7 +245,7 @@ namespace _2DFightingGame
             }
 
             //Seskok z platformy
-            else if (!Hitboxy.hrac2.zamknoutOvladani && (hp == null || Hitboxy.hrac2.getHP() > 40) && cooldownPlatformy.ElapsedMilliseconds > 1500 && platformaPod != null && Hitboxy.rnd.Next(1, 11) >= 4)
+            else if (!Hitboxy.hrac2.zamknoutOvladani && (hp == null || Hitboxy.hrac2.getHP() > 40) && cooldownPlatformy.ElapsedMilliseconds > 1500 && platformaPod != null)
             {
                 pohybX = 0;
                 Hitboxy.hrac2.setSkrceni(true);

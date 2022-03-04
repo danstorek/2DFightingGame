@@ -411,11 +411,6 @@ namespace _2DFightingGame
         List<BitmapImage> animace = new List<BitmapImage>();
         int cisloFrame = 0;
 
-        public Image getImg()
-        {
-            return img;
-        }
-
         public TNT(Postava postava)
         {
             vyvolavaci = postava;
