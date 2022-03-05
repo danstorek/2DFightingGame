@@ -37,6 +37,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ico.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -691,6 +694,9 @@
   <ItemGroup>
     <Resource Include="imgs\achievements\5.png" />
     <Resource Include="imgs\achievements\6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ico.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

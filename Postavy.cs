@@ -15,11 +15,7 @@ namespace _2DFightingGame
 {
     abstract class Postava
     {
-        protected int id;
-        public int getId
-        {
-            get { return id; }
-        }
+        public int id;
 
         protected string jmeno;
 
@@ -376,14 +372,21 @@ namespace _2DFightingGame
         {
             rozdil *= 100-redukcePoskozeni;
             rozdil /= 100;
-            hp -= rozdil;
-            poskozeniTimer = 10;
 
             //Vez
-            if(this == Hitboxy.hrac1 && Hitboxy.vez != -1)
+            if (this == Hitboxy.hrac1 && Hitboxy.vez != -1)
             {
+                switch (Hitboxy.obtiznost)
+                {
+                    case 0: rozdil *= 50; rozdil /= 100; break;
+                    case 1: rozdil *= 90; rozdil /= 100; break;
+                    case 2: rozdil *= 120; rozdil /= 100; break; 
+                }
                 Hitboxy.obdrzeneCelkem += rozdil;
             }
+
+            hp -= rozdil;
+            poskozeniTimer = 10;
         }
 
         //Regenerace HP
