@@ -97,31 +97,127 @@ namespace _2DFightingGame
 
             //Vyhýbání se TNT
             TNT tnt = null;
-            IEnumerable<Updatable> tnt_IENum = Hitboxy.hrac1.aktivni_projektily.Where(x => x.GetType() == typeof(TNT) && x.getAktivni());
+            IEnumerable<Updatable> tnt_IENum = Hitboxy.hrac1.aktivni_projektily.Where(x => x.GetType() == typeof(TNT) && x.getAktivni() && ((TNT)x).cisloFrame < 61);
             if (tnt_IENum.Count() > 0) tnt = (TNT)tnt_IENum.First();
             if (tnt == null)
             {
-                tnt_IENum = Hitboxy.hrac2.aktivni_projektily.Where(x => x.GetType() == typeof(TNT) && x.getAktivni());
+                tnt_IENum = Hitboxy.hrac2.aktivni_projektily.Where(x => x.GetType() == typeof(TNT) && x.getAktivni() && ((TNT)x).cisloFrame < 61);
                 if (tnt_IENum.Count() > 0) tnt = (TNT)tnt_IENum.First();
             }
-            if (tnt != null)
+            if (tnt != null && Hitboxy.hrac2.id != 4)
             {
                 if (Math.Abs(tnt.ReturnImage().Margin.Left - Hitboxy.hrac2.getImg().Margin.Left) < 600)
                 {
                     if (tnt.ReturnImage().Margin.Left > Hitboxy.hrac2.getImg().Margin.Left)
                     {
-                        pohybX = 200;
+                        if (tnt.ReturnImage().Margin.Left < 500) pohybX = 1720;
+                        else pohybX = 200;
                     }
                     else
                     {
-                        pohybX = 1720;
+                        if (tnt.ReturnImage().Margin.Left > 1420) pohybX = 200;
+                        else pohybX = 1720;
                     }
                 }
                 else pohybX = 0;
             }
 
+            //Střelba po soupeři
+            else if (Hitboxy.rnd.Next(1, 11) >= 3)
+            {
+                if (poziceBot.Bottom > poziceHrac.Bottom - 10 && poziceBot.Bottom < poziceHrac.Bottom + 30)
+                {
+                    if (poziceBot.Left < poziceHrac.Left)
+                    {
+                        Hitboxy.hrac2.setSmer(true);
+                        if (Hitboxy.hrac2.id == 0 || Hitboxy.hrac2.id == 2)
+                        {
+                            Hitboxy.hrac2.setVlevo(false);
+                            Hitboxy.hrac2.setVpravo(false);
+
+                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok2(true);
+                            Hitboxy.hrac2.setUtok1(true);
+                        }
+                        if (Hitboxy.hrac2.id == 1)
+                        {
+                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
+                            else Hitboxy.hrac2.setUtok2(true);
+                            Hitboxy.hrac2.setVpravo(true);
+                            Hitboxy.hrac2.setVlevo(false);
+
+                            //Vyhnutí se mezery mezi platformami
+                            if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
+                        }
+                        if (Hitboxy.hrac2.id == 3)
+                        {
+                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
+                            Hitboxy.hrac2.setUtok2(true);
+                            Hitboxy.hrac2.setVpravo(true);
+                            Hitboxy.hrac2.setVlevo(false);
+
+                            //Vyhnutí se mezery mezi platformami
+                            if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
+                        }
+                        if (Hitboxy.hrac2.id == 4)
+                        {
+                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
+                            else Hitboxy.hrac2.setUtok2(true);
+                            Hitboxy.hrac2.setVpravo(true);
+                            Hitboxy.hrac2.setVlevo(false);
+
+                            //Vyhnutí se mezery mezi platformami
+                            if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
+                        }
+                    }
+                    else
+                    {
+                        Hitboxy.hrac2.setSmer(false);
+                        if (Hitboxy.hrac2.id == 0 || Hitboxy.hrac2.id == 2)
+                        {
+                            Hitboxy.hrac2.setVlevo(false);
+                            Hitboxy.hrac2.setVpravo(false);
+
+                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok2(true);
+                            Hitboxy.hrac2.setUtok1(true);
+                        }
+                        if (Hitboxy.hrac2.id == 1)
+                        {
+                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
+                            else Hitboxy.hrac2.setUtok2(true);
+                            Hitboxy.hrac2.setVpravo(false);
+                            Hitboxy.hrac2.setVlevo(true);
+
+                            //Vyhnutí se mezery mezi platformami
+                            if (aktualniPlatforma != null && poziceBot.Left < aktualniPlatforma.Margin.Left + 150) Hitboxy.hrac2.setSkokTrigger(true);
+                        }
+                        if (Hitboxy.hrac2.id == 3)
+                        {
+                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
+                            Hitboxy.hrac2.setUtok2(true);
+                            Hitboxy.hrac2.setVpravo(false);
+                            Hitboxy.hrac2.setVlevo(true);
+
+                            //Vyhnutí se mezery mezi platformami
+                            if (aktualniPlatforma != null && poziceBot.Left < aktualniPlatforma.Margin.Left + 150) Hitboxy.hrac2.setSkokTrigger(true);
+                        }
+                        if (Hitboxy.hrac2.id == 4)
+                        {
+                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
+                            else Hitboxy.hrac2.setUtok2(true);
+                            Hitboxy.hrac2.setVpravo(false);
+                            Hitboxy.hrac2.setVlevo(true);
+
+                            //Vyhnutí se mezery mezi platformami
+                            if (aktualniPlatforma != null && poziceBot.Left < aktualniPlatforma.Margin.Left + 150) Hitboxy.hrac2.setSkokTrigger(true);
+                        }
+                    }
+                    pohybX = 0;
+                    cooldownStrela.Restart();
+                }
+            }
+
             //Sbírání bonusů
-            else if(bonus != null && aktualniPlatforma != null)
+            else if (bonus != null && aktualniPlatforma != null)
             {
                 //Platforma nad botem
                 if (Hitboxy.platformy[bonus.platforma].Margin.Bottom > aktualniPlatforma.Margin.Bottom && platformaNad != null)
@@ -139,100 +235,6 @@ namespace _2DFightingGame
                 else
                 {
                     pohybX = Convert.ToInt32(bonus.getIkona().Margin.Left + (bonus.getIkona().Width / 2));
-                }
-            }
-
-            //Střelba po soupeři
-            else if (Hitboxy.rnd.Next(1, 11) >= 3)
-            {
-                if (poziceBot.Bottom > poziceHrac.Bottom - 10 && poziceBot.Bottom < poziceHrac.Bottom + 30)
-                {
-                    if (poziceBot.Left < poziceHrac.Left)
-                    {
-                        Hitboxy.hrac2.setSmer(true);
-                        if (Hitboxy.hrac2.getId == 0 || Hitboxy.hrac2.getId == 2)
-                        {
-                            Hitboxy.hrac2.setVlevo(false);
-                            Hitboxy.hrac2.setVpravo(false);
-
-                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok2(true);
-                            Hitboxy.hrac2.setUtok1(true);
-                        }
-                        if (Hitboxy.hrac2.getId == 1)
-                        {
-                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
-                            else Hitboxy.hrac2.setUtok2(true);
-                            Hitboxy.hrac2.setVpravo(true);
-                            Hitboxy.hrac2.setVlevo(false);
-
-                            //Vyhnutí se mezery mezi platformami
-                            if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
-                        }
-                        if (Hitboxy.hrac2.getId == 3)
-                        {
-                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
-                            Hitboxy.hrac2.setUtok2(true);
-                            Hitboxy.hrac2.setVpravo(true);
-                            Hitboxy.hrac2.setVlevo(false);
-
-                            //Vyhnutí se mezery mezi platformami
-                            if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
-                        }
-                        if (Hitboxy.hrac2.getId == 4)
-                        {
-                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
-                            else Hitboxy.hrac2.setUtok2(true);
-                            Hitboxy.hrac2.setVpravo(true);
-                            Hitboxy.hrac2.setVlevo(false);
-
-                            //Vyhnutí se mezery mezi platformami
-                            if (aktualniPlatforma != null && poziceBot.Left > aktualniPlatforma.Margin.Left + aktualniPlatforma.Width - 150) Hitboxy.hrac2.setSkokTrigger(true);
-                        }
-                    }
-                    else
-                    {
-                        Hitboxy.hrac2.setSmer(false);
-                        if (Hitboxy.hrac2.getId == 0 || Hitboxy.hrac2.getId == 2)
-                        {
-                            Hitboxy.hrac2.setVlevo(false);
-                            Hitboxy.hrac2.setVpravo(false);
-
-                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok2(true);
-                            Hitboxy.hrac2.setUtok1(true);
-                        }
-                        if (Hitboxy.hrac2.getId == 1)
-                        {
-                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
-                            else Hitboxy.hrac2.setUtok2(true);
-                            Hitboxy.hrac2.setVpravo(false);
-                            Hitboxy.hrac2.setVlevo(true);
-
-                            //Vyhnutí se mezery mezi platformami
-                            if (aktualniPlatforma != null && poziceBot.Left < aktualniPlatforma.Margin.Left + 150) Hitboxy.hrac2.setSkokTrigger(true);
-                        }
-                        if (Hitboxy.hrac2.getId == 3)
-                        {
-                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
-                            Hitboxy.hrac2.setUtok2(true);
-                            Hitboxy.hrac2.setVpravo(false);
-                            Hitboxy.hrac2.setVlevo(true);
-
-                            //Vyhnutí se mezery mezi platformami
-                            if (aktualniPlatforma != null && poziceBot.Left < aktualniPlatforma.Margin.Left + 150) Hitboxy.hrac2.setSkokTrigger(true);
-                        }
-                        if (Hitboxy.hrac2.getId == 4)
-                        {
-                            if (Math.Abs(poziceBot.Left - poziceHrac.Left) < 300) Hitboxy.hrac2.setUtok1(true);
-                            else Hitboxy.hrac2.setUtok2(true);
-                            Hitboxy.hrac2.setVpravo(false);
-                            Hitboxy.hrac2.setVlevo(true);
-
-                            //Vyhnutí se mezery mezi platformami
-                            if (aktualniPlatforma != null && poziceBot.Left < aktualniPlatforma.Margin.Left + 150) Hitboxy.hrac2.setSkokTrigger(true);
-                        }
-                    }
-                    pohybX = 0;
-                    cooldownStrela.Restart();
                 }
             }
 

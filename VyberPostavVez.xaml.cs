@@ -62,6 +62,10 @@ namespace _2DFightingGame
             }
             else if (hrac1Ready && prechod1.Width >= 1920)
             {
+                //Výběr obtížnosti
+                if ((bool)obtLehka.IsChecked) Hitboxy.obtiznost = 0;
+                if ((bool)obtStredni.IsChecked) Hitboxy.obtiznost = 1;
+                if ((bool)obtTezka.IsChecked) Hitboxy.obtiznost = 2;
 
                 Hitboxy.vezMapy[0] = 1;
                 Hitboxy.vezMapy[1] = 4;

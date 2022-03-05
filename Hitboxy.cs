@@ -34,6 +34,7 @@ namespace _2DFightingGame
         //Pouze pro věž
         public static int vez = -1;
         public static int[] vezMapy = new int[] {0,0,0,0,0};
+        public static int obtiznost;
 
         public static int obdrzeneCelkem = 0;
         public static int skoreCelkem = 0;

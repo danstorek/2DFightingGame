@@ -409,7 +409,7 @@ namespace _2DFightingGame
         Postava vyvolavaci;
         Image img = new Image();
         List<BitmapImage> animace = new List<BitmapImage>();
-        int cisloFrame = 0;
+        public int cisloFrame = 0;
 
         public TNT(Postava postava)
         {
@@ -486,7 +486,7 @@ namespace _2DFightingGame
                             if (poziceTNT.Left + 200 > postava1Pozice.Left + 120) Hitboxy.hrac1.Odrazeni(-45);
                             else Hitboxy.hrac1.Odrazeni(45);
                         }
-                        if (poziceTNT.Left > postava2Pozice.Left - 350 && poziceTNT.Left < postava2Pozice.Left + 350 && poziceTNT.Bottom - 200 < postava2Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava2Pozice.Bottom + Hitboxy.hrac2.getImg().Height)
+                        if (poziceTNT.Left > postava2Pozice.Left - 350 && poziceTNT.Left < postava2Pozice.Left + 350 && poziceTNT.Bottom - 200 < postava2Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava2Pozice.Bottom + Hitboxy.hrac2.getImg().Height && Hitboxy.hrac2.id != 4)
                         {
                             if (vyvolavaci != null && Hitboxy.hrac2 != vyvolavaci)
                             {
