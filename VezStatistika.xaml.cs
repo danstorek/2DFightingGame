@@ -66,5 +66,10 @@ namespace _2DFightingGame
         {
             klik = true;
         }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            Hitboxy.zmenitScale((Grid)sender);
+        }
     }
 }
