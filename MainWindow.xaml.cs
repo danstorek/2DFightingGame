@@ -120,7 +120,7 @@ namespace _2DFightingGame
             if (klik && prechod1.Width < 1920) prechod1.Width += 120;
             if (klik && prechod1.Width >= 1920)
             {
-                if (Hitboxy.vez == 4) Hitboxy.vez++;
+                if (Hitboxy.vez == 4 && Hitboxy.kola[0] == 1) Hitboxy.vez++;
                 animacePrechod.Stop();
                 gameTick.Stop();
                 if(Hitboxy.vez < 0)
@@ -242,7 +242,23 @@ namespace _2DFightingGame
         {
             if (pruchodDoVeze)
             {
-                Plocha.Opacity = 1;
+                switch (Hitboxy.vezMapy[Hitboxy.vez+1])
+                {
+                    case 0:
+                        postava2Vez.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char2/left/00.png")); break;
+                    case 1:
+                        postava2Vez.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char1/left/00.png")); break;
+                    case 2:
+                        postava2Vez.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char4/left/00.png")); break;
+                    case 3:
+                        postava2Vez.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char5/left/00.png")); break;
+                    case 4:
+                        postava2Vez.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/chars/char3/left/00.png")); break;
+                }
+
+                postava1Vez.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/chars/char{0}/right/00.png", Hitboxy.hrac1Postava+1)));
+
+                if(Plocha.Opacity < 1) Plocha.Opacity += 0.05;
                 gridVyhra.Opacity = 0;
                 if (plochaVez.Margin.Top < 0)
                 {
@@ -589,7 +605,8 @@ namespace _2DFightingGame
                             }
                             else if (dalsiKolo - TimeSpan.FromMilliseconds(2500) < DateTime.Now)
                             {
-                                textVyhra.Content = String.Format("{0}. kolo", Hitboxy.aktivniKolo + 1);
+                                if (Hitboxy.vez == 4) textVyhra.Content = "Souboj s bossem!";
+                                else textVyhra.Content = String.Format("{0}. kolo", Hitboxy.aktivniKolo + 1);
                             }
 
                         }
@@ -616,7 +633,8 @@ namespace _2DFightingGame
 
                 gridVyhra.Opacity = 1;
                 gridVyhra.Visibility = Visibility.Visible;
-                textVyhra.Content = String.Format("{0}. kolo", Hitboxy.aktivniKolo + 1);
+                if (Hitboxy.vez == 4) textVyhra.Content = "Souboj s bossem!";
+                else textVyhra.Content = String.Format("{0}. kolo", Hitboxy.aktivniKolo + 1);
             }
         }
 

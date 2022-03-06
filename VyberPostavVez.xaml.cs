@@ -133,5 +133,10 @@ namespace _2DFightingGame
             if ((int)selectedHrac1.Tag == 3 && Hitboxy.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) return;
             hrac1Ready = true;
         }
+
+        private void vyberVez_Loaded(object sender, RoutedEventArgs e)
+        {
+            Hitboxy.zmenitScale((Grid)sender);
+        }
     }
 }
