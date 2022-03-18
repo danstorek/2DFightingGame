@@ -50,43 +50,43 @@ namespace _2DFightingGame
                 case 0:
                     nazev = "Začátečník";
                     popis = "Odehraj 1 zápas v režimu pro jednoho hráče.\nOdemkne novou postavu: Válečník";
-                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
+                    progressNyni = Globalni.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
                 case 1:
                     nazev = "Amatér";
                     popis = "Odehraj 10 zápasů v režimu pro jednoho hráče.";
-                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
+                    progressNyni = Globalni.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
                 case 2:
                     nazev = "Profesionál";
                     popis = "Odehraj 50 zápasů v režimu pro jednoho hráče.";
-                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
+                    progressNyni = Globalni.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
                 case 3:
                     nazev = "Rychlostřelec";
                     popis = "Poraž soupeře v prvních 12 sekundách kola\nv režimu pro jednoho hráče.";
-                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
+                    progressNyni = Globalni.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
                 case 4:
                     nazev = "Ostrostřelec";
                     popis = "Vyhraj zápas s úspěšností střel větší než 75%\nv režimu pro jednoho hráče.";
-                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
+                    progressNyni = Globalni.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
                 case 5:
                     nazev = "Co je to za věž?";
                     popis = "Vyzkoušej si zahrát režim \"průchod věží.\"\nOdemkne novou postavu: Kouzelník";
-                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
+                    progressNyni = Globalni.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
                 case 6:
                     nazev = "Krásný pohled ze shora";
                     popis = "Projdi celou věž a poraž bosse.\nOdemkne novou postavu: Minotaur";
-                    progressNyni = Hitboxy.ukl.ZiskatPrubeh(id);
+                    progressNyni = Globalni.ukl.ZiskatPrubeh(id);
                     obrazek.Source = new BitmapImage(new Uri(String.Format("pack://application:,,,/imgs/achievements/{0}.png", id)));
                     break;
             }

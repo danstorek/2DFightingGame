@@ -25,27 +25,27 @@ namespace _2DFightingGame
         public HP()
         {
             id = 0;
-            platforma = Hitboxy.rnd.Next(0, Hitboxy.platformy.Count - 1);
-            double cast = Hitboxy.rnd.Next(Convert.ToInt32(Hitboxy.platformy[platforma].Margin.Left), Convert.ToInt32(Hitboxy.platformy[platforma].Margin.Left + Hitboxy.platformy[platforma].Width)-100);
+            platforma = Globalni.rnd.Next(0, Globalni.platformy.Count - 1);
+            double cast = Globalni.rnd.Next(Convert.ToInt32(Globalni.platformy[platforma].Margin.Left), Convert.ToInt32(Globalni.platformy[platforma].Margin.Left + Globalni.platformy[platforma].Width)-100);
 
             ikona = new Image();
             ikona.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
             ikona.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            ikona.Margin = new System.Windows.Thickness(cast, 0, 0, Hitboxy.platformy[platforma].Margin.Bottom+50);
+            ikona.Margin = new System.Windows.Thickness(cast, 0, 0, Globalni.platformy[platforma].Margin.Bottom+50);
             ikona.Width = 100;
             ikona.Height = 100;
             ikona.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/bonuses/hp.png"));
         }
         public override void Sebrani()
         {
-            if(Hitboxy.hrac1.getImg().Margin.Left + 100 > ikona.Margin.Left && Hitboxy.hrac1.getImg().Margin.Left < ikona.Margin.Left + 100 && Hitboxy.hrac1.getImg().Margin.Bottom > ikona.Margin.Bottom-25 && Hitboxy.hrac1.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
+            if(Globalni.hrac1.getImg().Margin.Left + 100 > ikona.Margin.Left && Globalni.hrac1.getImg().Margin.Left < ikona.Margin.Left + 100 && Globalni.hrac1.getImg().Margin.Bottom > ikona.Margin.Bottom-25 && Globalni.hrac1.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
             {
-                Hitboxy.hrac1.Regen(50);
+                Globalni.hrac1.Regen(50);
                 sebrano = true;
             }
-            else if (Hitboxy.hrac2.getImg().Margin.Left + 100 > ikona.Margin.Left && Hitboxy.hrac2.getImg().Margin.Left < ikona.Margin.Left + 100 && Hitboxy.hrac2.getImg().Margin.Bottom > ikona.Margin.Bottom - 25 && Hitboxy.hrac2.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
+            else if (Globalni.hrac2.getImg().Margin.Left + 100 > ikona.Margin.Left && Globalni.hrac2.getImg().Margin.Left < ikona.Margin.Left + 100 && Globalni.hrac2.getImg().Margin.Bottom > ikona.Margin.Bottom - 25 && Globalni.hrac2.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
             {
-                Hitboxy.hrac2.Regen(50);
+                Globalni.hrac2.Regen(50);
                 sebrano = true;
             }
         }
@@ -55,27 +55,27 @@ namespace _2DFightingGame
         public Sila()
         {
             id = 1;
-            platforma = Hitboxy.rnd.Next(0, Hitboxy.platformy.Count - 1);
-            double cast = Hitboxy.rnd.Next(Convert.ToInt32(Hitboxy.platformy[platforma].Margin.Left), Convert.ToInt32(Hitboxy.platformy[platforma].Margin.Left + Hitboxy.platformy[platforma].Width) - 100);
+            platforma = Globalni.rnd.Next(0, Globalni.platformy.Count - 1);
+            double cast = Globalni.rnd.Next(Convert.ToInt32(Globalni.platformy[platforma].Margin.Left), Convert.ToInt32(Globalni.platformy[platforma].Margin.Left + Globalni.platformy[platforma].Width) - 100);
 
             ikona = new Image();
             ikona.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
             ikona.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            ikona.Margin = new System.Windows.Thickness(cast, 0, 0, Hitboxy.platformy[platforma].Margin.Bottom + 50);
+            ikona.Margin = new System.Windows.Thickness(cast, 0, 0, Globalni.platformy[platforma].Margin.Bottom + 50);
             ikona.Width = 100;
             ikona.Height = 100;
             ikona.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/bonuses/sila.png"));
         }
         public override void Sebrani()
         {
-            if (Hitboxy.hrac1.getImg().Margin.Left + 100 > ikona.Margin.Left && Hitboxy.hrac1.getImg().Margin.Left < ikona.Margin.Left + 100 && Hitboxy.hrac1.getImg().Margin.Bottom > ikona.Margin.Bottom - 25 && Hitboxy.hrac1.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
+            if (Globalni.hrac1.getImg().Margin.Left + 100 > ikona.Margin.Left && Globalni.hrac1.getImg().Margin.Left < ikona.Margin.Left + 100 && Globalni.hrac1.getImg().Margin.Bottom > ikona.Margin.Bottom - 25 && Globalni.hrac1.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
             {
-                Hitboxy.hrac1.sebratSila();
+                Globalni.hrac1.sebratSila();
                 sebrano = true;
             }
-            else if (Hitboxy.hrac2.getImg().Margin.Left + 100 > ikona.Margin.Left && Hitboxy.hrac2.getImg().Margin.Left < ikona.Margin.Left + 100 && Hitboxy.hrac2.getImg().Margin.Bottom > ikona.Margin.Bottom - 25 && Hitboxy.hrac2.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
+            else if (Globalni.hrac2.getImg().Margin.Left + 100 > ikona.Margin.Left && Globalni.hrac2.getImg().Margin.Left < ikona.Margin.Left + 100 && Globalni.hrac2.getImg().Margin.Bottom > ikona.Margin.Bottom - 25 && Globalni.hrac2.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
             {
-                Hitboxy.hrac2.sebratSila();
+                Globalni.hrac2.sebratSila();
                 sebrano = true;
             }
         }
@@ -85,29 +85,29 @@ namespace _2DFightingGame
         public Rychlost()
         {
             id = 2;
-            platforma = Hitboxy.rnd.Next(0, Hitboxy.platformy.Count - 1);
-            double cast = Hitboxy.rnd.Next(Convert.ToInt32(Hitboxy.platformy[platforma].Margin.Left), Convert.ToInt32(Hitboxy.platformy[platforma].Margin.Left + Hitboxy.platformy[platforma].Width) - 100);
+            platforma = Globalni.rnd.Next(0, Globalni.platformy.Count - 1);
+            double cast = Globalni.rnd.Next(Convert.ToInt32(Globalni.platformy[platforma].Margin.Left), Convert.ToInt32(Globalni.platformy[platforma].Margin.Left + Globalni.platformy[platforma].Width) - 100);
 
             ikona = new Image();
             ikona.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
             ikona.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            ikona.Margin = new System.Windows.Thickness(cast, 0, 0, Hitboxy.platformy[platforma].Margin.Bottom + 50);
+            ikona.Margin = new System.Windows.Thickness(cast, 0, 0, Globalni.platformy[platforma].Margin.Bottom + 50);
             ikona.Width = 100;
             ikona.Height = 100;
             ikona.Source = new BitmapImage(new Uri("pack://application:,,,/imgs/bonuses/rychlost.png"));
         }
         public override void Sebrani()
         {
-            if (Hitboxy.hrac1.getImg().Margin.Left + 100 > ikona.Margin.Left && Hitboxy.hrac1.getImg().Margin.Left < ikona.Margin.Left + 100 && Hitboxy.hrac1.getImg().Margin.Bottom > ikona.Margin.Bottom - 25 && Hitboxy.hrac1.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
+            if (Globalni.hrac1.getImg().Margin.Left + 100 > ikona.Margin.Left && Globalni.hrac1.getImg().Margin.Left < ikona.Margin.Left + 100 && Globalni.hrac1.getImg().Margin.Bottom > ikona.Margin.Bottom - 25 && Globalni.hrac1.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
             {
-                Hitboxy.hrac1.skore += 5;
-                Hitboxy.hrac1.sebratRychlost();
+                Globalni.hrac1.skore += 5;
+                Globalni.hrac1.sebratRychlost();
                 sebrano = true;
             }
-            else if (Hitboxy.hrac2.getImg().Margin.Left + 100 > ikona.Margin.Left && Hitboxy.hrac2.getImg().Margin.Left < ikona.Margin.Left + 100 && Hitboxy.hrac2.getImg().Margin.Bottom > ikona.Margin.Bottom - 25 && Hitboxy.hrac2.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
+            else if (Globalni.hrac2.getImg().Margin.Left + 100 > ikona.Margin.Left && Globalni.hrac2.getImg().Margin.Left < ikona.Margin.Left + 100 && Globalni.hrac2.getImg().Margin.Bottom > ikona.Margin.Bottom - 25 && Globalni.hrac2.getImg().Margin.Bottom < ikona.Margin.Bottom + ikona.Height)
             {
-                Hitboxy.hrac2.skore += 5;
-                Hitboxy.hrac2.sebratRychlost();
+                Globalni.hrac2.skore += 5;
+                Globalni.hrac2.sebratRychlost();
                 sebrano = true;
             }
         }

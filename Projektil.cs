@@ -43,7 +43,7 @@ namespace _2DFightingGame
             this.vyvolavaci = postava;
             this.smer = vyvolavaci.getSmer();
             this.postava = postava.getImg();
-            this.souper = Hitboxy.getSouper(postava);
+            this.souper = Globalni.getSouper(postava);
             this.souperImg = this.souper.getImg();
 
             vyvolavaci.celkem += 1;
@@ -124,7 +124,7 @@ namespace _2DFightingGame
             this.vyvolavaci = postava;
             this.smer = vyvolavaci.getSmer();
             this.postava = postava.getImg();
-            this.souper = Hitboxy.getSouper(postava);
+            this.souper = Globalni.getSouper(postava);
             this.souperImg = this.souper.getImg();
 
             vyvolavaci.celkem += 1;
@@ -230,7 +230,7 @@ namespace _2DFightingGame
         {
             this.vyvolavaci = postava;
             this.postava = postava.getImg();
-            this.souper = Hitboxy.getSouper(postava);
+            this.souper = Globalni.getSouper(postava);
             this.souperImg = this.souper.getImg();
 
             vyvolavaci.celkem += 1;
@@ -249,9 +249,9 @@ namespace _2DFightingGame
             {
                 smer = false;
             }
-            this.vyvolavaci = Hitboxy.hrac2;
+            this.vyvolavaci = Globalni.hrac2;
             this.postava = vyvolavaci.getImg();
-            this.souper = Hitboxy.getSouper(vyvolavaci);
+            this.souper = Globalni.getSouper(vyvolavaci);
             this.souperImg = this.souper.getImg();
 
             vyvolavaci.celkem += 1;
@@ -345,7 +345,7 @@ namespace _2DFightingGame
         {
             this.vyvolavaci = postava;
             this.postava = postava.getImg();
-            souper = Hitboxy.getSouper(postava);
+            souper = Globalni.getSouper(postava);
             souperImg = souper.getImg();
 
             vyvolavaci.celkem += 1;
@@ -448,15 +448,15 @@ namespace _2DFightingGame
 
         public override void Tick()
         {
-            Thickness postava1Pozice = Hitboxy.hrac1.getImg().Margin;
-            Thickness postava2Pozice = Hitboxy.hrac2.getImg().Margin;
+            Thickness postava1Pozice = Globalni.hrac1.getImg().Margin;
+            Thickness postava2Pozice = Globalni.hrac2.getImg().Margin;
             if (getAktivni())
             {
                 Thickness poziceTNT = img.Margin;
                 //Gravitace
-                if (Hitboxy.MuzePadat(this) >= 1)
+                if (Globalni.MuzePadat(this) >= 1)
                 {
-                    int pad = Hitboxy.MuzePadat(this);
+                    int pad = Globalni.MuzePadat(this);
                     if (pad == 1) poziceTNT.Bottom -= 25;
                     else
                     {
@@ -473,31 +473,31 @@ namespace _2DFightingGame
                     case 45: img.Source = animace[3]; break;
                     case 60:
                         img.Source = animace[4];
-                        if (poziceTNT.Left > postava1Pozice.Left - 350 && poziceTNT.Left < postava1Pozice.Left + 350 && poziceTNT.Bottom- 200 < postava1Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava1Pozice.Bottom + Hitboxy.hrac1.getImg().Height)
+                        if (poziceTNT.Left > postava1Pozice.Left - 350 && poziceTNT.Left < postava1Pozice.Left + 350 && poziceTNT.Bottom- 200 < postava1Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava1Pozice.Bottom + Globalni.hrac1.getImg().Height)
                         {
-                            if(vyvolavaci != null && Hitboxy.hrac1 != vyvolavaci)
+                            if(vyvolavaci != null && Globalni.hrac1 != vyvolavaci)
                             {
                                 vyvolavaci.skore += 15;
                                 vyvolavaci.uspesne += 1;
                             }
 
-                            if(vyvolavaci != null && vyvolavaci.getSila()) Hitboxy.hrac1.Poskozeni(40);
-                            else Hitboxy.hrac1.Poskozeni(20);
-                            if (poziceTNT.Left + 200 > postava1Pozice.Left + 120) Hitboxy.hrac1.Odrazeni(-45);
-                            else Hitboxy.hrac1.Odrazeni(45);
+                            if(vyvolavaci != null && vyvolavaci.getSila()) Globalni.hrac1.Poskozeni(40);
+                            else Globalni.hrac1.Poskozeni(20);
+                            if (poziceTNT.Left + 200 > postava1Pozice.Left + 120) Globalni.hrac1.Odrazeni(-45);
+                            else Globalni.hrac1.Odrazeni(45);
                         }
-                        if (poziceTNT.Left > postava2Pozice.Left - 350 && poziceTNT.Left < postava2Pozice.Left + 350 && poziceTNT.Bottom - 200 < postava2Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava2Pozice.Bottom + Hitboxy.hrac2.getImg().Height && Hitboxy.hrac2.id != 4)
+                        if (poziceTNT.Left > postava2Pozice.Left - 350 && poziceTNT.Left < postava2Pozice.Left + 350 && poziceTNT.Bottom - 200 < postava2Pozice.Bottom && poziceTNT.Bottom + img.Height + 200 > postava2Pozice.Bottom + Globalni.hrac2.getImg().Height && Globalni.hrac2.id != 4)
                         {
-                            if (vyvolavaci != null && Hitboxy.hrac2 != vyvolavaci)
+                            if (vyvolavaci != null && Globalni.hrac2 != vyvolavaci)
                             {
                                 vyvolavaci.skore += 15;
                                 vyvolavaci.uspesne += 1;
                             }
 
-                            if (vyvolavaci != null && vyvolavaci.getSila()) Hitboxy.hrac2.Poskozeni(40);
-                            else Hitboxy.hrac2.Poskozeni(20);
-                            if (poziceTNT.Left + 200 > postava2Pozice.Left + 120) Hitboxy.hrac2.Odrazeni(-45);
-                            else Hitboxy.hrac2.Odrazeni(45);
+                            if (vyvolavaci != null && vyvolavaci.getSila()) Globalni.hrac2.Poskozeni(40);
+                            else Globalni.hrac2.Poskozeni(20);
+                            if (poziceTNT.Left + 200 > postava2Pozice.Left + 120) Globalni.hrac2.Odrazeni(-45);
+                            else Globalni.hrac2.Odrazeni(45);
                         }
                         break;
                 }
@@ -534,7 +534,7 @@ namespace _2DFightingGame
             this.poziceY = souradniceY;
 
             this.vyvolavaci = postava;
-            this.souper = Hitboxy.getSouper(postava);
+            this.souper = Globalni.getSouper(postava);
             this.souperImg = souper.getImg();
 
             vyvolavaci.celkem += 1;

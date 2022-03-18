@@ -42,7 +42,7 @@ namespace _2DFightingGame
             animacePrechod.Start();
 
             //Základní názvy postav ve hře pro jednoho hráče
-            if (Hitboxy.rezimHry)
+            if (Globalni.rezimHry)
             {
                 jmenoHrac1.Text = "Hráč";
                 jmenoHrac2.Text = "Bot";
@@ -61,12 +61,12 @@ namespace _2DFightingGame
             if ((lblReady1.Opacity >= 1 && lblReady2.Opacity >= 1) || klik && prechod1.Width < 1920) prechod1.Width += 120;
             if (hrac1Ready && hrac2Ready && prechod1.Width >= 1920)
             {
-                Hitboxy.hrac1Jmeno = jmenoHrac1.Text;
-                Hitboxy.hrac2Jmeno = jmenoHrac2.Text;
+                Globalni.hrac1Jmeno = jmenoHrac1.Text;
+                Globalni.hrac2Jmeno = jmenoHrac2.Text;
 
-                Hitboxy.hrac1Postava = (int)selectedHrac1.Tag;
-                Hitboxy.hrac2Postava = (int)selectedHrac2.Tag;
-                Hitboxy.vez = -1;
+                Globalni.hrac1Postava = (int)selectedHrac1.Tag;
+                Globalni.hrac2Postava = (int)selectedHrac2.Tag;
+                Globalni.vez = -1;
                 animacePrechod.Stop();
                 VyberMapy vybermapy = new VyberMapy();
                 vybermapy.Show();
@@ -83,9 +83,9 @@ namespace _2DFightingGame
                 this.Close();
             }
 
-            if (Hitboxy.rezimHry && (int)selectedHrac1.Tag == 1 && Hitboxy.ukl.ZiskatPrubeh(0) < Achievementy.getSplneni(0)) lblUzamceno1.Visibility = Visibility.Visible;
-            else if (Hitboxy.rezimHry && (int)selectedHrac1.Tag == 2 && Hitboxy.ukl.ZiskatPrubeh(5) < Achievementy.getSplneni(5)) lblUzamceno1.Visibility = Visibility.Visible;
-            else if (Hitboxy.rezimHry && (int)selectedHrac1.Tag == 3 && Hitboxy.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) lblUzamceno1.Visibility = Visibility.Visible;
+            if (Globalni.rezimHry && (int)selectedHrac1.Tag == 1 && Globalni.ukl.ZiskatPrubeh(0) < Achievementy.getSplneni(0)) lblUzamceno1.Visibility = Visibility.Visible;
+            else if (Globalni.rezimHry && (int)selectedHrac1.Tag == 2 && Globalni.ukl.ZiskatPrubeh(5) < Achievementy.getSplneni(5)) lblUzamceno1.Visibility = Visibility.Visible;
+            else if (Globalni.rezimHry && (int)selectedHrac1.Tag == 3 && Globalni.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) lblUzamceno1.Visibility = Visibility.Visible;
             else lblUzamceno1.Visibility = Visibility.Hidden;
 
             if (hrac1Ready && lblReady1.Opacity < 1) lblReady1.Opacity += 0.05;
@@ -150,20 +150,20 @@ namespace _2DFightingGame
         {
             if (!hrac1Ready)
             {
-                if (Hitboxy.rezimHry)
+                if (Globalni.rezimHry)
                 {
-                    if ((int)selectedHrac1.Tag == 1 && Hitboxy.ukl.ZiskatPrubeh(0) < Achievementy.getSplneni(0)) return;
-                    if ((int)selectedHrac1.Tag == 2 && Hitboxy.ukl.ZiskatPrubeh(5) < Achievementy.getSplneni(5)) return;
-                    if ((int)selectedHrac1.Tag == 3 && Hitboxy.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) return;
+                    if ((int)selectedHrac1.Tag == 1 && Globalni.ukl.ZiskatPrubeh(0) < Achievementy.getSplneni(0)) return;
+                    if ((int)selectedHrac1.Tag == 2 && Globalni.ukl.ZiskatPrubeh(5) < Achievementy.getSplneni(5)) return;
+                    if ((int)selectedHrac1.Tag == 3 && Globalni.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) return;
                 }
 
                 jmenoHrac1.IsEnabled = false;
                 lblReady1.Visibility = Visibility.Visible;
                 hrac1Ready = true;
-                if (Hitboxy.rezimHry && !hrac2Ready)
+                if (Globalni.rezimHry && !hrac2Ready)
                 {
                     lblReady2.Visibility = Visibility.Visible;
-                    selectedHrac2.Tag = Hitboxy.rnd.Next(0, postavy.Length);
+                    selectedHrac2.Tag = Globalni.rnd.Next(0, postavy.Length);
                     selectedHrac2.Source = postavy[(int)selectedHrac2.Tag];
                     hrac2Ready = true;
                 }
@@ -190,7 +190,7 @@ namespace _2DFightingGame
 
         private void gridVyber_Loaded(object sender, RoutedEventArgs e)
         {
-            Hitboxy.zmenitScale((Grid)sender);
+            Globalni.zmenitScale((Grid)sender);
         }
     }
 }

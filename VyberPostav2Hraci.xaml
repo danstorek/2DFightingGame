@@ -37,10 +37,10 @@
         <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="Výběr postav"></Label>
         <Label Content="←" Tag="hrac1vlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
         <Label Content="→" Tag="hrac1vpravo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="622,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
-        <Label Content="←" Tag="hrac2vlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="1147,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
+        <Label Content="←" Tag="hrac2vlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="1120,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
         <Label Content="→" Tag="hrac2vpravo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="1732,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
         <Image x:Name="selectedHrac1" HorizontalAlignment="Left" Height="575" Margin="188,200,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac1_MouseDown"/>
-        <Image x:Name="selectedHrac2" HorizontalAlignment="Left" Height="575" Margin="1328,205,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac2_MouseDown"/>
+        <Image x:Name="selectedHrac2" HorizontalAlignment="Left" Height="575" Margin="1299,210,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac2_MouseDown"/>
         <Label Name="lblReady1" Visibility="Hidden" Opacity="0" Content="PŘIPRAVEN" FontSize="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="10,438,1120,410"/>
         <Label Name="lblUzamceno1" Visibility="Hidden" Content="UZAMČENO" FontSize="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="188,438,1298,410"/>
         <Label Name="lblReady2" Visibility="Hidden" Opacity="0" Content="PŘIPRAVEN" FontSize="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="1147,438,10,410"/>
@@ -53,6 +53,8 @@
         </Button>
         <Label Name="botVarovani" Visibility="Hidden" Content="Pokud hráč nevybere botovi postavu jako první, tak si bot náhodně vybere sám." Foreground="White" FontSize="20" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="1147,165,0,0" VerticalAlignment="Top" Width="763" Height="40"/>
         <Rectangle Name="prechod1" Panel.ZIndex="11" Fill="Black" Width="0" HorizontalAlignment="Left"/>
+        <Label Content="Daná postava se zvolí kliknutím na ni" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="24" FontWeight="Bold" Margin="188,165,0,0" VerticalAlignment="Top" Height="63" Width="434"/>
+        <Label Content="Daná postava se zvolí kliknutím na ni" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="24" FontWeight="Bold" Margin="1298,165,0,0" VerticalAlignment="Top" Height="63" Width="434"/>
         <Rectangle Name="prechod2" Panel.ZIndex="11" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
     </Grid>
 </Window>

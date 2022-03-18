@@ -28,16 +28,16 @@ namespace _2DFightingGame
             InitializeComponent();
 
             //Achievement
-            if(Hitboxy.vez >= 5)
+            if(Globalni.vez >= 5)
             {
-                Hitboxy.ukl.PridatPrubeh(6, 1);
+                Globalni.ukl.PridatPrubeh(6, 1);
             }
 
-            lbObdrzene.Content = Hitboxy.obdrzeneCelkem;
-            lbProjita.Content = Hitboxy.vez + "/5";
-            lbSkore.Content = Hitboxy.skoreCelkem;
+            lbObdrzene.Content = Globalni.obdrzeneCelkem;
+            lbProjita.Content = Globalni.vez + "/5";
+            lbSkore.Content = Globalni.skoreCelkem;
 
-            if(Hitboxy.vez == 5) lbProjita.Foreground = Brushes.Lime;
+            if(Globalni.vez == 5) lbProjita.Foreground = Brushes.Lime;
             else lbProjita.Foreground = Brushes.Red;
 
 
@@ -69,7 +69,7 @@ namespace _2DFightingGame
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            Hitboxy.zmenitScale((Grid)sender);
+            Globalni.zmenitScale((Grid)sender);
         }
     }
 }

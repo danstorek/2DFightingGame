@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 
 namespace _2DFightingGame
 {
-    static class Hitboxy
+    static class Globalni
     {
         public static void zmenitScale(Grid Okno)
         {
@@ -71,7 +71,7 @@ namespace _2DFightingGame
         {
             int tmp = 0;
             Thickness pozice = hrac.getImg().Margin;
-            if (pozice.Bottom < Convert.ToInt32(Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom - 10)) return Convert.ToInt32(Hitboxy.platformy[Hitboxy.platformy.Count - 1].Margin.Bottom + 10);
+            if (pozice.Bottom < Convert.ToInt32(Globalni.platformy[Globalni.platformy.Count - 1].Margin.Bottom - 10)) return Convert.ToInt32(Globalni.platformy[Globalni.platformy.Count - 1].Margin.Bottom + 10);
             foreach (Image platforma in platformy)
             {
                 if (pozice.Left + (hrac.getImg().Height / 2) > platforma.Margin.Left && pozice.Left < platforma.Margin.Left + platforma.Width)
@@ -94,7 +94,7 @@ namespace _2DFightingGame
         {
             int tmp = 0;
             Thickness pozice = tnt.ReturnImage().Margin;
-            if (pozice.Bottom <= Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom+54) return Convert.ToInt32(Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 54);
+            if (pozice.Bottom <= Globalni.platformy[Globalni.platformy.Count - 2].Margin.Bottom+54) return Convert.ToInt32(Globalni.platformy[Globalni.platformy.Count - 2].Margin.Bottom + 54);
             foreach (Image platforma in platformy)
             {
                 if (pozice.Left + (tnt.ReturnImage().Height / 2) > platforma.Margin.Left && pozice.Left < platforma.Margin.Left + platforma.Width)
