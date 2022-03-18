@@ -68,10 +68,10 @@ namespace _2DFightingGame
             if (isMapaReady && mapReady.Opacity < 1) mapReady.Opacity += 0.05;
             if (isMapaReady && prechod1.Width >= 1920)
             {
-                Hitboxy.pozadiMapa = Mapy.getMapa((int)selectedMap.Tag);
+                Globalni.pozadiMapa = Mapy.getMapa((int)selectedMap.Tag);
                 tmr.Stop();
-                Hitboxy.aktivniKolo = 0;
-                Hitboxy.kola = new int[3] { 0, 0, 0 };
+                Globalni.aktivniKolo = 0;
+                Globalni.kola = new int[3] { 0, 0, 0 };
                 MainWindow hra = new MainWindow();
                 hra.Show();
                 System.Threading.Thread.Sleep(50);
@@ -128,7 +128,7 @@ namespace _2DFightingGame
 
         private void gridVyber_Loaded(object sender, RoutedEventArgs e)
         {
-            Hitboxy.zmenitScale((Grid)sender);
+            Globalni.zmenitScale((Grid)sender);
         }
     }
 }

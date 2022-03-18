@@ -32,7 +32,7 @@ namespace _2DFightingGame
             {
                 if (ovladani1.Children[i] is Label lb && lb.Tag != null)
                 {
-                    Key tlacitko = Hitboxy.ukl.nastaveniKlaves[Convert.ToInt32((string)lb.Tag)];
+                    Key tlacitko = Globalni.ukl.nastaveniKlaves[Convert.ToInt32((string)lb.Tag)];
                     if (tlacitko == Key.Up) lb.Content = "↑";
                     else if (tlacitko == Key.Down) lb.Content = "↓";
                     else if (tlacitko == Key.Left) lb.Content = "←";
@@ -41,7 +41,7 @@ namespace _2DFightingGame
                 }
                 if (ovladani2.Children[i] is Label lb1 && lb1.Tag != null)
                 {
-                    Key tlacitko = Hitboxy.ukl.nastaveniKlaves[Convert.ToInt32((string)lb1.Tag)];
+                    Key tlacitko = Globalni.ukl.nastaveniKlaves[Convert.ToInt32((string)lb1.Tag)];
                     if (tlacitko == Key.Up) lb1.Content = "↑";
                     else if (tlacitko == Key.Down) lb1.Content = "↓";
                     else if (tlacitko == Key.Left) lb1.Content = "←";
@@ -95,10 +95,10 @@ namespace _2DFightingGame
 
         private void zmenitTlacitko(object sender, KeyEventArgs e)
         {
-            if (zvoleneTlacitko != -1 && !Hitboxy.ukl.nastaveniKlaves.Contains(e.Key))
+            if (zvoleneTlacitko != -1 && !Globalni.ukl.nastaveniKlaves.Contains(e.Key))
             {
-                Hitboxy.ukl.nastaveniKlaves[zvoleneTlacitko] = e.Key;
-                Hitboxy.ukl.Ulozit();
+                Globalni.ukl.nastaveniKlaves[zvoleneTlacitko] = e.Key;
+                Globalni.ukl.Ulozit();
                 for (int i = 0; i < ovladani1.Children.Count; i++)
                 {
                     if (ovladani1.Children[i] is Label lb)
@@ -129,20 +129,20 @@ namespace _2DFightingGame
 
         private void Obnovit(object sender, RoutedEventArgs e)
         {
-            Hitboxy.ukl.nastaveniKlaves = new List<Key>()
+            Globalni.ukl.nastaveniKlaves = new List<Key>()
             {
                 Key.Up,Key.Down,Key.Left,Key.Right,
                 Key.N,Key.M,
                 Key.W,Key.S,Key.A,Key.D,
                 Key.Q,Key.E
             };
-            Hitboxy.ukl.Ulozit();
+            Globalni.ukl.Ulozit();
 
             for (int i = 0; i < ovladani1.Children.Count; i++)
             {
                 if (ovladani1.Children[i] is Label lb && lb.Tag != null)
                 {
-                    Key tlacitko = Hitboxy.ukl.nastaveniKlaves[Convert.ToInt32((string)lb.Tag)];
+                    Key tlacitko = Globalni.ukl.nastaveniKlaves[Convert.ToInt32((string)lb.Tag)];
                     if (tlacitko == Key.Up) lb.Content = "↑";
                     else if (tlacitko == Key.Down) lb.Content = "↓";
                     else if (tlacitko == Key.Left) lb.Content = "←";
@@ -151,7 +151,7 @@ namespace _2DFightingGame
                 }
                 if (ovladani2.Children[i] is Label lb1 && lb1.Tag != null)
                 {
-                    Key tlacitko = Hitboxy.ukl.nastaveniKlaves[Convert.ToInt32((string)lb1.Tag)];
+                    Key tlacitko = Globalni.ukl.nastaveniKlaves[Convert.ToInt32((string)lb1.Tag)];
                     if (tlacitko == Key.Up) lb1.Content = "↑";
                     else if (tlacitko == Key.Down) lb1.Content = "↓";
                     else if (tlacitko == Key.Left) lb1.Content = "←";
@@ -163,7 +163,7 @@ namespace _2DFightingGame
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            Hitboxy.zmenitScale((Grid)sender);
+            Globalni.zmenitScale((Grid)sender);
         }
     }
 }

@@ -63,35 +63,35 @@ namespace _2DFightingGame
             else if (hrac1Ready && prechod1.Width >= 1920)
             {
                 //Výběr obtížnosti
-                if ((bool)obtLehka.IsChecked) Hitboxy.obtiznost = 0;
-                if ((bool)obtStredni.IsChecked) Hitboxy.obtiznost = 1;
-                if ((bool)obtTezka.IsChecked) Hitboxy.obtiznost = 2;
+                if ((bool)obtLehka.IsChecked) Globalni.obtiznost = 0;
+                if ((bool)obtStredni.IsChecked) Globalni.obtiznost = 1;
+                if ((bool)obtTezka.IsChecked) Globalni.obtiznost = 2;
 
-                Hitboxy.vezMapy[0] = 1;
-                Hitboxy.vezMapy[1] = 4;
-                Hitboxy.vezMapy[2] = 0;
-                Hitboxy.vezMapy[3] = 2;
-                Hitboxy.vezMapy[4] = 3;
+                Globalni.vezMapy[0] = 1;
+                Globalni.vezMapy[1] = 4;
+                Globalni.vezMapy[2] = 0;
+                Globalni.vezMapy[3] = 2;
+                Globalni.vezMapy[4] = 3;
 
-                Hitboxy.obdrzeneCelkem = 0;
-                Hitboxy.skoreCelkem = 0;
-                Hitboxy.hrac1Jmeno = "Hráč";
-                Hitboxy.hrac2Jmeno = "Bot";
-                Hitboxy.hrac1Postava = (int)selectedHrac1.Tag;
-                Hitboxy.vez = 0;
+                Globalni.obdrzeneCelkem = 0;
+                Globalni.skoreCelkem = 0;
+                Globalni.hrac1Jmeno = "Hráč";
+                Globalni.hrac2Jmeno = "Bot";
+                Globalni.hrac1Postava = (int)selectedHrac1.Tag;
+                Globalni.vez = 0;
                 animacePrechod.Stop();
-                Hitboxy.pozadiMapa = Mapy.getMapa(Hitboxy.vezMapy[Hitboxy.vez]);
-                Hitboxy.aktivniKolo = 0;
-                Hitboxy.kola = new int[3] { 0, 0, 0 };
+                Globalni.pozadiMapa = Mapy.getMapa(Globalni.vezMapy[Globalni.vez]);
+                Globalni.aktivniKolo = 0;
+                Globalni.kola = new int[3] { 0, 0, 0 };
                 MainWindow hra = new MainWindow();
                 hra.Show();
                 System.Threading.Thread.Sleep(50);
                 this.Close();
             }
 
-            if (Hitboxy.rezimHry && (int)selectedHrac1.Tag == 1 && Hitboxy.ukl.ZiskatPrubeh(0) < Achievementy.getSplneni(0)) lblUzamceno1.Visibility = Visibility.Visible;
-            else if (Hitboxy.rezimHry && (int)selectedHrac1.Tag == 2 && Hitboxy.ukl.ZiskatPrubeh(5) < Achievementy.getSplneni(5)) lblUzamceno1.Visibility = Visibility.Visible;
-            else if (Hitboxy.rezimHry && (int)selectedHrac1.Tag == 3 && Hitboxy.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) lblUzamceno1.Visibility = Visibility.Visible;
+            if (Globalni.rezimHry && (int)selectedHrac1.Tag == 1 && Globalni.ukl.ZiskatPrubeh(0) < Achievementy.getSplneni(0)) lblUzamceno1.Visibility = Visibility.Visible;
+            else if (Globalni.rezimHry && (int)selectedHrac1.Tag == 2 && Globalni.ukl.ZiskatPrubeh(5) < Achievementy.getSplneni(5)) lblUzamceno1.Visibility = Visibility.Visible;
+            else if (Globalni.rezimHry && (int)selectedHrac1.Tag == 3 && Globalni.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) lblUzamceno1.Visibility = Visibility.Visible;
             else lblUzamceno1.Visibility = Visibility.Hidden;
         }
 
@@ -128,15 +128,15 @@ namespace _2DFightingGame
         }
         private void selectedHrac1_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if ((int)selectedHrac1.Tag == 1 && Hitboxy.ukl.ZiskatPrubeh(0) < Achievementy.getSplneni(0)) return;
-            if ((int)selectedHrac1.Tag == 2 && Hitboxy.ukl.ZiskatPrubeh(5) < Achievementy.getSplneni(5)) return;
-            if ((int)selectedHrac1.Tag == 3 && Hitboxy.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) return;
+            if ((int)selectedHrac1.Tag == 1 && Globalni.ukl.ZiskatPrubeh(0) < Achievementy.getSplneni(0)) return;
+            if ((int)selectedHrac1.Tag == 2 && Globalni.ukl.ZiskatPrubeh(5) < Achievementy.getSplneni(5)) return;
+            if ((int)selectedHrac1.Tag == 3 && Globalni.ukl.ZiskatPrubeh(6) < Achievementy.getSplneni(6)) return;
             hrac1Ready = true;
         }
 
         private void vyberVez_Loaded(object sender, RoutedEventArgs e)
         {
-            Hitboxy.zmenitScale((Grid)sender);
+            Globalni.zmenitScale((Grid)sender);
         }
     }
 }

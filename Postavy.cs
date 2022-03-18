@@ -216,26 +216,26 @@ namespace _2DFightingGame
                 //Kontrola kolize
                 if (pohybX > 0)
                 {
-                    if (pozice.Left + pohybX < 1800 && (pozice.Left + pohybX < Hitboxy.getSouper(this).getImg().Margin.Left - 100 || pozice.Left > Hitboxy.getSouper(this).getImg().Margin.Left || pozice.Bottom < Hitboxy.getSouper(this).getImg().Margin.Bottom - 50 || pozice.Bottom > Hitboxy.getSouper(this).getImg().Margin.Bottom + 50)) pozice.Left += pohybX;
+                    if (pozice.Left + pohybX < 1800 && (pozice.Left + pohybX < Globalni.getSouper(this).getImg().Margin.Left - 100 || pozice.Left > Globalni.getSouper(this).getImg().Margin.Left || pozice.Bottom < Globalni.getSouper(this).getImg().Margin.Bottom - 50 || pozice.Bottom > Globalni.getSouper(this).getImg().Margin.Bottom + 50)) pozice.Left += pohybX;
                 }
                 else
                 {
-                    if (pozice.Left + pohybX > -70 && (pozice.Left + pohybX + getImg().Width > Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width + 100 || pozice.Left + getImg().Width < Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width || pozice.Bottom < Hitboxy.getSouper(this).getImg().Margin.Bottom - 50 || pozice.Bottom > Hitboxy.getSouper(this).getImg().Margin.Bottom + 50)) pozice.Left += pohybX;
+                    if (pozice.Left + pohybX > -70 && (pozice.Left + pohybX + getImg().Width > Globalni.getSouper(this).getImg().Margin.Left + Globalni.getSouper(this).getImg().Width + 100 || pozice.Left + getImg().Width < Globalni.getSouper(this).getImg().Margin.Left + Globalni.getSouper(this).getImg().Width || pozice.Bottom < Globalni.getSouper(this).getImg().Margin.Bottom - 50 || pozice.Bottom > Globalni.getSouper(this).getImg().Margin.Bottom + 50)) pozice.Left += pohybX;
                 }
             }
 
             //Při kolizi
-            if(pozice.Left > Hitboxy.getSouper(this).getImg().Margin.Left - 100 && pozice.Left < Hitboxy.getSouper(this).getImg().Margin.Left && pozice.Bottom == Hitboxy.getSouper(this).getImg().Margin.Bottom)
+            if(pozice.Left > Globalni.getSouper(this).getImg().Margin.Left - 100 && pozice.Left < Globalni.getSouper(this).getImg().Margin.Left && pozice.Bottom == Globalni.getSouper(this).getImg().Margin.Bottom)
             {
                 pozice.Left -= 10;
             }
-            if (pozice.Left + getImg().Width < Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width + 100 && pozice.Left + getImg().Width > Hitboxy.getSouper(this).getImg().Margin.Left + Hitboxy.getSouper(this).getImg().Width && pozice.Bottom == Hitboxy.getSouper(this).getImg().Margin.Bottom)
+            if (pozice.Left + getImg().Width < Globalni.getSouper(this).getImg().Margin.Left + Globalni.getSouper(this).getImg().Width + 100 && pozice.Left + getImg().Width > Globalni.getSouper(this).getImg().Margin.Left + Globalni.getSouper(this).getImg().Width && pozice.Bottom == Globalni.getSouper(this).getImg().Margin.Bottom)
             {
                 pozice.Left += 10;
             }
 
             //Skrčení
-            if (!veVzduchu && Hitboxy.MuzePadat(this) != Hitboxy.platformy[Hitboxy.platformy.Count - 2].Margin.Bottom + 54 && Hitboxy.MuzePadat(this) != 1 && skrceni && !getZmrazen())
+            if (!veVzduchu && Globalni.MuzePadat(this) != Globalni.platformy[Globalni.platformy.Count - 2].Margin.Bottom + 54 && Globalni.MuzePadat(this) != 1 && skrceni && !getZmrazen())
             {
                 pozice.Bottom -= 25;
             }
@@ -248,7 +248,7 @@ namespace _2DFightingGame
             //Skok - hráč 1
             if (skokTrigger && !skrceni && !getZmrazen())
             {
-                if (!veVzduchu && Hitboxy.MuzePadat(this) != 1)
+                if (!veVzduchu && Globalni.MuzePadat(this) != 1)
                 {
                     veVzduchu = true;
                     skok = true;
@@ -266,11 +266,11 @@ namespace _2DFightingGame
             }
 
             //Gravitace - hráč 1
-            if (veVzduchu || Hitboxy.MuzePadat(this) >= 1)
+            if (veVzduchu || Globalni.MuzePadat(this) >= 1)
             {
                 if (!skok)
                 {
-                    int pad = Hitboxy.MuzePadat(this);
+                    int pad = Globalni.MuzePadat(this);
                     if (pad == 1) pozice.Bottom -= 25;
                     else if (!skrceni)
                     {
@@ -279,7 +279,7 @@ namespace _2DFightingGame
                     }
                 }
             }
-            if (pozice.Bottom < -40 && pozice.Bottom > -70) this.Poskozeni(100);
+            if (pozice.Bottom < -40 && pozice.Bottom > -70) this.Poskozeni(999);
             imgPostava.Margin = pozice;
         }
         public void setJmeno(string jmeno)
@@ -374,15 +374,15 @@ namespace _2DFightingGame
             rozdil /= 100;
 
             //Vez
-            if (this == Hitboxy.hrac1 && Hitboxy.vez != -1)
+            if (this == Globalni.hrac1 && Globalni.vez != -1)
             {
-                switch (Hitboxy.obtiznost)
+                switch (Globalni.obtiznost)
                 {
                     case 0: rozdil *= 50; rozdil /= 100; break;
                     case 1: rozdil *= 90; rozdil /= 100; break;
                     case 2: rozdil *= 120; rozdil /= 100; break; 
                 }
-                Hitboxy.obdrzeneCelkem += rozdil;
+                Globalni.obdrzeneCelkem += rozdil;
             }
 
             hp -= rozdil;
@@ -1068,18 +1068,18 @@ namespace _2DFightingGame
             {
                 maxRychlost = 65;
                 bool kolize = false;
-                if (smer && getImg().Margin.Left < Hitboxy.getSouper(this).getImg().Margin.Left)
+                if (smer && getImg().Margin.Left < Globalni.getSouper(this).getImg().Margin.Left)
                 {
                     pohybX = 65;
-                    if(Hitboxy.getSouper(this).getImg().Margin.Left - this.getImg().Margin.Left < 200 && Math.Abs(Hitboxy.getSouper(this).getImg().Margin.Bottom - this.getImg().Margin.Bottom) < 70)
+                    if(Globalni.getSouper(this).getImg().Margin.Left - this.getImg().Margin.Left < 200 && Math.Abs(Globalni.getSouper(this).getImg().Margin.Bottom - this.getImg().Margin.Bottom) < 70)
                     {
                         kolize = true;
                     }
                 }
-                else if (!smer && getImg().Margin.Left > Hitboxy.getSouper(this).getImg().Margin.Left)
+                else if (!smer && getImg().Margin.Left > Globalni.getSouper(this).getImg().Margin.Left)
                 {
                     pohybX = -65;
-                    if (Hitboxy.getSouper(this).getImg().Margin.Left - this.getImg().Margin.Left > -200 && Math.Abs(Hitboxy.getSouper(this).getImg().Margin.Bottom - this.getImg().Margin.Bottom) < 70)
+                    if (Globalni.getSouper(this).getImg().Margin.Left - this.getImg().Margin.Left > -200 && Math.Abs(Globalni.getSouper(this).getImg().Margin.Bottom - this.getImg().Margin.Bottom) < 70)
                     {
                         kolize = true;
                     }
@@ -1089,9 +1089,9 @@ namespace _2DFightingGame
                     if (kolize)
                     {
                         pohybX = 0;
-                        Hitboxy.getSouper(this).Poskozeni(30);
-                        if(smer)Hitboxy.getSouper(this).Odrazeni(50);
-                        else Hitboxy.getSouper(this).Odrazeni(-50);
+                        Globalni.getSouper(this).Poskozeni(30);
+                        if(smer)Globalni.getSouper(this).Odrazeni(50);
+                        else Globalni.getSouper(this).Odrazeni(-50);
                     }
                     pohybSchopnost = false;
                     zamknoutOvladani = false;

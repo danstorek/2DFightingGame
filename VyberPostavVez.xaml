@@ -42,9 +42,9 @@
             </Button.Background>
         </Button>
         <Rectangle Name="prechod1" Panel.ZIndex="11" Fill="Black" Width="0" HorizontalAlignment="Left"/>
-        <Label Content="←" Tag="hrac1vlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="991,249,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
-        <Label Content="→" Tag="hrac1vpravo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="1603,249,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
-        <Image x:Name="selectedHrac1" HorizontalAlignment="Left" Height="575" Margin="1169,284,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac1_MouseDown"/>
+        <Label Content="←" Tag="hrac1vlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="991,225,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
+        <Label Content="→" Tag="hrac1vpravo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="1603,225,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
+        <Image x:Name="selectedHrac1" HorizontalAlignment="Left" Height="575" Margin="1169,260,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac1_MouseDown"/>
         <Label Name="lblUzamceno1" Visibility="Hidden" Content="UZAMČENO" FontSize="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="1169,513,317,335"/>
         <Label Content="Obtížnost" FontWeight="Bold" FontSize="100" Foreground="White" HorizontalAlignment="Left" Margin="225,427,0,0" VerticalAlignment="Top"/>
         <Viewbox Height="70" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,580,0,0">
@@ -56,6 +56,7 @@
         <Viewbox Height="70" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,740,0,0">
             <RadioButton Name="obtTezka" FontWeight="Bold" GroupName="diff">Těžká</RadioButton>
         </Viewbox>
+        <Label Content="Daná postava se zvolí kliknutím na ni" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="24" FontWeight="Bold" Margin="1174,839,0,0" VerticalAlignment="Top" Height="89" Width="429"/>
         <Rectangle Name="prechod2" Panel.ZIndex="11" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
     </Grid>
 </Window>

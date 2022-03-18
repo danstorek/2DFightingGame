@@ -66,19 +66,19 @@ namespace _2DFightingGame
                 switch (vyber)
                 {
                     case 1:
-                        Hitboxy.rezimHry = true;
+                        Globalni.rezimHry = true;
                         vyberPostav = new VyberPostav2Hraci();
                         vyberPostav.Show();
                         System.Threading.Thread.Sleep(50);
                         break;
                     case 5:
-                        Hitboxy.rezimHry = true;
+                        Globalni.rezimHry = true;
                         vyberPostavVez = new VyberPostavVez();
                         vyberPostavVez.Show();
                         System.Threading.Thread.Sleep(50);
                         break;
                     case 2:
-                        Hitboxy.rezimHry = false;
+                        Globalni.rezimHry = false;
                         vyberPostav = new VyberPostav2Hraci();
                         vyberPostav.Show();
                         System.Threading.Thread.Sleep(50);
@@ -189,7 +189,7 @@ namespace _2DFightingGame
 
         private void hlMenu_Loaded(object sender, RoutedEventArgs e)
         {
-            Hitboxy.zmenitScale((Grid)sender);
+            Globalni.zmenitScale((Grid)sender);
         }
 
         private void UspechyZebricek(object sender, RoutedEventArgs e)
@@ -201,54 +201,6 @@ namespace _2DFightingGame
         {
             klik = true;
             vyber = 4;
-        }
-
-        private void hlMenu_MouseMove(object sender, MouseEventArgs e)
-        {
-            double mysX = e.GetPosition(this).X;
-            double mysY = 1080 - e.GetPosition(this).Y;
-
-            bdNapoveda.Margin = new Thickness(e.GetPosition(this).X + 10, e.GetPosition(this).Y - 160, 0, 0);
-
-            if (mysX > btnNastaveni.Margin.Left && mysX < btnNastaveni.Margin.Left + btnNastaveni.Width && mysY > btnNastaveni.Margin.Bottom && mysY < btnNastaveni.Margin.Bottom + btnNastaveni.Height)
-            {
-                lbNapoveda.Content = "Nastavení hry";
-                bdNapoveda.Visibility = Visibility.Visible;
-            }
-            else if (!klikSingle)
-            {
-                if (mysX > btnSingle.Margin.Left && mysX < btnSingle.Margin.Left + btnSingle.Width && mysY > btnSingle.Margin.Bottom && mysY < btnSingle.Margin.Bottom + btnSingle.Height)
-                {
-                    lbNapoveda.Content = "Spustí hru pro jednoho hráče, můžeš\nhrát pouze s odemčenými postavami";
-                    bdNapoveda.Visibility = Visibility.Visible;
-                }
-                else if (mysX > btnLocal.Margin.Left && mysX < btnLocal.Margin.Left + btnLocal.Width && mysY > btnLocal.Margin.Bottom && mysY < btnLocal.Margin.Bottom + btnLocal.Height)
-                {
-                    lbNapoveda.Content = "Spustí hru pro dva hráče, můžeš\nhrát s jakoukoliv postavou";
-                    bdNapoveda.Visibility = Visibility.Visible;
-                }
-                else if (mysX > btnUspechy.Margin.Left && mysX < btnUspechy.Margin.Left + btnUspechy.Width && mysY > btnUspechy.Margin.Bottom && mysY < btnUspechy.Margin.Bottom + btnUspechy.Height)
-                {
-                    lbNapoveda.Content = "Zobrazí ti odemknuté úspěchy a\nžebříček tvých nejlepší výsledků";
-                    bdNapoveda.Visibility = Visibility.Visible;
-                }
-                else bdNapoveda.Visibility = Visibility.Hidden;
-            }
-            else if (klikSingle)
-            {
-                if (mysX > btnQuick.Margin.Left && mysX < btnQuick.Margin.Left + btnQuick.Width && mysY > btnQuick.Margin.Bottom && mysY < btnQuick.Margin.Bottom + btnQuick.Height)
-                {
-                    lbNapoveda.Content = "Jeden zápas, ve kterém si vebereš,\nproti komu budeš bojovat";
-                    bdNapoveda.Visibility = Visibility.Visible;
-                }
-                else if (mysX > btnArcade.Margin.Left && mysX < btnArcade.Margin.Left + btnArcade.Width && mysY > btnArcade.Margin.Bottom && mysY < btnArcade.Margin.Bottom + btnArcade.Height)
-                {
-                    lbNapoveda.Content = "Mód, ve kterém musíte projít\ncelou věží a dostat se až k bossovi";
-                    bdNapoveda.Visibility = Visibility.Visible;
-                }
-                else bdNapoveda.Visibility = Visibility.Hidden;
-            }
-            else bdNapoveda.Visibility = Visibility.Hidden;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

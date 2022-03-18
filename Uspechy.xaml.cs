@@ -47,10 +47,10 @@ namespace _2DFightingGame
         }
         private void gridHlavni_Loaded(object sender, RoutedEventArgs e)
         {
-            Hitboxy.zmenitScale((Grid)sender);
+            Globalni.zmenitScale((Grid)sender);
 
             //Načtení žebříčku
-            List<KeyValuePair<string, int>> zebricek = Hitboxy.ukl.SerazeneSkore();
+            List<KeyValuePair<string, int>> zebricek = Globalni.ukl.SerazeneSkore();
             int aktualniVyska = 0;
             int aktualniPoradi = 1;
             foreach(KeyValuePair<string, int> i in zebricek)
@@ -114,7 +114,7 @@ namespace _2DFightingGame
         }
         private void VymazatZebricek(object sender, RoutedEventArgs e)
         {
-            Hitboxy.ukl.VymazatZebricek();
+            Globalni.ukl.VymazatZebricek();
             gridZebricek.Children.Clear();
         }
     }
