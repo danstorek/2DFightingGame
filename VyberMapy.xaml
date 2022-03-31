@@ -43,6 +43,7 @@
                 <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
             </Button.Background>
         </Button>
+        <Label Content="Daná mapa se zvolí kliknutím na ni" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="24" FontWeight="Bold" Margin="193,165,0,0" VerticalAlignment="Top" Height="63" Width="1539"/>
         <Rectangle Name="prechod1" Panel.ZIndex="11" Fill="Black" Width="0" HorizontalAlignment="Left"/>
         <Rectangle Name="prechod2" Panel.ZIndex="11" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
     </Grid>
