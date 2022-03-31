@@ -19,10 +19,10 @@ namespace _2DFightingGame
 
         protected string jmeno;
 
-        public List<Updatable> aktivni_projektily = new List<Updatable>();
+        public List<Aktualizovatelne> aktivni_projektily = new List<Aktualizovatelne>();
         public void smazatProjektily()
         {
-            foreach (Updatable i in aktivni_projektily)
+            foreach (Aktualizovatelne i in aktivni_projektily)
             {
                 gridPlocha.Children.Remove(i.ReturnImage());
                 i.Neaktivni();
@@ -399,7 +399,7 @@ namespace _2DFightingGame
         //Aktualizace aktivních projektilů ve hře
         public void aktualizujProjektily()
         {
-            foreach (Updatable i in aktivni_projektily)
+            foreach (Aktualizovatelne i in aktivni_projektily)
             {
                 if (i.getAktivni()) i.Tick();
                 else gridPlocha.Children.Remove(i.ReturnImage());
