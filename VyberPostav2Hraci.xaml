@@ -51,7 +51,7 @@
                 <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
             </Button.Background>
         </Button>
-        <Label Name="botVarovani" Visibility="Hidden" Content="Pokud hráč nevybere botovi postavu jako první, tak si bot náhodně vybere sám." Foreground="White" FontSize="20" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="1147,165,0,0" VerticalAlignment="Top" Width="763" Height="40"/>
+        <Label Name="botVarovani" Visibility="Hidden" Content="Pokud hráč nevybere botovi postavu jako první, tak si bot náhodně vybere sám." Foreground="White" FontSize="20" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="1147,215,0,0" VerticalAlignment="Top" Width="763" Height="40"/>
         <Rectangle Name="prechod1" Panel.ZIndex="11" Fill="Black" Width="0" HorizontalAlignment="Left"/>
         <Label Content="Daná postava se zvolí kliknutím na ni" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="24" FontWeight="Bold" Margin="188,165,0,0" VerticalAlignment="Top" Height="63" Width="434"/>
         <Label Content="Daná postava se zvolí kliknutím na ni" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="24" FontWeight="Bold" Margin="1298,165,0,0" VerticalAlignment="Top" Height="63" Width="434"/>

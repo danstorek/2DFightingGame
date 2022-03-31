@@ -13,7 +13,7 @@ namespace _2DFightingGame
     /// </summary>
     /// 
 
-    abstract class Updatable
+    abstract class Aktualizovatelne
     {
         bool aktivni = true;
         public abstract void Tick();
@@ -28,7 +28,7 @@ namespace _2DFightingGame
         }
     }
 
-    class Sip : Updatable
+    class Sip : Aktualizovatelne
     {
         int rychlost;
         Image img = new Image();
@@ -107,7 +107,7 @@ namespace _2DFightingGame
         }
     }
 
-    class Hook : Updatable
+    class Hook : Aktualizovatelne
     {
         int rychlost;
         Image img = new Image();
@@ -213,7 +213,7 @@ namespace _2DFightingGame
         }
     }
 
-    class MageStrela : Updatable
+    class MageStrela : Aktualizovatelne
     {
         int rychlost;
         Image img = new Image();
@@ -331,7 +331,7 @@ namespace _2DFightingGame
         }
     }
 
-    class Tornado : Updatable
+    class Tornado : Aktualizovatelne
     {
         int rychlost;
         Image img = new Image();
@@ -404,7 +404,7 @@ namespace _2DFightingGame
         }
     }
 
-    class TNT : Updatable
+    class TNT : Aktualizovatelne
     {
         Postava vyvolavaci;
         Image img = new Image();

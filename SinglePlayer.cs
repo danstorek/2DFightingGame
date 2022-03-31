@@ -97,7 +97,7 @@ namespace _2DFightingGame
 
             //Vyhýbání se TNT
             TNT tnt = null;
-            IEnumerable<Updatable> tnt_IENum = Globalni.hrac1.aktivni_projektily.Where(x => x.GetType() == typeof(TNT) && x.getAktivni() && ((TNT)x).cisloFrame < 61);
+            IEnumerable<Aktualizovatelne> tnt_IENum = Globalni.hrac1.aktivni_projektily.Where(x => x.GetType() == typeof(TNT) && x.getAktivni() && ((TNT)x).cisloFrame < 61);
             if (tnt_IENum.Count() > 0) tnt = (TNT)tnt_IENum.First();
             if (tnt == null)
             {
