@@ -1,0 +1,62 @@
+﻿<Window x:Class="_2DFightingGame.VyberPostavVez"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_2DFightingGame"
+        mc:Ignorable="d"
+        Title="2D Fighting Game" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize">
+    <Window.Resources>
+        <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        BorderThickness="0"
+                        Padding="4,2" 
+                        BorderBrush="DarkGray" 
+                        CornerRadius="3" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="vyberVez" Background="#333333" Loaded="vyberVez_Loaded">
+        <Image Source="imgs/hlavni_menu.png"/>
+        <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="Vyber si postavu" Margin="0,72,0,0"></Label>
+        <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="Vyber si postavu" Margin="0,72,0,0"></Label>
+
+        <Button Style="{StaticResource MyButtonStyle}" Width="500" Height="160" Content="Zpět do hlavního menu" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="710,933,710,-13" Click="Navrat">
+            <Button.Background>
+                <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+        <Rectangle Name="prechod1" Panel.ZIndex="11" Fill="Black" Width="0" HorizontalAlignment="Left"/>
+        <Label Content="←" Tag="hrac1vlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="991,225,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
+        <Label Content="→" Tag="hrac1vpravo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="1603,225,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
+        <Image x:Name="selectedHrac1" HorizontalAlignment="Left" Height="575" Margin="1169,260,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac1_MouseDown"/>
+        <Label Name="lblUzamceno1" Visibility="Hidden" Content="UZAMČENO" FontSize="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="1169,513,317,335"/>
+        <Label Content="Obtížnost" FontWeight="Bold" FontSize="100" Foreground="White" HorizontalAlignment="Left" Margin="225,427,0,0" VerticalAlignment="Top"/>
+        <Viewbox Height="70" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,580,0,0">
+            <RadioButton Name="obtLehka" FontWeight="Bold" GroupName="diff">Lehká</RadioButton>
+        </Viewbox>
+        <Viewbox Height="70" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,660,0,0">
+            <RadioButton Name="obtStredni" FontWeight="Bold" GroupName="diff" IsChecked="True">Střední</RadioButton>
+        </Viewbox>
+        <Viewbox Height="70" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,740,0,0">
+            <RadioButton Name="obtTezka" FontWeight="Bold" GroupName="diff">Těžká</RadioButton>
+        </Viewbox>
+        <Label Content="Daná postava se zvolí kliknutím na ni" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="24" FontWeight="Bold" Margin="1174,839,0,0" VerticalAlignment="Top" Height="89" Width="429"/>
+        <Rectangle Name="prechod2" Panel.ZIndex="11" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
+    </Grid>
+</Window>

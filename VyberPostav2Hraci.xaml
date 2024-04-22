@@ -1,0 +1,60 @@
+﻿<Window x:Class="_2DFightingGame.VyberPostav2Hraci"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_2DFightingGame"
+        mc:Ignorable="d"
+        Title="2D Fighting Game" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize">
+    <Window.Resources>
+        <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        BorderThickness="0"
+                        Padding="4,2" 
+                        BorderBrush="DarkGray" 
+                        CornerRadius="3" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="gridVyber" Background="#333333" Loaded="gridVyber_Loaded">
+        <Image Source="imgs/ui/character_select.jpg"/>
+        <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="Výběr postav"></Label>
+        <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="Výběr postav"></Label>
+        <Label Content="←" Tag="hrac1vlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
+        <Label Content="→" Tag="hrac1vpravo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="622,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
+        <Label Content="←" Tag="hrac2vlevo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="1120,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
+        <Label Content="→" Tag="hrac2vpravo" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="170" FontWeight="Bold" Foreground="White"  HorizontalAlignment="Left" Margin="1732,165,0,0" VerticalAlignment="Top" Height="760" Width="178" MouseDown="Label_MouseDown"/>
+        <Image x:Name="selectedHrac1" HorizontalAlignment="Left" Height="575" Margin="188,200,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac1_MouseDown"/>
+        <Image x:Name="selectedHrac2" HorizontalAlignment="Left" Height="575" Margin="1299,210,0,0" VerticalAlignment="Top" Width="434" MouseDown="selectedHrac2_MouseDown"/>
+        <Label Name="lblReady1" Visibility="Hidden" Opacity="0" Content="PŘIPRAVEN" FontSize="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="10,438,1120,410"/>
+        <Label Name="lblUzamceno1" Visibility="Hidden" Content="UZAMČENO" FontSize="70" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="188,438,1298,410"/>
+        <Label Name="lblReady2" Visibility="Hidden" Opacity="0" Content="PŘIPRAVEN" FontSize="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="Black" Foreground="White" Margin="1147,438,10,410"/>
+        <TextBox x:Name="jmenoHrac2" TextWrapping="Wrap" Text="Hráč 2" Margin="1147,780,-9,155" Background="#333333" FontSize="50" MaxLength="10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="jmenoHrac1" TextWrapping="Wrap" Text="Hráč 1" Margin="0,780,1120,155" Background="#333333" FontSize="50" MaxLength="10" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Button Style="{StaticResource MyButtonStyle}" Width="500" Height="160" Content="Zpět do hlavního menu" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="710,933,710,-13" Click="Navrat">
+            <Button.Background>
+                <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+        <Label Name="botVarovani" Visibility="Hidden" Content="Pokud hráč nevybere botovi postavu jako první, tak si bot náhodně vybere sám." Foreground="White" FontSize="20" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="1147,215,0,0" VerticalAlignment="Top" Width="763" Height="40"/>
+        <Rectangle Name="prechod1" Panel.ZIndex="11" Fill="Black" Width="0" HorizontalAlignment="Left"/>
+        <Label Content="Daná postava se zvolí kliknutím na ni" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="24" FontWeight="Bold" Margin="188,165,0,0" VerticalAlignment="Top" Height="63" Width="434"/>
+        <Label Content="Daná postava se zvolí kliknutím na ni" Foreground="White" HorizontalAlignment="Left" HorizontalContentAlignment="Center" FontSize="24" FontWeight="Bold" Margin="1298,165,0,0" VerticalAlignment="Top" Height="63" Width="434"/>
+        <Rectangle Name="prechod2" Panel.ZIndex="11" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
+    </Grid>
+</Window>

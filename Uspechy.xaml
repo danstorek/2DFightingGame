@@ -1,0 +1,63 @@
+﻿<Window x:Class="_2DFightingGame.Uspechy"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_2DFightingGame"
+        mc:Ignorable="d"
+        Title="2D Fighting Game" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize">
+    <Window.Resources>
+        <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        BorderThickness="0"
+                        Padding="4,2" 
+                        BorderBrush="DarkGray" 
+                        CornerRadius="3" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="gridHlavni" Background="#333333" Loaded="gridHlavni_Loaded">
+        <Button Style="{StaticResource MyButtonStyle}" Width="500" Height="160" Content="Zpět do hlavního menu" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="710,933,710,-13" Click="Navrat">
+            <Button.Background>
+                <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+        <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="Úspěchy" Margin="0,30,962,0"></Label>
+        <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="Úspěchy" Margin="0,30,962,0"></Label>
+
+        <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="Žebříček" Margin="964,30,-2,0"></Label>
+        <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="Žebříček" Margin="964,30,-2,0"/>
+        <Button Style="{StaticResource MyButtonStyle}" Width="500" Height="160" Content="Vymazat žebříček" FontSize="40" FontWeight="Bold" HorizontalAlignment="Left" Margin="1420,933,0,-13" Click="VymazatZebricek">
+            <Button.Background>
+                <ImageBrush ImageSource="/imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+        <ScrollViewer Margin="967,235,10,165" >
+            <Grid Name="gridZebricek"/>
+        </ScrollViewer>
+        <ScrollViewer Margin="12,165,965,165">
+            <Grid Name="gridUspechy"/>
+        </ScrollViewer>
+        <Label Content="Pozice" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontSize="50"  HorizontalAlignment="Left" Margin="970,165,0,0" VerticalAlignment="Top" Height="65" Width="183"/>
+        <Label Content="Jméno hráče" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="White" FontSize="50"  HorizontalAlignment="Left" Margin="1162,165,0,0" VerticalAlignment="Top" Height="65" Width="492"/>
+        <Label Content="Skóre" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" FontSize="50"  HorizontalAlignment="Left" Margin="1659,165,0,0" VerticalAlignment="Top" Height="65" Width="233"/>
+        <Rectangle Name="prechod1" Panel.ZIndex="11" Fill="Black" Width="0" HorizontalAlignment="Left"/>
+        <Rectangle Name="prechod2" Panel.ZIndex="11" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
+    </Grid>
+
+</Window>

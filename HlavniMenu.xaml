@@ -1,0 +1,89 @@
+﻿<Window x:Class="_2DFightingGame.HlavniMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_2DFightingGame"
+        mc:Ignorable="d"
+        Title="2D Fighting Game" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize">
+    <Window.Resources>
+        <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        BorderThickness="0"
+                        Padding="4,2" 
+                        BorderBrush="DarkGray" 
+                        CornerRadius="3" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="hlMenu" Background="#333333" Loaded="hlMenu_Loaded">
+        <Image Source="imgs/hlavni_menu.png"/>
+        <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="2D Fighting Game" Margin="0,72,0,0"></Label>
+        <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="2D Fighting Game" Margin="0,72,0,0"></Label>
+
+        <Button Style="{StaticResource MyButtonStyle}" Name="btnSingle" Width="500" Height="160" Content="Hra pro jednoho hráče" FontSize="40" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="341,418,1079,502" Click="HraProJednohoHrace">
+            <Button.Background>
+                <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+        <Button Style="{StaticResource MyButtonStyle}" Name="btnLocal" Width="500" Height="160" Content="Lokální hra pro 2 hráče" FontSize="40" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="341,583,1079,337" Click="HraProDvaHrace">
+            <Button.Background>
+                <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+        <Button Style="{StaticResource MyButtonStyle}" Name="btnExit" Width="500" Height="160" Content="Ukončit hru" FontSize="40" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="341,920,1079,0" Click="Ukoncit">
+            <Button.Background>
+                <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+
+        <Button Style="{StaticResource MyButtonStyle}" Name="btnUspechy" Width="500" Height="160" VerticalAlignment="Bottom" Content="Úspěchy a žebříček" FontSize="40" FontWeight="Bold" HorizontalAlignment="Left" Margin="341,748,0,172" Click="UspechyZebricek">
+            <Button.Background>
+                <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+
+        <Button Style="{StaticResource MyButtonStyle}" Name="btnNastaveni" Width="181" Height="200" FontSize="40" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="951,837,0,10" Click="Nastaveni">
+            <Button.Background>
+                <ImageBrush ImageSource="imgs/ui/settings.png" />
+            </Button.Background>
+        </Button>
+
+        <Image Name="menuCharacter" Width="454" Height="503" Margin="1238,418,228,159"/>
+        <Border x:Name="bdNapoveda" Panel.ZIndex="10" Visibility="Hidden" Width="550" Height="150" CornerRadius="50" Background="#333333" Opacity="0.9" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Label Name="lbNapoveda" Content="TEST" Foreground="White" FontSize="30" FontFamily="Bahnschrift" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        </Border>
+        <Rectangle Name="prechod1" Panel.ZIndex="11" Fill="Black" Width="0" HorizontalAlignment="Left"/>
+        <Button Style="{StaticResource MyButtonStyle}" x:Name="btnQuick" Opacity="0" Width="500" Height="160" Content="Rychlá hra" FontSize="40" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="341,0,0,380" Click="HraRychla">
+            <Button.Background>
+                <ImageBrush ImageSource="/imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+        <Button Style="{StaticResource MyButtonStyle}" x:Name="btnArcade" Opacity="0" Width="500" Height="160" Content="Průchod věží" FontSize="40" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="341,0,0,217" Click="HraPruchodVezi">
+            <Button.Background>
+                <ImageBrush ImageSource="/imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+        <Button Style="{StaticResource MyButtonStyle}" x:Name="btnBack" Opacity="0" Width="500" Height="160" Content="Zpět" FontSize="40" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="341,0,0,57" Click="btnBack_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+        <Rectangle Name="prechod2" Panel.ZIndex="11" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
+    </Grid>
+</Window>

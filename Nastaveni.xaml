@@ -1,0 +1,84 @@
+﻿<Window x:Class="_2DFightingGame.Nastaveni"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_2DFightingGame"
+        mc:Ignorable="d"
+        Title="2D Fighting Game" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" ResizeMode="NoResize" KeyDown="zmenitTlacitko">
+    <Window.Resources>
+        <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        BorderThickness="0"
+                        Padding="4,2" 
+                        BorderBrush="DarkGray" 
+                        CornerRadius="3" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Loaded="Grid_Loaded">
+        <Image Source="imgs/hlavni_menu.png"/>
+        
+        <Label Height="200" VerticalAlignment="Top" FontSize="120" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Black" Content="Nastavení" Margin="0,72,0,0"></Label>
+        <Label Height="200" VerticalAlignment="Top" FontSize="115" FontFamily="Bahnschrift" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="White" Content="Nastavení" Margin="0,72,0,0"></Label>
+
+        <Border Panel.ZIndex="9" Name="napoveda1" Width="600" Height="700" HorizontalAlignment="Left" Margin="200,190,0,190" CornerRadius="20" BorderThickness="2" BorderBrush="Black" Background="White" Opacity="0.7">
+            <Grid x:Name="ovladani1">
+                <Label Content="Hráč 1 - Ovládání" FontSize="40" FontWeight="Bold" Margin="0,18,0,594" HorizontalContentAlignment="Center"></Label>
+                <Rectangle Fill="Black" Height="4" VerticalAlignment="Top" Margin="0,80,0,0"></Rectangle>
+                <Label Content="↑" Tag="0" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="0,132,0,0" MouseDown="klikTlacitko"/>
+                <Label Content="↓" Tag="1" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="0,220,0,0" MouseDown="klikTlacitko"/>
+                <Label Content="←" Tag="2" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="-180,220,0,0" MouseDown="klikTlacitko"/>
+                <Label Content="→" Tag="3" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="180,220,0,0" MouseDown="klikTlacitko"/>
+                <Label Content="N" Tag="4" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="168,460,348,0" MouseDown="klikTlacitko"/>
+                <Label Content="M" Tag="5" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="348,460,168,0" MouseDown="klikTlacitko"/>
+                <Label Content="Pohyb" FontSize="40" FontWeight="Bold" Margin="0,302,0,310" HorizontalContentAlignment="Center"/>
+                <Label Content="Útoky" FontSize="40" FontWeight="Bold" Margin="0,542,0,70" HorizontalContentAlignment="Center"/>
+            </Grid>
+        </Border>
+        <Border Panel.ZIndex="9" Name="napoveda2" Width="600" Height="700" HorizontalAlignment="Right" Margin="0,0,200,0" CornerRadius="20" BorderThickness="2" BorderBrush="Black" Background="White" Opacity="0.7">
+            <Grid x:Name="ovladani2">
+                <Label Content="Hráč 2 - Ovládání" FontSize="40" FontWeight="Bold" Margin="0,18,0,594" HorizontalContentAlignment="Center"></Label>
+                <Rectangle Fill="Black" Height="4" VerticalAlignment="Top" Margin="0,80,0,0"></Rectangle>
+                <Label Content="W" Tag="6" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="0,132,0,0" MouseDown="klikTlacitko"/>
+                <Label Content="S" Tag="7" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="0,220,0,0" MouseDown="klikTlacitko"/>
+                <Label Content="A" Tag="8" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="-180,220,0,0" MouseDown="klikTlacitko"/>
+                <Label Content="W" Tag="9" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="180,220,0,0" MouseDown="klikTlacitko"/>
+                <Label Content="Q" Tag="10" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="168,460,348,0" MouseDown="klikTlacitko"/>
+                <Label Content="E" Tag="11" FontSize="50" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2" Height="80" Width="80" Margin="348,460,168,0" MouseDown="klikTlacitko"/>
+                <Label Content="Pohyb" FontSize="40" FontWeight="Bold" Margin="0,302,0,310" HorizontalContentAlignment="Center"/>
+                <Label Content="Útoky" FontSize="40" FontWeight="Bold" Margin="0,542,0,70" HorizontalContentAlignment="Center"/>
+            </Grid>
+        </Border>
+
+
+        <Button Style="{StaticResource MyButtonStyle}" Width="500" Height="160" Content="Zpět do hlavního menu" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="250,920,1170,0" Click="Navrat">
+            <Button.Background>
+                <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+        <Button Style="{StaticResource MyButtonStyle}" Width="500" Height="160" Content="Obnovit nastavení" FontSize="40" FontWeight="Bold" HorizontalAlignment="Center" Margin="1170,920,250,0" Click="Obnovit">
+            <Button.Background>
+                <ImageBrush ImageSource="imgs/tlacitko_menu.png" />
+            </Button.Background>
+        </Button>
+
+        <Rectangle Name="prechod1" Panel.ZIndex="11" Fill="Black" Width="0" HorizontalAlignment="Left"/>
+        <Rectangle Name="prechod2" Panel.ZIndex="11" Fill="Black" Width="1920" HorizontalAlignment="Right"/>
+    </Grid>
+</Window>

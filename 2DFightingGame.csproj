@@ -1,0 +1,702 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{306BF11E-E96A-4EF9-8CC8-12F9677F4E4F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>_2DFightingGame</RootNamespace>
+    <AssemblyName>2DFightingGame</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ico.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Bonusy.cs" />
+    <Compile Include="Achievementy.cs" />
+    <Compile Include="HlavniMenu.xaml.cs">
+      <DependentUpon>HlavniMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mapy.cs" />
+    <Compile Include="Nastaveni.xaml.cs">
+      <DependentUpon>Nastaveni.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SinglePlayer.cs" />
+    <Compile Include="Ukladani.cs" />
+    <Compile Include="Uspechy.xaml.cs">
+      <DependentUpon>Uspechy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VezStatistika.xaml.cs">
+      <DependentUpon>VezStatistika.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VyberMapy.xaml.cs">
+      <DependentUpon>VyberMapy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VyberPostav2Hraci.xaml.cs">
+      <DependentUpon>VyberPostav2Hraci.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VyberPostavVez.xaml.cs">
+      <DependentUpon>VyberPostavVez.xaml</DependentUpon>
+    </Compile>
+    <Page Include="HlavniMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Globalni.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Nastaveni.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Uspechy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VezStatistika.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VyberMapy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VyberPostav2Hraci.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VyberPostavVez.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Postavy.cs" />
+    <Compile Include="Projektil.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\maps\map1\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char1\left\1.png" />
+    <Resource Include="imgs\chars\char1\right\1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\attacks\fireball.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\attacks\tnt\1.png" />
+    <Resource Include="imgs\attacks\tnt\10.png" />
+    <Resource Include="imgs\attacks\tnt\20.png" />
+    <Resource Include="imgs\attacks\tnt\30.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\attacks\tnt\40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\attacks\fireballleft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char1\left\0.png" />
+    <Resource Include="imgs\chars\char1\left\2.png" />
+    <Resource Include="imgs\chars\char1\left\3.png" />
+    <Resource Include="imgs\chars\char1\left\4.png" />
+    <Resource Include="imgs\chars\char1\right\0.png" />
+    <Resource Include="imgs\chars\char1\right\2.png" />
+    <Resource Include="imgs\chars\char1\right\3.png" />
+    <Resource Include="imgs\chars\char1\right\4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\damage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\attacks\muzzle_left.png" />
+    <Resource Include="imgs\attacks\muzzle_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char2\left\0.png" />
+    <Resource Include="imgs\chars\char2\left\1.png" />
+    <Resource Include="imgs\chars\char2\left\2.png" />
+    <Resource Include="imgs\chars\char2\left\3.png" />
+    <Resource Include="imgs\chars\char2\left\4.png" />
+    <Resource Include="imgs\chars\char2\right\0.png" />
+    <Resource Include="imgs\chars\char2\right\1.png" />
+    <Resource Include="imgs\chars\char2\right\2.png" />
+    <Resource Include="imgs\chars\char2\right\3.png" />
+    <Resource Include="imgs\chars\char2\right\4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\attacks\tornado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char1\nahled.png" />
+    <Resource Include="imgs\chars\char2\nahled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\maps\map1\platform1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\maps\map2\background.png" />
+    <Resource Include="imgs\maps\map2\platform1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\maps\map3\background.png" />
+    <Resource Include="imgs\maps\map3\platform1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\bonuses\hp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\hpregen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\hlavni_menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\tlacitko_menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\bonuses\sila.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\bonuses\rychlost.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\ui\hp_back_left.png" />
+    <Resource Include="imgs\ui\hp_back_right.png" />
+    <Resource Include="imgs\ui\hp_fore_left.png" />
+    <Resource Include="imgs\ui\hp_fore_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\damageboost.png" />
+    <Resource Include="imgs\chars\speedboost.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\ui\mana_back_left.png" />
+    <Resource Include="imgs\ui\mana_back_right.png" />
+    <Resource Include="imgs\ui\mana_fore_left.png" />
+    <Resource Include="imgs\ui\mana_fore_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\achievements\0.png" />
+    <Resource Include="imgs\achievements\1.png" />
+    <Resource Include="imgs\achievements\2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\achievements\4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\achievements\3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char3\left\0.png" />
+    <Resource Include="imgs\chars\char3\left\1.png" />
+    <Resource Include="imgs\chars\char3\left\2.png" />
+    <Resource Include="imgs\chars\char3\left\3.png" />
+    <Resource Include="imgs\chars\char3\left\4.png" />
+    <Resource Include="imgs\chars\char3\left\5.png" />
+    <Resource Include="imgs\chars\char3\left\6.png" />
+    <Resource Include="imgs\chars\char3\left\7.png" />
+    <Resource Include="imgs\chars\char3\left\8.png" />
+    <Resource Include="imgs\chars\char3\left\9.png" />
+    <Resource Include="imgs\chars\char3\right\0.png" />
+    <Resource Include="imgs\chars\char3\right\1.png" />
+    <Resource Include="imgs\chars\char3\right\2.png" />
+    <Resource Include="imgs\chars\char3\right\3.png" />
+    <Resource Include="imgs\chars\char3\right\4.png" />
+    <Resource Include="imgs\chars\char3\right\5.png" />
+    <Resource Include="imgs\chars\char3\right\6.png" />
+    <Resource Include="imgs\chars\char3\right\7.png" />
+    <Resource Include="imgs\chars\char3\right\8.png" />
+    <Resource Include="imgs\chars\char3\right\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char3\left\00.png" />
+    <Resource Include="imgs\chars\char3\right\00.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char3\nahled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char3\left\attack\0.png" />
+    <Resource Include="imgs\chars\char3\left\attack\1.png" />
+    <Resource Include="imgs\chars\char3\left\attack\2.png" />
+    <Resource Include="imgs\chars\char3\left\attack\3.png" />
+    <Resource Include="imgs\chars\char3\left\attack\4.png" />
+    <Resource Include="imgs\chars\char3\left\attack\5.png" />
+    <Resource Include="imgs\chars\char3\left\attack\7.png" />
+    <Resource Include="imgs\chars\char3\left\attack\8.png" />
+    <Resource Include="imgs\chars\char3\left\attack\9.png" />
+    <Resource Include="imgs\chars\char3\right\attack\0.png" />
+    <Resource Include="imgs\chars\char3\right\attack\1.png" />
+    <Resource Include="imgs\chars\char3\right\attack\2.png" />
+    <Resource Include="imgs\chars\char3\right\attack\3.png" />
+    <Resource Include="imgs\chars\char3\right\attack\4.png" />
+    <Resource Include="imgs\chars\char3\right\attack\5.png" />
+    <Resource Include="imgs\chars\char3\right\attack\7.png" />
+    <Resource Include="imgs\chars\char3\right\attack\8.png" />
+    <Resource Include="imgs\chars\char3\right\attack\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\attacks\mageshot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char2\left\00.png" />
+    <Resource Include="imgs\chars\char2\left\5.png" />
+    <Resource Include="imgs\chars\char2\left\6.png" />
+    <Resource Include="imgs\chars\char2\left\7.png" />
+    <Resource Include="imgs\chars\char2\left\8.png" />
+    <Resource Include="imgs\chars\char2\left\9.png" />
+    <Resource Include="imgs\chars\char2\right\00.png" />
+    <Resource Include="imgs\chars\char2\right\5.png" />
+    <Resource Include="imgs\chars\char2\right\6.png" />
+    <Resource Include="imgs\chars\char2\right\7.png" />
+    <Resource Include="imgs\chars\char2\right\8.png" />
+    <Resource Include="imgs\chars\char2\right\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char2\left\attack\0.png" />
+    <Resource Include="imgs\chars\char2\left\attack\1.png" />
+    <Resource Include="imgs\chars\char2\left\attack\2.png" />
+    <Resource Include="imgs\chars\char2\left\attack\3.png" />
+    <Resource Include="imgs\chars\char2\left\attack\4.png" />
+    <Resource Include="imgs\chars\char2\left\attack\5.png" />
+    <Resource Include="imgs\chars\char2\left\attack\6.png" />
+    <Resource Include="imgs\chars\char2\left\attack\7.png" />
+    <Resource Include="imgs\chars\char2\left\attack\8.png" />
+    <Resource Include="imgs\chars\char2\left\attack\9.png" />
+    <Resource Include="imgs\chars\char2\right\attack\0.png" />
+    <Resource Include="imgs\chars\char2\right\attack\1.png" />
+    <Resource Include="imgs\chars\char2\right\attack\2.png" />
+    <Resource Include="imgs\chars\char2\right\attack\3.png" />
+    <Resource Include="imgs\chars\char2\right\attack\4.png" />
+    <Resource Include="imgs\chars\char2\right\attack\5.png" />
+    <Resource Include="imgs\chars\char2\right\attack\6.png" />
+    <Resource Include="imgs\chars\char2\right\attack\7.png" />
+    <Resource Include="imgs\chars\char2\right\attack\8.png" />
+    <Resource Include="imgs\chars\char2\right\attack\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char1\left\00.png" />
+    <Resource Include="imgs\chars\char1\left\5.png" />
+    <Resource Include="imgs\chars\char1\left\6.png" />
+    <Resource Include="imgs\chars\char1\left\7.png" />
+    <Resource Include="imgs\chars\char1\left\8.png" />
+    <Resource Include="imgs\chars\char1\left\9.png" />
+    <Resource Include="imgs\chars\char1\right\00.png" />
+    <Resource Include="imgs\chars\char1\right\5.png" />
+    <Resource Include="imgs\chars\char1\right\6.png" />
+    <Resource Include="imgs\chars\char1\right\7.png" />
+    <Resource Include="imgs\chars\char1\right\8.png" />
+    <Resource Include="imgs\chars\char1\right\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char1\left\attack\0.png" />
+    <Resource Include="imgs\chars\char1\left\attack\1.png" />
+    <Resource Include="imgs\chars\char1\left\attack\2.png" />
+    <Resource Include="imgs\chars\char1\left\attack\3.png" />
+    <Resource Include="imgs\chars\char1\left\attack\4.png" />
+    <Resource Include="imgs\chars\char1\left\attack\5.png" />
+    <Resource Include="imgs\chars\char1\left\attack\6.png" />
+    <Resource Include="imgs\chars\char1\left\attack\7.png" />
+    <Resource Include="imgs\chars\char1\left\attack\8.png" />
+    <Resource Include="imgs\chars\char1\left\attack\9.png" />
+    <Resource Include="imgs\chars\char1\right\attack\0.png" />
+    <Resource Include="imgs\chars\char1\right\attack\1.png" />
+    <Resource Include="imgs\chars\char1\right\attack\2.png" />
+    <Resource Include="imgs\chars\char1\right\attack\3.png" />
+    <Resource Include="imgs\chars\char1\right\attack\4.png" />
+    <Resource Include="imgs\chars\char1\right\attack\5.png" />
+    <Resource Include="imgs\chars\char1\right\attack\6.png" />
+    <Resource Include="imgs\chars\char1\right\attack\7.png" />
+    <Resource Include="imgs\chars\char1\right\attack\8.png" />
+    <Resource Include="imgs\chars\char1\right\attack\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\maps\map3\platform2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char3\left\die\0.png" />
+    <Resource Include="imgs\chars\char3\left\die\1.png" />
+    <Resource Include="imgs\chars\char3\left\die\2.png" />
+    <Resource Include="imgs\chars\char3\left\die\3.png" />
+    <Resource Include="imgs\chars\char3\left\die\4.png" />
+    <Resource Include="imgs\chars\char3\left\die\5.png" />
+    <Resource Include="imgs\chars\char3\left\die\6.png" />
+    <Resource Include="imgs\chars\char3\left\die\7.png" />
+    <Resource Include="imgs\chars\char3\left\die\8.png" />
+    <Resource Include="imgs\chars\char3\right\die\0.png" />
+    <Resource Include="imgs\chars\char3\right\die\1.png" />
+    <Resource Include="imgs\chars\char3\right\die\2.png" />
+    <Resource Include="imgs\chars\char3\right\die\3.png" />
+    <Resource Include="imgs\chars\char3\right\die\4.png" />
+    <Resource Include="imgs\chars\char3\right\die\5.png" />
+    <Resource Include="imgs\chars\char3\right\die\6.png" />
+    <Resource Include="imgs\chars\char3\right\die\7.png" />
+    <Resource Include="imgs\chars\char3\right\die\8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char1\left\die\0.png" />
+    <Resource Include="imgs\chars\char1\left\die\1.png" />
+    <Resource Include="imgs\chars\char1\left\die\2.png" />
+    <Resource Include="imgs\chars\char1\left\die\3.png" />
+    <Resource Include="imgs\chars\char1\left\die\4.png" />
+    <Resource Include="imgs\chars\char1\left\die\5.png" />
+    <Resource Include="imgs\chars\char1\left\die\6.png" />
+    <Resource Include="imgs\chars\char1\left\die\7.png" />
+    <Resource Include="imgs\chars\char1\left\die\8.png" />
+    <Resource Include="imgs\chars\char1\right\die\0.png" />
+    <Resource Include="imgs\chars\char1\right\die\1.png" />
+    <Resource Include="imgs\chars\char1\right\die\2.png" />
+    <Resource Include="imgs\chars\char1\right\die\3.png" />
+    <Resource Include="imgs\chars\char1\right\die\4.png" />
+    <Resource Include="imgs\chars\char1\right\die\5.png" />
+    <Resource Include="imgs\chars\char1\right\die\6.png" />
+    <Resource Include="imgs\chars\char1\right\die\7.png" />
+    <Resource Include="imgs\chars\char1\right\die\8.png" />
+    <Resource Include="imgs\chars\char2\left\die\0.png" />
+    <Resource Include="imgs\chars\char2\left\die\1.png" />
+    <Resource Include="imgs\chars\char2\left\die\2.png" />
+    <Resource Include="imgs\chars\char2\left\die\3.png" />
+    <Resource Include="imgs\chars\char2\left\die\4.png" />
+    <Resource Include="imgs\chars\char2\left\die\5.png" />
+    <Resource Include="imgs\chars\char2\left\die\6.png" />
+    <Resource Include="imgs\chars\char2\left\die\7.png" />
+    <Resource Include="imgs\chars\char2\left\die\8.png" />
+    <Resource Include="imgs\chars\char2\left\die\9.png" />
+    <Resource Include="imgs\chars\char2\right\die\0.png" />
+    <Resource Include="imgs\chars\char2\right\die\1.png" />
+    <Resource Include="imgs\chars\char2\right\die\2.png" />
+    <Resource Include="imgs\chars\char2\right\die\3.png" />
+    <Resource Include="imgs\chars\char2\right\die\4.png" />
+    <Resource Include="imgs\chars\char2\right\die\5.png" />
+    <Resource Include="imgs\chars\char2\right\die\6.png" />
+    <Resource Include="imgs\chars\char2\right\die\7.png" />
+    <Resource Include="imgs\chars\char2\right\die\8.png" />
+    <Resource Include="imgs\chars\char2\right\die\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\ui\text_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\ui\character_select.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\protection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char2\menu_idle\0.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\1.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\2.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\3.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\4.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\5.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\6.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\7.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\8.png" />
+    <Resource Include="imgs\chars\char2\menu_idle\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\ui\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char4\left\0.png" />
+    <Resource Include="imgs\chars\char4\left\00.png" />
+    <Resource Include="imgs\chars\char4\left\1.png" />
+    <Resource Include="imgs\chars\char4\left\10.png" />
+    <Resource Include="imgs\chars\char4\left\11.png" />
+    <Resource Include="imgs\chars\char4\left\12.png" />
+    <Resource Include="imgs\chars\char4\left\13.png" />
+    <Resource Include="imgs\chars\char4\left\14.png" />
+    <Resource Include="imgs\chars\char4\left\15.png" />
+    <Resource Include="imgs\chars\char4\left\16.png" />
+    <Resource Include="imgs\chars\char4\left\17.png" />
+    <Resource Include="imgs\chars\char4\left\2.png" />
+    <Resource Include="imgs\chars\char4\left\3.png" />
+    <Resource Include="imgs\chars\char4\left\4.png" />
+    <Resource Include="imgs\chars\char4\left\5.png" />
+    <Resource Include="imgs\chars\char4\left\6.png" />
+    <Resource Include="imgs\chars\char4\left\7.png" />
+    <Resource Include="imgs\chars\char4\left\8.png" />
+    <Resource Include="imgs\chars\char4\left\9.png" />
+    <Resource Include="imgs\chars\char4\left\attack\0.png" />
+    <Resource Include="imgs\chars\char4\left\attack\1.png" />
+    <Resource Include="imgs\chars\char4\left\attack\10.png" />
+    <Resource Include="imgs\chars\char4\left\attack\11.png" />
+    <Resource Include="imgs\chars\char4\left\attack\2.png" />
+    <Resource Include="imgs\chars\char4\left\attack\3.png" />
+    <Resource Include="imgs\chars\char4\left\attack\4.png" />
+    <Resource Include="imgs\chars\char4\left\attack\5.png" />
+    <Resource Include="imgs\chars\char4\left\attack\6.png" />
+    <Resource Include="imgs\chars\char4\left\attack\7.png" />
+    <Resource Include="imgs\chars\char4\left\attack\8.png" />
+    <Resource Include="imgs\chars\char4\left\attack\9.png" />
+    <Resource Include="imgs\chars\char4\left\die\0.png" />
+    <Resource Include="imgs\chars\char4\left\die\1.png" />
+    <Resource Include="imgs\chars\char4\left\die\10.png" />
+    <Resource Include="imgs\chars\char4\left\die\11.png" />
+    <Resource Include="imgs\chars\char4\left\die\12.png" />
+    <Resource Include="imgs\chars\char4\left\die\13.png" />
+    <Resource Include="imgs\chars\char4\left\die\14.png" />
+    <Resource Include="imgs\chars\char4\left\die\2.png" />
+    <Resource Include="imgs\chars\char4\left\die\3.png" />
+    <Resource Include="imgs\chars\char4\left\die\4.png" />
+    <Resource Include="imgs\chars\char4\left\die\5.png" />
+    <Resource Include="imgs\chars\char4\left\die\6.png" />
+    <Resource Include="imgs\chars\char4\left\die\7.png" />
+    <Resource Include="imgs\chars\char4\left\die\8.png" />
+    <Resource Include="imgs\chars\char4\left\die\9.png" />
+    <Resource Include="imgs\chars\char4\nahled.png" />
+    <Resource Include="imgs\chars\char4\right\0.png" />
+    <Resource Include="imgs\chars\char4\right\00.png" />
+    <Resource Include="imgs\chars\char4\right\1.png" />
+    <Resource Include="imgs\chars\char4\right\10.png" />
+    <Resource Include="imgs\chars\char4\right\11.png" />
+    <Resource Include="imgs\chars\char4\right\12.png" />
+    <Resource Include="imgs\chars\char4\right\13.png" />
+    <Resource Include="imgs\chars\char4\right\14.png" />
+    <Resource Include="imgs\chars\char4\right\15.png" />
+    <Resource Include="imgs\chars\char4\right\16.png" />
+    <Resource Include="imgs\chars\char4\right\17.png" />
+    <Resource Include="imgs\chars\char4\right\2.png" />
+    <Resource Include="imgs\chars\char4\right\3.png" />
+    <Resource Include="imgs\chars\char4\right\4.png" />
+    <Resource Include="imgs\chars\char4\right\5.png" />
+    <Resource Include="imgs\chars\char4\right\6.png" />
+    <Resource Include="imgs\chars\char4\right\7.png" />
+    <Resource Include="imgs\chars\char4\right\8.png" />
+    <Resource Include="imgs\chars\char4\right\9.png" />
+    <Resource Include="imgs\chars\char4\right\attack\0.png" />
+    <Resource Include="imgs\chars\char4\right\attack\1.png" />
+    <Resource Include="imgs\chars\char4\right\attack\10.png" />
+    <Resource Include="imgs\chars\char4\right\attack\11.png" />
+    <Resource Include="imgs\chars\char4\right\attack\2.png" />
+    <Resource Include="imgs\chars\char4\right\attack\3.png" />
+    <Resource Include="imgs\chars\char4\right\attack\4.png" />
+    <Resource Include="imgs\chars\char4\right\attack\5.png" />
+    <Resource Include="imgs\chars\char4\right\attack\6.png" />
+    <Resource Include="imgs\chars\char4\right\attack\7.png" />
+    <Resource Include="imgs\chars\char4\right\attack\8.png" />
+    <Resource Include="imgs\chars\char4\right\attack\9.png" />
+    <Resource Include="imgs\chars\char4\right\die\0.png" />
+    <Resource Include="imgs\chars\char4\right\die\1.png" />
+    <Resource Include="imgs\chars\char4\right\die\10.png" />
+    <Resource Include="imgs\chars\char4\right\die\11.png" />
+    <Resource Include="imgs\chars\char4\right\die\12.png" />
+    <Resource Include="imgs\chars\char4\right\die\13.png" />
+    <Resource Include="imgs\chars\char4\right\die\14.png" />
+    <Resource Include="imgs\chars\char4\right\die\2.png" />
+    <Resource Include="imgs\chars\char4\right\die\3.png" />
+    <Resource Include="imgs\chars\char4\right\die\4.png" />
+    <Resource Include="imgs\chars\char4\right\die\5.png" />
+    <Resource Include="imgs\chars\char4\right\die\6.png" />
+    <Resource Include="imgs\chars\char4\right\die\7.png" />
+    <Resource Include="imgs\chars\char4\right\die\8.png" />
+    <Resource Include="imgs\chars\char4\right\die\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char5\left\0.png" />
+    <Resource Include="imgs\chars\char5\left\00.png" />
+    <Resource Include="imgs\chars\char5\left\1.png" />
+    <Resource Include="imgs\chars\char5\left\10.png" />
+    <Resource Include="imgs\chars\char5\left\11.png" />
+    <Resource Include="imgs\chars\char5\left\12.png" />
+    <Resource Include="imgs\chars\char5\left\13.png" />
+    <Resource Include="imgs\chars\char5\left\14.png" />
+    <Resource Include="imgs\chars\char5\left\15.png" />
+    <Resource Include="imgs\chars\char5\left\16.png" />
+    <Resource Include="imgs\chars\char5\left\17.png" />
+    <Resource Include="imgs\chars\char5\left\2.png" />
+    <Resource Include="imgs\chars\char5\left\3.png" />
+    <Resource Include="imgs\chars\char5\left\4.png" />
+    <Resource Include="imgs\chars\char5\left\5.png" />
+    <Resource Include="imgs\chars\char5\left\6.png" />
+    <Resource Include="imgs\chars\char5\left\7.png" />
+    <Resource Include="imgs\chars\char5\left\8.png" />
+    <Resource Include="imgs\chars\char5\left\9.png" />
+    <Resource Include="imgs\chars\char5\left\attack\0.png" />
+    <Resource Include="imgs\chars\char5\left\attack\1.png" />
+    <Resource Include="imgs\chars\char5\left\attack\10.png" />
+    <Resource Include="imgs\chars\char5\left\attack\11.png" />
+    <Resource Include="imgs\chars\char5\left\attack\2.png" />
+    <Resource Include="imgs\chars\char5\left\attack\3.png" />
+    <Resource Include="imgs\chars\char5\left\attack\4.png" />
+    <Resource Include="imgs\chars\char5\left\attack\5.png" />
+    <Resource Include="imgs\chars\char5\left\attack\6.png" />
+    <Resource Include="imgs\chars\char5\left\attack\7.png" />
+    <Resource Include="imgs\chars\char5\left\attack\8.png" />
+    <Resource Include="imgs\chars\char5\left\attack\9.png" />
+    <Resource Include="imgs\chars\char5\left\die\0.png" />
+    <Resource Include="imgs\chars\char5\left\die\1.png" />
+    <Resource Include="imgs\chars\char5\left\die\10.png" />
+    <Resource Include="imgs\chars\char5\left\die\11.png" />
+    <Resource Include="imgs\chars\char5\left\die\12.png" />
+    <Resource Include="imgs\chars\char5\left\die\13.png" />
+    <Resource Include="imgs\chars\char5\left\die\14.png" />
+    <Resource Include="imgs\chars\char5\left\die\2.png" />
+    <Resource Include="imgs\chars\char5\left\die\3.png" />
+    <Resource Include="imgs\chars\char5\left\die\4.png" />
+    <Resource Include="imgs\chars\char5\left\die\5.png" />
+    <Resource Include="imgs\chars\char5\left\die\6.png" />
+    <Resource Include="imgs\chars\char5\left\die\7.png" />
+    <Resource Include="imgs\chars\char5\left\die\8.png" />
+    <Resource Include="imgs\chars\char5\left\die\9.png" />
+    <Resource Include="imgs\chars\char5\nahled.png" />
+    <Resource Include="imgs\chars\char5\right\0.png" />
+    <Resource Include="imgs\chars\char5\right\00.png" />
+    <Resource Include="imgs\chars\char5\right\1.png" />
+    <Resource Include="imgs\chars\char5\right\10.png" />
+    <Resource Include="imgs\chars\char5\right\11.png" />
+    <Resource Include="imgs\chars\char5\right\12.png" />
+    <Resource Include="imgs\chars\char5\right\13.png" />
+    <Resource Include="imgs\chars\char5\right\14.png" />
+    <Resource Include="imgs\chars\char5\right\15.png" />
+    <Resource Include="imgs\chars\char5\right\16.png" />
+    <Resource Include="imgs\chars\char5\right\17.png" />
+    <Resource Include="imgs\chars\char5\right\2.png" />
+    <Resource Include="imgs\chars\char5\right\3.png" />
+    <Resource Include="imgs\chars\char5\right\4.png" />
+    <Resource Include="imgs\chars\char5\right\5.png" />
+    <Resource Include="imgs\chars\char5\right\6.png" />
+    <Resource Include="imgs\chars\char5\right\7.png" />
+    <Resource Include="imgs\chars\char5\right\8.png" />
+    <Resource Include="imgs\chars\char5\right\9.png" />
+    <Resource Include="imgs\chars\char5\right\attack\0.png" />
+    <Resource Include="imgs\chars\char5\right\attack\1.png" />
+    <Resource Include="imgs\chars\char5\right\attack\10.png" />
+    <Resource Include="imgs\chars\char5\right\attack\11.png" />
+    <Resource Include="imgs\chars\char5\right\attack\2.png" />
+    <Resource Include="imgs\chars\char5\right\attack\3.png" />
+    <Resource Include="imgs\chars\char5\right\attack\4.png" />
+    <Resource Include="imgs\chars\char5\right\attack\5.png" />
+    <Resource Include="imgs\chars\char5\right\attack\6.png" />
+    <Resource Include="imgs\chars\char5\right\attack\7.png" />
+    <Resource Include="imgs\chars\char5\right\attack\8.png" />
+    <Resource Include="imgs\chars\char5\right\attack\9.png" />
+    <Resource Include="imgs\chars\char5\right\die\0.png" />
+    <Resource Include="imgs\chars\char5\right\die\1.png" />
+    <Resource Include="imgs\chars\char5\right\die\10.png" />
+    <Resource Include="imgs\chars\char5\right\die\11.png" />
+    <Resource Include="imgs\chars\char5\right\die\12.png" />
+    <Resource Include="imgs\chars\char5\right\die\13.png" />
+    <Resource Include="imgs\chars\char5\right\die\14.png" />
+    <Resource Include="imgs\chars\char5\right\die\2.png" />
+    <Resource Include="imgs\chars\char5\right\die\3.png" />
+    <Resource Include="imgs\chars\char5\right\die\4.png" />
+    <Resource Include="imgs\chars\char5\right\die\5.png" />
+    <Resource Include="imgs\chars\char5\right\die\6.png" />
+    <Resource Include="imgs\chars\char5\right\die\7.png" />
+    <Resource Include="imgs\chars\char5\right\die\8.png" />
+    <Resource Include="imgs\chars\char5\right\die\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char4\left\rage.png" />
+    <Resource Include="imgs\chars\char4\right\rage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char5\hook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\char5\hookleft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\maps\map4\background.png" />
+    <Resource Include="imgs\maps\map4\platform1.png" />
+    <Resource Include="imgs\maps\map5\background.png" />
+    <Resource Include="imgs\maps\map5\platform1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\chars\crown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\achievements\5.png" />
+    <Resource Include="imgs\achievements\6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ico.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
